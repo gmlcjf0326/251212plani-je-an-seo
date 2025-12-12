@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 대시보드 - 오송첨단의료산업진흥재단</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Spoqa+Han+Sans+Neo:wght@400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyan: { DEFAULT: '#0891B2', dark: '#0e7490', light: '#22d3ee' },
+                        teal: '#115e59',
+                        azure: '#ecfeff'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Spoqa Han Sans Neo', sans-serif; }
+        .gradient-cyan { background: linear-gradient(135deg, #0891B2 0%, #22d3ee 100%); }
+    </style>
+</head>
+<body class="h-screen overflow-hidden bg-azure">
+    <div class="flex h-screen">
+        <aside class="w-72 bg-white border-r border-cyan/20 flex-shrink-0 hidden lg:flex flex-col shadow-xl">
+            <div class="p-6 border-b border-cyan/20">
+                <div class="flex items-center space-x-3">
+                    <div class="w-11 h-11 gradient-cyan rounded-2xl flex items-center justify-center shadow-lg shadow-cyan/30">
+                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2z"/></svg>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-teal">KBIO Health</h1>
+                        <p class="text-cyan text-xs">Medical Admin</p>
+                    </div>
+                </div>
+            </div>
+            <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 gradient-cyan text-white rounded-xl shadow-lg shadow-cyan/20">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+                    <span>대시보드</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 text-gray-500 hover:bg-cyan/10 hover:text-cyan rounded-xl transition-colors">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                    <span>대화 관리</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 text-gray-500 hover:bg-cyan/10 hover:text-cyan rounded-xl transition-colors">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                    <span>FAQ 관리</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 text-gray-500 hover:bg-cyan/10 hover:text-cyan rounded-xl transition-colors">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+                    <span>통계 분석</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 text-gray-500 hover:bg-cyan/10 hover:text-cyan rounded-xl transition-colors">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+                    <span>설정</span>
+                </a>
+            </nav>
+            <div class="p-4 border-t border-cyan/20">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 gradient-cyan rounded-full flex items-center justify-center shadow"><span class="text-white font-bold text-sm">관</span></div>
+                    <div class="flex-1 min-w-0">
+                        <p class="font-medium text-teal text-sm truncate">시스템 관리자</p>
+                        <p class="text-gray-400 text-xs truncate">admin@kbiohealth.kr</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <div class="flex-1 flex flex-col min-h-0">
+            <header class="bg-white border-b border-cyan/20 px-6 py-4 flex-shrink-0 shadow-sm">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-xl font-bold text-teal">대시보드</h2>
+                        <p class="text-gray-500 text-sm">첨단 의료 AI 챗봇 운영 현황</p>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div class="relative hidden md:block">
+                            <input type="text" placeholder="검색..." class="pl-10 pr-4 py-2 bg-azure rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-cyan border border-cyan/20">
+                            <svg class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        </div>
+                        <button class="p-2 text-gray-400 hover:text-cyan hover:bg-cyan/10 rounded-xl transition-all relative">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                            <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <main class="flex-1 overflow-y-auto p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-6">
+                    <div class="bg-white rounded-2xl p-5 shadow-lg border border-cyan/20">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="w-12 h-12 gradient-cyan rounded-xl flex items-center justify-center shadow-lg shadow-cyan/20"><svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></div>
+                            <span class="text-green-600 text-sm font-medium bg-green-100 px-2 py-1 rounded-full">+25%</span>
+                        </div>
+                        <p class="text-3xl font-bold text-teal">3,892</p>
+                        <p class="text-gray-500 text-sm mt-1">오늘 대화 수</p>
+                    </div>
+                    <div class="bg-white rounded-2xl p-5 shadow-lg border border-cyan/20">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center shadow"><svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3z"/></svg></div>
+                            <span class="text-cyan text-sm font-medium bg-cyan/10 px-2 py-1 rounded-full">Live</span>
+                        </div>
+                        <p class="text-3xl font-bold text-teal">234</p>
+                        <p class="text-gray-500 text-sm mt-1">활성 사용자</p>
+                    </div>
+                    <div class="bg-white rounded-2xl p-5 shadow-lg border border-cyan/20">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="w-12 h-12 bg-cyan rounded-xl flex items-center justify-center shadow"><svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+                            <span class="text-green-600 text-sm font-medium bg-green-100 px-2 py-1 rounded-full">+2.9%</span>
+                        </div>
+                        <p class="text-3xl font-bold text-teal">98.1%</p>
+                        <p class="text-gray-500 text-sm mt-1">응답 정확도</p>
+                    </div>
+                    <div class="bg-white rounded-2xl p-5 shadow-lg border border-cyan/20">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center shadow"><svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg></div>
+                            <span class="text-green-600 text-sm font-medium bg-green-100 px-2 py-1 rounded-full">-0.5s</span>
+                        </div>
+                        <p class="text-3xl font-bold text-teal">0.6초</p>
+                        <p class="text-gray-500 text-sm mt-1">평균 응답시간</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-white rounded-2xl p-6 shadow-lg border border-cyan/20">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-bold text-teal">주간 대화 추이</h3>
+                            <select class="text-sm border border-cyan/20 rounded-lg px-3 py-1 focus:outline-none focus:ring-2 focus:ring-cyan bg-azure">
+                                <option>이번 주</option>
+                                <option>지난 주</option>
+                            </select>
+                        </div>
+                        <div class="h-64"><canvas id="weeklyChart"></canvas></div>
+                    </div>
+                    <div class="bg-white rounded-2xl p-6 shadow-lg border border-cyan/20">
+                        <h3 class="font-bold text-teal mb-4">문의 유형 분포</h3>
+                        <div class="h-64"><canvas id="categoryChart"></canvas></div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-cyan/20">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-bold text-teal">최근 대화</h3>
+                        <button class="text-cyan text-sm hover:underline font-medium">전체 보기 →</button>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between p-4 bg-azure rounded-xl">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 gradient-cyan rounded-lg flex items-center justify-center shadow"><span class="text-white font-bold text-sm">김</span></div>
+                                <div><p class="font-medium text-teal">의료장비 분석 서비스</p><p class="text-sm text-gray-500">NMR 분석 신청 방법</p></div>
+                            </div>
+                            <div class="text-right">
+                                <span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs font-medium">완료</span>
+                                <p class="text-xs text-gray-400 mt-1">2분 전</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-azure rounded-xl">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center shadow"><span class="text-white font-bold text-sm">이</span></div>
+                                <div><p class="font-medium text-teal">입주기업 혜택</p><p class="text-sm text-gray-500">첨단 장비 이용 할인</p></div>
+                            </div>
+                            <div class="text-right">
+                                <span class="px-2 py-1 bg-yellow-100 text-yellow-600 rounded-full text-xs font-medium">상담 연결</span>
+                                <p class="text-xs text-gray-400 mt-1">6분 전</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-azure rounded-xl">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-purple-500 rounded-lg flex items-center justify-center shadow"><span class="text-white font-bold text-sm">박</span></div>
+                                <div><p class="font-medium text-teal">R&D 지원사업</p><p class="text-sm text-gray-500">의료기기 개발 지원 신청</p></div>
+                            </div>
+                            <div class="text-right">
+                                <span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs font-medium">완료</span>
+                                <p class="text-xs text-gray-400 mt-1">14분 전</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        new Chart(document.getElementById('weeklyChart').getContext('2d'), {
+            type: 'line',
+            data: { labels: ['월', '화', '수', '목', '금', '토', '일'], datasets: [{ label: '대화 수', data: [520, 680, 610, 780, 720, 420, 320], borderColor: '#0891B2', backgroundColor: 'rgba(8, 145, 178, 0.1)', fill: true, tension: 0.4, borderWidth: 3 }] },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: '#ecfeff' } }, x: { grid: { display: false } } } }
+        });
+        new Chart(document.getElementById('categoryChart').getContext('2d'), {
+            type: 'doughnut',
+            data: { labels: ['장비분석', '입주문의', '지원사업', '시설예약', '일반문의'], datasets: [{ data: [30, 25, 22, 15, 8], backgroundColor: ['#0891B2', '#22d3ee', '#67e8f9', '#a5f3fc', '#cffafe'], borderWidth: 0 }] },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } }, cutout: '60%' }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오송첨단의료산업진흥재단 AI 챗봇</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Spoqa+Han+Sans+Neo:wght@400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        lavender: { 100: '#f3e8ff', 200: '#e9d5ff', 300: '#d8b4fe' },
+                        purple: { DEFAULT: '#7c3aed', dark: '#5b21b6', light: '#a78bfa' },
+                        deep: '#4c1d95'
+                    },
+                    fontFamily: { korean: ['Spoqa Han Sans Neo', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Spoqa Han Sans Neo', sans-serif; }
+        .chat-container { height: calc(100vh - 72px); }
+        .message-bubble { max-width: 80%; }
+        .gradient-purple { background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%); }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-lavender-100 to-white min-h-screen">
+    <!-- Header -->
+    <nav class="gradient-purple h-[72px] shadow-xl">
+        <div class="max-w-5xl mx-auto px-6 h-full flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <div class="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
+                    <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-white font-bold text-xl">AI 상담 서비스</h1>
+                    <p class="text-lavender-200 text-sm">오송첨단의료산업진흥재단</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3">
+                <div class="hidden md:flex items-center space-x-2 px-4 py-2 bg-white/10 rounded-full">
+                    <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                    <span class="text-white/90 text-sm">AI 상담 가능</span>
+                </div>
+                <button class="p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Chat Container -->
+    <div class="chat-container flex flex-col max-w-4xl mx-auto px-4 py-6">
+        <!-- Chat Messages -->
+        <div class="flex-1 overflow-y-auto space-y-6 pb-4" id="chatMessages">
+            <!-- Welcome Card -->
+            <div class="bg-white rounded-3xl p-8 shadow-lg border border-lavender-200">
+                <div class="text-center mb-6">
+                    <div class="w-20 h-20 gradient-purple rounded-3xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-purple/30">
+                        <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-deep mb-2">안녕하세요!</h2>
+                    <p class="text-gray-600">오송첨단의료산업진흥재단 AI 상담사입니다.<br/>무엇을 도와드릴까요?</p>
+                </div>
+
+                <!-- Quick Actions Grid -->
+                <div class="grid grid-cols-2 gap-3">
+                    <button class="flex flex-col items-center p-5 bg-gradient-to-br from-lavender-100 to-lavender-200 rounded-2xl hover:shadow-lg transition-all group">
+                        <div class="w-12 h-12 bg-purple rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6z"/>
+                            </svg>
+                        </div>
+                        <span class="font-medium text-deep text-sm">입주기업 안내</span>
+                    </button>
+                    <button class="flex flex-col items-center p-5 bg-gradient-to-br from-lavender-100 to-lavender-200 rounded-2xl hover:shadow-lg transition-all group">
+                        <div class="w-12 h-12 bg-purple rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                            </svg>
+                        </div>
+                        <span class="font-medium text-deep text-sm">지원사업 문의</span>
+                    </button>
+                    <button class="flex flex-col items-center p-5 bg-gradient-to-br from-lavender-100 to-lavender-200 rounded-2xl hover:shadow-lg transition-all group">
+                        <div class="w-12 h-12 bg-purple rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19.36 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.64-4.96z"/>
+                            </svg>
+                        </div>
+                        <span class="font-medium text-deep text-sm">연구시설 예약</span>
+                    </button>
+                    <button class="flex flex-col items-center p-5 bg-gradient-to-br from-lavender-100 to-lavender-200 rounded-2xl hover:shadow-lg transition-all group">
+                        <div class="w-12 h-12 bg-purple rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57-.35-.11-.74-.03-1.02.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.59l2.2-2.21c.28-.26.36-.65.25-1C8.7 6.45 8.5 5.25 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z"/>
+                            </svg>
+                        </div>
+                        <span class="font-medium text-deep text-sm">상담원 연결</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- User Message -->
+            <div class="flex justify-end">
+                <div class="message-bubble gradient-purple text-white p-4 rounded-3xl rounded-tr-lg shadow-lg shadow-purple/20">
+                    <p>지원사업 신청 기간이 언제인가요?</p>
+                </div>
+            </div>
+
+            <!-- Bot Response -->
+            <div class="flex items-start space-x-3">
+                <div class="w-10 h-10 gradient-purple rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple/20">
+                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                    </svg>
+                </div>
+                <div class="message-bubble bg-white p-5 rounded-3xl rounded-tl-lg shadow-lg border border-lavender-200">
+                    <p class="font-bold text-deep mb-3">2024년 지원사업 일정 안내</p>
+                    <div class="space-y-3 text-sm text-gray-700">
+                        <div class="p-3 bg-lavender-100 rounded-xl">
+                            <p class="font-medium text-purple">📌 R&D 지원사업</p>
+                            <p class="text-gray-600 mt-1">신청기간: 2024.01.15 ~ 02.28</p>
+                        </div>
+                        <div class="p-3 bg-lavender-100 rounded-xl">
+                            <p class="font-medium text-purple">📌 창업지원사업</p>
+                            <p class="text-gray-600 mt-1">신청기간: 2024.03.01 ~ 03.31</p>
+                        </div>
+                        <div class="p-3 bg-lavender-100 rounded-xl">
+                            <p class="font-medium text-purple">📌 해외진출지원</p>
+                            <p class="text-gray-600 mt-1">신청기간: 2024.04.01 ~ 04.30</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-500 text-xs mt-4">* 자세한 내용은 홈페이지 공고를 확인해주세요.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="bg-white rounded-3xl p-4 shadow-lg border border-lavender-200">
+            <div class="flex items-center space-x-3">
+                <button class="p-3 text-purple hover:bg-lavender-100 rounded-xl transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/>
+                    </svg>
+                </button>
+                <input type="text" placeholder="메시지를 입력하세요..." class="flex-1 px-4 py-3 bg-lavender-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple focus:bg-white transition-all">
+                <button class="p-3 gradient-purple text-white rounded-xl hover:opacity-90 transition-opacity shadow-lg shadow-purple/30">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

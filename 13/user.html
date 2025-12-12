@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오송첨단의료산업진흥재단 AI 상담</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-sky-50 h-screen overflow-hidden flex flex-col">
+
+    <!-- 심플한 헤더 -->
+    <header class="bg-white border-b border-slate-200 px-6 py-4 shadow-sm">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-slate-600 to-sky-500 rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+                    </svg>
+                </div>
+                <h1 class="text-xl font-bold text-slate-700">오송첨단의료산업진흥재단 AI 상담</h1>
+            </div>
+            <button class="text-slate-600 hover:text-slate-800 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- 메인 콘텐츠 -->
+    <main class="flex-1 overflow-y-auto">
+        <div class="max-w-7xl mx-auto px-6 py-8">
+
+            <!-- 카테고리 그리드 (2x2) -->
+            <section class="mb-8">
+                <h2 class="text-lg font-semibold text-slate-700 mb-4">무엇을 도와드릴까요?</h2>
+                <div class="grid grid-cols-2 gap-4">
+                    <button class="category-card bg-white rounded-xl p-6 border-2 border-slate-200 hover:border-sky-400 hover:shadow-lg transition-all duration-300 text-left group">
+                        <div class="text-4xl mb-3">🏢</div>
+                        <h3 class="text-lg font-bold text-slate-700 mb-1 group-hover:text-sky-600 transition-colors">입주기업</h3>
+                        <p class="text-sm text-slate-500">입주 절차 및 혜택 안내</p>
+                    </button>
+
+                    <button class="category-card bg-white rounded-xl p-6 border-2 border-slate-200 hover:border-sky-400 hover:shadow-lg transition-all duration-300 text-left group">
+                        <div class="text-4xl mb-3">📋</div>
+                        <h3 class="text-lg font-bold text-slate-700 mb-1 group-hover:text-sky-600 transition-colors">지원사업</h3>
+                        <p class="text-sm text-slate-500">지원사업 신청 및 관리</p>
+                    </button>
+
+                    <button class="category-card bg-white rounded-xl p-6 border-2 border-slate-200 hover:border-sky-400 hover:shadow-lg transition-all duration-300 text-left group">
+                        <div class="text-4xl mb-3">🔬</div>
+                        <h3 class="text-lg font-bold text-slate-700 mb-1 group-hover:text-sky-600 transition-colors">연구시설</h3>
+                        <p class="text-sm text-slate-500">시설 예약 및 이용 안내</p>
+                    </button>
+
+                    <button class="category-card bg-white rounded-xl p-6 border-2 border-slate-200 hover:border-sky-400 hover:shadow-lg transition-all duration-300 text-left group">
+                        <div class="text-4xl mb-3">❓</div>
+                        <h3 class="text-lg font-bold text-slate-700 mb-1 group-hover:text-sky-600 transition-colors">기타문의</h3>
+                        <p class="text-sm text-slate-500">기타 문의사항</p>
+                    </button>
+                </div>
+            </section>
+
+            <!-- 자주 묻는 질문 TOP5 -->
+            <section class="mb-8">
+                <h2 class="text-lg font-semibold text-slate-700 mb-4">자주 묻는 질문 TOP 5</h2>
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                    <button class="faq-item w-full text-left px-6 py-4 hover:bg-sky-50 transition-colors border-b border-slate-100 flex items-center justify-between group">
+                        <div class="flex items-center gap-3">
+                            <span class="text-sky-600 font-bold text-sm">Q1</span>
+                            <span class="text-slate-700 group-hover:text-sky-600 transition-colors">입주 신청 절차가 어떻게 되나요?</span>
+                        </div>
+                        <svg class="w-5 h-5 text-slate-400 group-hover:text-sky-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+
+                    <button class="faq-item w-full text-left px-6 py-4 hover:bg-sky-50 transition-colors border-b border-slate-100 flex items-center justify-between group">
+                        <div class="flex items-center gap-3">
+                            <span class="text-sky-600 font-bold text-sm">Q2</span>
+                            <span class="text-slate-700 group-hover:text-sky-600 transition-colors">지원사업 신청 마감일은 언제인가요?</span>
+                        </div>
+                        <svg class="w-5 h-5 text-slate-400 group-hover:text-sky-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+
+                    <button class="faq-item w-full text-left px-6 py-4 hover:bg-sky-50 transition-colors border-b border-slate-100 flex items-center justify-between group">
+                        <div class="flex items-center gap-3">
+                            <span class="text-sky-600 font-bold text-sm">Q3</span>
+                            <span class="text-slate-700 group-hover:text-sky-600 transition-colors">연구시설 예약은 어떻게 하나요?</span>
+                        </div>
+                        <svg class="w-5 h-5 text-slate-400 group-hover:text-sky-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+
+                    <button class="faq-item w-full text-left px-6 py-4 hover:bg-sky-50 transition-colors border-b border-slate-100 flex items-center justify-between group">
+                        <div class="flex items-center gap-3">
+                            <span class="text-sky-600 font-bold text-sm">Q4</span>
+                            <span class="text-slate-700 group-hover:text-sky-600 transition-colors">입주 혜택에는 어떤 것들이 있나요?</span>
+                        </div>
+                        <svg class="w-5 h-5 text-slate-400 group-hover:text-sky-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+
+                    <button class="faq-item w-full text-left px-6 py-4 hover:bg-sky-50 transition-colors flex items-center justify-between group">
+                        <div class="flex items-center gap-3">
+                            <span class="text-sky-600 font-bold text-sm">Q5</span>
+                            <span class="text-slate-700 group-hover:text-sky-600 transition-colors">담당자 연락처를 알고 싶어요</span>
+                        </div>
+                        <svg class="w-5 h-5 text-slate-400 group-hover:text-sky-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </section>
+
+            <!-- 간결한 대화 영역 -->
+            <section>
+                <h2 class="text-lg font-semibold text-slate-700 mb-4">대화 시작하기</h2>
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm">
+                    <!-- 대화 내용 -->
+                    <div class="p-6 space-y-4 h-80 overflow-y-auto">
+                        <!-- AI 인사 메시지 -->
+                        <div class="flex gap-3">
+                            <div class="w-8 h-8 bg-gradient-to-br from-slate-600 to-sky-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <div class="bg-slate-100 rounded-lg rounded-tl-none px-4 py-3">
+                                    <p class="text-slate-700">안녕하세요! 오송첨단의료산업진흥재단 AI 상담입니다. 무엇을 도와드릴까요?</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 예시: 사용자가 카테고리 선택 후 -->
+                        <div class="flex gap-3 justify-end">
+                            <div class="flex-1 flex justify-end">
+                                <div class="bg-sky-500 text-white rounded-lg rounded-tr-none px-4 py-3 max-w-md">
+                                    <p>입주기업에 대해 알고 싶어요</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- AI 응답 - 버튼형 시나리오 -->
+                        <div class="flex gap-3">
+                            <div class="w-8 h-8 bg-gradient-to-br from-slate-600 to-sky-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <div class="bg-slate-100 rounded-lg rounded-tl-none px-4 py-3 mb-3">
+                                    <p class="text-slate-700">입주기업 관련 문의입니다. 아래 항목 중 선택해주세요.</p>
+                                </div>
+                                <!-- 버튼형 시나리오 옵션 (SFR-007) -->
+                                <div class="flex flex-col gap-2">
+                                    <button class="bg-white border-2 border-slate-300 hover:border-sky-500 hover:bg-sky-50 text-slate-700 hover:text-sky-700 rounded-lg px-4 py-3 text-left transition-all duration-200 font-medium">
+                                        입주 신청 절차
+                                    </button>
+                                    <button class="bg-white border-2 border-slate-300 hover:border-sky-500 hover:bg-sky-50 text-slate-700 hover:text-sky-700 rounded-lg px-4 py-3 text-left transition-all duration-200 font-medium">
+                                        입주 자격 요건
+                                    </button>
+                                    <button class="bg-white border-2 border-slate-300 hover:border-sky-500 hover:bg-sky-50 text-slate-700 hover:text-sky-700 rounded-lg px-4 py-3 text-left transition-all duration-200 font-medium">
+                                        입주 혜택 안내
+                                    </button>
+                                    <button class="bg-white border-2 border-slate-300 hover:border-sky-500 hover:bg-sky-50 text-slate-700 hover:text-sky-700 rounded-lg px-4 py-3 text-left transition-all duration-200 font-medium">
+                                        필요 서류 안내
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 입력 영역 -->
+                    <div class="border-t border-slate-200 p-4">
+                        <div class="flex gap-2">
+                            <input type="text" placeholder="메시지를 입력하세요..."
+                                   class="flex-1 px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent">
+                            <button class="bg-gradient-to-r from-slate-600 to-sky-500 hover:from-slate-700 hover:to-sky-600 text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 shadow-sm hover:shadow-md">
+                                전송
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="bg-white border-t border-slate-200 px-6 py-3">
+        <div class="max-w-7xl mx-auto flex items-center justify-between text-sm text-slate-500">
+            <span>© 2024 오송첨단의료산업진흥재단. All rights reserved.</span>
+            <div class="flex items-center gap-4">
+                <a href="#" class="hover:text-sky-600 transition-colors">개인정보처리방침</a>
+                <a href="#" class="hover:text-sky-600 transition-colors">이용약관</a>
+                <a href="#" class="hover:text-sky-600 transition-colors">고객센터</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 카테고리 선택 시 대화 시작
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 100);
+            });
+        });
+
+        // FAQ 클릭 시
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // FAQ 클릭 시 대화 영역에 추가하는 로직
+                console.log('FAQ clicked');
+            });
+        });
+    </script>
+
+</body>
+</html>

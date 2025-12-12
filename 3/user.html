@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오송첨단의료산업진흥재단 AI 챗봇</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: { DEFAULT: '#1a365d', dark: '#0f2442', light: '#2c5282' },
+                        accent: { DEFAULT: '#3182ce', light: '#63b3ed' },
+                        surface: '#f7fafc'
+                    },
+                    fontFamily: { korean: ['Noto Sans KR', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .chat-container { height: calc(100vh - 64px); }
+        .message-bubble { max-width: 85%; }
+    </style>
+</head>
+<body class="h-screen overflow-hidden bg-slate-50">
+    <!-- Header -->
+    <nav class="bg-navy h-16 shadow-lg">
+        <div class="h-full px-6 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-white font-bold">오송첨단의료산업진흥재단</h1>
+                    <p class="text-accent-light text-xs">AI 상담 서비스</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="hidden md:flex items-center space-x-2 text-white/70 text-sm">
+                    <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+                    <span>상담 가능</span>
+                </span>
+                <button class="p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content - 2 Column Layout -->
+    <div class="chat-container flex">
+        <!-- Left Panel - Service Info -->
+        <div class="hidden lg:flex w-96 bg-gradient-to-b from-navy to-navy-dark flex-col justify-center px-10 text-white">
+            <div class="space-y-8">
+                <div>
+                    <div class="w-16 h-16 bg-accent/20 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-accent-light" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-bold mb-3">AI 상담 서비스</h2>
+                    <p class="text-white/70 leading-relaxed">
+                        24시간 언제든지 궁금한 점을 물어보세요.
+                        입주기업 안내, 시설 예약, 지원사업 등
+                        다양한 문의에 빠르게 답변해 드립니다.
+                    </p>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-4 p-4 bg-white/5 rounded-xl">
+                        <div class="w-10 h-10 bg-accent/20 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-accent-light" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="font-medium">24시간 상담</p>
+                            <p class="text-sm text-white/50">언제든지 이용 가능</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4 p-4 bg-white/5 rounded-xl">
+                        <div class="w-10 h-10 bg-accent/20 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-accent-light" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="font-medium">빠른 응답</p>
+                            <p class="text-sm text-white/50">평균 1초 이내</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4 p-4 bg-white/5 rounded-xl">
+                        <div class="w-10 h-10 bg-accent/20 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-accent-light" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57-.35-.11-.74-.03-1.02.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.59l2.2-2.21c.28-.26.36-.65.25-1C8.7 6.45 8.5 5.25 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="font-medium">상담원 연결</p>
+                            <p class="text-sm text-white/50">필요시 즉시 연결</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-6 border-t border-white/10">
+                    <p class="text-white/50 text-sm">문의전화</p>
+                    <p class="text-xl font-bold text-accent-light">043-200-9500</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel - Chat Interface -->
+        <div class="flex-1 flex flex-col bg-white">
+            <!-- Chat Messages -->
+            <div class="flex-1 overflow-y-auto p-6 space-y-4">
+                <!-- Bot Welcome -->
+                <div class="flex items-start space-x-3">
+                    <div class="w-10 h-10 bg-navy rounded-xl flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                        </svg>
+                    </div>
+                    <div class="message-bubble bg-surface p-4 rounded-2xl rounded-tl-md">
+                        <p class="font-semibold text-navy mb-2">안녕하세요! 무엇을 도와드릴까요?</p>
+                        <p class="text-gray-600 text-sm">오송첨단의료산업진흥재단 AI 상담사입니다. 아래 버튼을 선택하시거나 직접 질문해 주세요.</p>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="flex flex-wrap gap-2 ml-13 pl-13">
+                    <button class="px-4 py-2 bg-navy/5 text-navy border border-navy/20 rounded-full text-sm hover:bg-navy hover:text-white transition-all">
+                        🏢 입주기업 안내
+                    </button>
+                    <button class="px-4 py-2 bg-navy/5 text-navy border border-navy/20 rounded-full text-sm hover:bg-navy hover:text-white transition-all">
+                        📋 지원사업 문의
+                    </button>
+                    <button class="px-4 py-2 bg-navy/5 text-navy border border-navy/20 rounded-full text-sm hover:bg-navy hover:text-white transition-all">
+                        🔬 연구시설 예약
+                    </button>
+                    <button class="px-4 py-2 bg-navy/5 text-navy border border-navy/20 rounded-full text-sm hover:bg-navy hover:text-white transition-all">
+                        📞 담당자 연결
+                    </button>
+                </div>
+
+                <!-- User Message -->
+                <div class="flex items-start justify-end">
+                    <div class="message-bubble bg-navy text-white p-4 rounded-2xl rounded-tr-md">
+                        <p>입주기업 혜택에 대해 알려주세요.</p>
+                    </div>
+                </div>
+
+                <!-- Bot Response -->
+                <div class="flex items-start space-x-3">
+                    <div class="w-10 h-10 bg-navy rounded-xl flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                        </svg>
+                    </div>
+                    <div class="message-bubble bg-surface p-5 rounded-2xl rounded-tl-md">
+                        <p class="font-semibold text-navy mb-3">입주기업 혜택 안내</p>
+                        <div class="space-y-3 text-sm text-gray-700">
+                            <div class="flex items-start space-x-2">
+                                <span class="text-accent">✓</span>
+                                <p><strong>임대료 감면:</strong> 창업기업 최대 50% 감면</p>
+                            </div>
+                            <div class="flex items-start space-x-2">
+                                <span class="text-accent">✓</span>
+                                <p><strong>연구장비 이용:</strong> 첨단 연구장비 저렴하게 이용</p>
+                            </div>
+                            <div class="flex items-start space-x-2">
+                                <span class="text-accent">✓</span>
+                                <p><strong>네트워킹:</strong> 입주기업 간 협력 기회 제공</p>
+                            </div>
+                            <div class="flex items-start space-x-2">
+                                <span class="text-accent">✓</span>
+                                <p><strong>R&D 지원:</strong> 각종 정부 지원사업 연계</p>
+                            </div>
+                            <div class="flex items-start space-x-2">
+                                <span class="text-accent">✓</span>
+                                <p><strong>경영 지원:</strong> 회계, 법률, 특허 상담 지원</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-gray-200">
+                            <p class="text-gray-500 text-xs">더 자세한 내용은 기업지원팀(043-200-9550)으로 문의해 주세요.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="border-t border-gray-200 p-4 bg-surface">
+                <div class="flex items-center space-x-3">
+                    <button class="p-2 text-gray-400 hover:text-navy transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/>
+                        </svg>
+                    </button>
+                    <input type="text" placeholder="메시지를 입력하세요..." class="flex-1 px-4 py-3 bg-white border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent">
+                    <button class="p-3 bg-navy text-white rounded-xl hover:bg-navy-light transition-colors">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

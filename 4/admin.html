@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 대시보드 - 오송첨단의료산업진흥재단</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Spoqa+Han+Sans+Neo:wght@400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        lavender: { 100: '#f3e8ff', 200: '#e9d5ff', 300: '#d8b4fe' },
+                        purple: { DEFAULT: '#7c3aed', dark: '#5b21b6', light: '#a78bfa' },
+                        deep: '#4c1d95'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Spoqa Han Sans Neo', sans-serif; }
+        .gradient-purple { background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%); }
+    </style>
+</head>
+<body class="h-screen overflow-hidden bg-gradient-to-br from-lavender-100 to-white">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-24 bg-white border-r-4 border-lavender-200 flex-shrink-0 hidden md:flex flex-col">
+            <div class="p-4 flex justify-center">
+                <div class="w-14 h-14 gradient-purple rounded-2xl flex items-center justify-center shadow-lg shadow-purple/30">
+                    <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                    </svg>
+                </div>
+            </div>
+            <nav class="flex-1 py-6 flex flex-col items-center space-y-4 overflow-y-auto">
+                <a href="#" class="p-4 bg-purple/10 text-purple rounded-2xl">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+                </a>
+                <a href="#" class="p-4 text-gray-400 hover:bg-lavender-100 hover:text-purple rounded-2xl transition-all">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                </a>
+                <a href="#" class="p-4 text-gray-400 hover:bg-lavender-100 hover:text-purple rounded-2xl transition-all">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                </a>
+                <a href="#" class="p-4 text-gray-400 hover:bg-lavender-100 hover:text-purple rounded-2xl transition-all">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+                </a>
+                <a href="#" class="p-4 text-gray-400 hover:bg-lavender-100 hover:text-purple rounded-2xl transition-all">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+                </a>
+            </nav>
+            <div class="p-4 flex justify-center">
+                <div class="w-12 h-12 bg-purple rounded-full flex items-center justify-center">
+                    <span class="text-white font-bold">관</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col min-h-0">
+            <!-- Header -->
+            <header class="bg-white border-b-4 border-lavender-200 px-8 py-6 flex-shrink-0">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h1 class="text-2xl font-bold text-deep">대시보드</h1>
+                        <p class="text-gray-500 text-sm">AI 챗봇 운영 현황을 한눈에 확인하세요</p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="relative">
+                            <input type="text" placeholder="검색..." class="pl-10 pr-4 py-2 bg-lavender-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple">
+                            <svg class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            </svg>
+                        </div>
+                        <button class="p-2 text-gray-400 hover:text-purple hover:bg-lavender-100 rounded-xl transition-all relative">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                            <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content - Scrollable -->
+            <main class="flex-1 overflow-y-auto p-8">
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white rounded-3xl p-6 shadow-lg border-2 border-lavender-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-14 h-14 gradient-purple rounded-2xl flex items-center justify-center shadow-lg shadow-purple/20">
+                                <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                            </div>
+                            <span class="text-green-500 text-sm font-bold bg-green-100 px-2 py-1 rounded-full">+24%</span>
+                        </div>
+                        <p class="text-4xl font-bold text-deep">3,247</p>
+                        <p class="text-gray-500 mt-1">총 대화 수</p>
+                    </div>
+                    <div class="bg-white rounded-3xl p-6 shadow-lg border-2 border-lavender-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-14 h-14 bg-green-500 rounded-2xl flex items-center justify-center shadow-lg shadow-green-500/20">
+                                <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                            </div>
+                            <span class="text-purple text-sm font-bold bg-purple/10 px-2 py-1 rounded-full">Live</span>
+                        </div>
+                        <p class="text-4xl font-bold text-deep">198</p>
+                        <p class="text-gray-500 mt-1">활성 사용자</p>
+                    </div>
+                    <div class="bg-white rounded-3xl p-6 shadow-lg border-2 border-lavender-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-14 h-14 bg-blue-500 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/20">
+                                <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            </div>
+                            <span class="text-green-500 text-sm font-bold bg-green-100 px-2 py-1 rounded-full">+2.8%</span>
+                        </div>
+                        <p class="text-4xl font-bold text-deep">97.2%</p>
+                        <p class="text-gray-500 mt-1">응답 정확도</p>
+                    </div>
+                    <div class="bg-white rounded-3xl p-6 shadow-lg border-2 border-lavender-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-14 h-14 bg-orange-500 rounded-2xl flex items-center justify-center shadow-lg shadow-orange-500/20">
+                                <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                            </div>
+                            <span class="text-green-500 text-sm font-bold bg-green-100 px-2 py-1 rounded-full">-0.3s</span>
+                        </div>
+                        <p class="text-4xl font-bold text-deep">0.9초</p>
+                        <p class="text-gray-500 mt-1">평균 응답시간</p>
+                    </div>
+                </div>
+
+                <!-- Charts Row -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                    <div class="lg:col-span-2 bg-white rounded-3xl p-6 shadow-lg border-2 border-lavender-200">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="font-bold text-deep text-lg">대화 추이</h3>
+                            <div class="flex space-x-2">
+                                <button class="px-4 py-2 gradient-purple text-white rounded-xl text-sm">주간</button>
+                                <button class="px-4 py-2 text-gray-500 hover:bg-lavender-100 rounded-xl text-sm">월간</button>
+                            </div>
+                        </div>
+                        <div class="h-64">
+                            <canvas id="trendChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-3xl p-6 shadow-lg border-2 border-lavender-200">
+                        <h3 class="font-bold text-deep text-lg mb-6">문의 유형</h3>
+                        <div class="h-64">
+                            <canvas id="categoryChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Conversations -->
+                <div class="bg-white rounded-3xl p-6 shadow-lg border-2 border-lavender-200">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="font-bold text-deep text-lg">최근 대화</h3>
+                        <button class="text-purple text-sm hover:underline">전체 보기 →</button>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-4 bg-lavender-100 rounded-2xl">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 gradient-purple rounded-xl flex items-center justify-center">
+                                    <span class="text-white font-bold">김</span>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-deep">연구시설 예약 문의</p>
+                                    <p class="text-sm text-gray-500">NMR 장비 예약 가능 일정 확인</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="px-3 py-1 bg-green-500 text-white rounded-full text-xs">완료</span>
+                                <p class="text-xs text-gray-400 mt-1">5분 전</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-lavender-100 rounded-2xl">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center">
+                                    <span class="text-white font-bold">이</span>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-deep">입주기업 신청 방법</p>
+                                    <p class="text-sm text-gray-500">스타트업 입주 조건 안내 요청</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="px-3 py-1 bg-yellow-500 text-white rounded-full text-xs">상담 연결</span>
+                                <p class="text-xs text-gray-400 mt-1">12분 전</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-lavender-100 rounded-2xl">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center">
+                                    <span class="text-white font-bold">박</span>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-deep">지원사업 일정 문의</p>
+                                    <p class="text-sm text-gray-500">R&D 지원사업 신청 마감일 확인</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="px-3 py-1 bg-green-500 text-white rounded-full text-xs">완료</span>
+                                <p class="text-xs text-gray-400 mt-1">18분 전</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Trend Chart
+        const trendCtx = document.getElementById('trendChart').getContext('2d');
+        new Chart(trendCtx, {
+            type: 'line',
+            data: {
+                labels: ['월', '화', '수', '목', '금', '토', '일'],
+                datasets: [{
+                    label: '대화 수',
+                    data: [420, 580, 510, 690, 620, 340, 280],
+                    borderColor: '#7c3aed',
+                    backgroundColor: 'rgba(124, 58, 237, 0.1)',
+                    fill: true,
+                    tension: 0.4,
+                    borderWidth: 3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { beginAtZero: true, grid: { color: '#f3e8ff' } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+        // Category Chart
+        const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+        new Chart(categoryCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['입주문의', '시설예약', '지원사업', '일반문의'],
+                datasets: [{
+                    data: [35, 30, 25, 10],
+                    backgroundColor: ['#7c3aed', '#a78bfa', '#c4b5fd', '#e9d5ff'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom', labels: { padding: 15 } } },
+                cutout: '60%'
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 챗봇 UI 디자인 시안 - 오송첨단의료산업진흥재단</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e3a5f',
+                        accent: '#3182ce'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+        body { font-family: 'Pretendard', sans-serif; }
+        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+        .gradient-header { background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%); }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="gradient-header text-white py-8 shadow-xl">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold mb-2">AI 챗봇 서비스 UI 디자인 시안</h1>
+                    <p class="text-blue-200">오송첨단의료산업진흥재단</p>
+                </div>
+                <div class="text-right hidden md:block">
+                    <p class="text-blue-200 text-sm">제안일: 2024.12.12</p>
+                    <p class="text-white font-medium">총 15개 시안</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-6 py-12">
+        <!-- Section 1: Mockups 1-5 -->
+        <section class="mb-16">
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Phase 1: 기본 디자인 시안</h2>
+                    <p class="text-gray-500 mt-1">다양한 컬러 테마와 레이아웃 구성</p>
+                </div>
+                <span class="px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">시안 1~5</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Mockup 1 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover transition-all duration-300">
+                    <div class="h-48 bg-gradient-to-br from-[#1e3a5f] to-[#2d4a6f] flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <div class="w-16 h-16 bg-[#c9a227] rounded-2xl flex items-center justify-center mx-auto mb-3">
+                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                            </div>
+                            <p class="font-bold">클래식 네이비 & 골드</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-2xl font-bold text-gray-800">시안 1</span>
+                            <span class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-medium">Classic</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">전통적이고 신뢰감 있는 네이비 블루와 골드 컬러 조합의 공공기관 스타일</p>
+                        <div class="flex gap-2 mb-4">
+                            <span class="w-6 h-6 rounded-full bg-[#1e3a5f] border-2 border-white shadow"></span>
+                            <span class="w-6 h-6 rounded-full bg-[#c9a227] border-2 border-white shadow"></span>
+                            <span class="w-6 h-6 rounded-full bg-[#f8f6f0] border-2 border-gray-200 shadow"></span>
+                        </div>
+                        <div class="flex gap-2">
+                            <a href="1/user.html" target="_blank" class="flex-1 text-center py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors text-sm font-medium">사용자 화면</a>
+                            <a href="1/admin.html" target="_blank" class="flex-1 text-center py-2 border border-primary text-primary rounded-lg hover:bg-primary/5 transition-colors text-sm font-medium">관리자 화면</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mockup 2 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover transition-all duration-300">
+                    <div class="h-48 bg-gradient-to-br from-[#0d9488] to-[#14b8a6] flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <div class="w-16 h-16 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center mx-auto mb-3">
+                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93z"/></svg>
+                            </div>
+                            <p class="font-bold">모던 틸</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-2xl font-bold text-gray-800">시안 2</span>
+                            <span class="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-xs font-medium">Modern</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">세련되고 현대적인 틸 컬러의 클린한 디자인, 미니멀한 레이아웃</p>
+                        <div class="flex gap-2 mb-4">
+                            <span class="w-6 h-6 rounded-full bg-[#0d9488] border-2 border-white shadow"></span>
+                            <span class="w-6 h-6 rounded-full bg-[#14b8a6] border-2 border-white shadow"></span>
+                            <span class="w-6 h-6 rounded-full bg-[#f0fdfa] border-2 border-gray-200 shadow"></span>
+                        </div>
+                        <div class="flex gap-2">
+                            <a href="2/user.html" target="_blank" class="flex-1 text-center py-2 bg-[#0d9488] text-white rounded-lg hover:bg-[#0f766e] transition-colors text-sm font-medium">사용자 화면</a>
+                            <a href="2/admin.html" target="_blank" class="flex-1 text-center py-2 border border-[#0d9488] text-[#0d9488] rounded-lg hover:bg-[#0d9488]/5 transition-colors text-sm font-medium">관리자 화면</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mockup 3 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover transition-all duration-300">
+                    <div class="h-48 bg-gradient-to-br from-[#1a365d] to-[#2c5282] flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <div class="w-16 h-16 bg-[#3182ce]/30 rounded-2xl flex items-center justify-center mx-auto mb-3">
+                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                            </div>
+                            <p class="font-bold">프로페셔널 블루</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-2xl font-bold text-gray-800">시안 3</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">Professional</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">2단 레이아웃으로 서비스 소개와 챗봇을 분리한 균형 잡힌 구성</p>
+                        <div class="flex gap-2 mb-4">
+                            <span class="w-6 h-6 rounded-full bg-[#1a365d] border-2 border-white shadow"></span>
+                            <span class="w-6 h-6 rounded-full bg-[#3182ce] border-2 border-white shadow"></span>
+                            <span class="w-6 h-6 rounded-full bg-[#f7fafc] border-2 border-gray-200 shadow"></span>
+                        </div>
+                        <div class="flex gap-2">
+                            <a href="3/user.html" target="_blank" class="flex-1 text-center py-2 bg-[#1a365d] text-white rounded-lg hover:bg-[#0f2442] transition-colors text-sm font-medium">사용자 화면</a>
+                            <a href="3/admin.html" target="_blank" class="flex-1 text-center py-2 border border-[#1a365d] text-[#1a365d] rounded-lg hover:bg-[#1a365d]/5 transition-colors text-sm font-medium">관리자 화면</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mockup 4 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover transition-all duration-300">
+                    <div class="h-48 bg-gradient-to-br from-[#7c3aed] to-[#5b21b6] flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <div class="w-16 h-16 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center mx-auto mb-3">
+                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6z"/></svg>
+                            </div>
+                            <p class="font-bold">크리에이티브 퍼플</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-2xl font-bold text-gray-800">시안 4</span>
+                            <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-medium">Creative</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">창의적이고 역동적인 라벤더-퍼플 그라데이션의 부드러운 디자인</p>
+                        <div class="flex gap-2 mb-4">
+                            <span class="w-6 h-6 rounded-full bg-[#7c3aed] border-2 border-white shadow"></span>
+                            <span class="w-6 h-6 rounded-full bg-[#a78bfa] border-2 border-white shadow"></span>
+                            <span class="w-6 h-6 rounded-full bg-[#f3e8ff] border-2 border-gray-200 shadow"></span>
+                        </div>
+                        <div class="flex gap-2">
+                            <a href="4/user.html" target="_blank" class="flex-1 text-center py-2 bg-[#7c3aed] text-white rounded-lg hover:bg-[#5b21b6] transition-colors text-sm font-medium">사용자 화면</a>
+                            <a href="4/admin.html" target="_blank" class="flex-1 text-center py-2 border border-[#7c3aed] text-[#7c3aed] rounded-lg hover:bg-[#7c3aed]/5 transition-colors text-sm font-medium">관리자 화면</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mockup 5 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover transition-all duration-300">
+                    <div class="h-48 bg-gradient-to-br from-[#f97316] to-[#ea580c] flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-lg">
+                                <svg class="w-8 h-8 text-[#f97316]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                            </div>
+                            <p class="font-bold">웜 오렌지</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-2xl font-bold text-gray-800">시안 5</span>
+                            <span class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-medium">Warm</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">따뜻하고 친근한 오렌지 톤, 접근성 높은 사용자 친화적 디자인</p>
+                        <div class="flex gap-2 mb-4">
+                            <span class="w-6 h-6 rounded-full bg-[#f97316] border-2 border-white shadow"></span>
+                            <span class="w-6 h-6 rounded-full bg-[#fb923c] border-2 border-white shadow"></span>
+                            <span class="w-6 h-6 rounded-full bg-[#fffbeb] border-2 border-gray-200 shadow"></span>
+                        </div>
+                        <div class="flex gap-2">
+                            <a href="5/user.html" target="_blank" class="flex-1 text-center py-2 bg-[#f97316] text-white rounded-lg hover:bg-[#ea580c] transition-colors text-sm font-medium">사용자 화면</a>
+                            <a href="5/admin.html" target="_blank" class="flex-1 text-center py-2 border border-[#f97316] text-[#f97316] rounded-lg hover:bg-[#f97316]/5 transition-colors text-sm font-medium">관리자 화면</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Mockups 6-10 -->
+        <section>
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Phase 2: 의료/공공기관 특화 시안</h2>
+                    <p class="text-gray-500 mt-1">의료 및 공공기관 분위기를 강화한 블루/그린 계열</p>
+                </div>
+                <span class="px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm font-medium">시안 6~10</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Mockup 6 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover transition-all duration-300">
+                    <div class="h-48 bg-gradient-to-br from-[#0EA5E9] to-[#38bdf8] flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <div class="w-16 h-16 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center mx-auto mb-3">
+                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+                            </div>
+                            <p class="font-bold">스카이 블루</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-2xl font-bold text-gray-800">시안 6</span>
+                            <span class="px-3 py-1 bg-sky-100 text-sky-700 rounded-full text-xs font-medium">Sky Blue</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">밝고 개방적인 스카이 블루, 공공기관의 투명성과 신뢰감 표현</p>
+                        <div class="flex gap-2 mb-4">
+                            <span class="w-6 h-6 rounded-full bg-[#0EA5E9] border-2 border-white shadow"></span>
+                            <span class="w-6 h-6 rounded-full bg-[#38bdf8] border-2 border-white shadow"></span>
+                            <span class="w-6 h-6 rounded-full bg-[#f0f9ff] border-2 border-gray-200 shadow"></span>
+                        </div>
+                        <div class="flex gap-2">
+                            <a href="6/user.html" target="_blank" class="flex-1 text-center py-2 bg-[#0EA5E9] text-white rounded-lg hover:bg-[#0284c7] transition-colors text-sm font-medium">사용자 화면</a>
+                            <a href="6/admin.html" target="_blank" class="flex-1 text-center py-2 border border-[#0EA5E9] text-[#0EA5E9] rounded-lg hover:bg-[#0EA5E9]/5 transition-colors text-sm font-medium">관리자 화면</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mockup 7 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover transition-all duration-300">
+                    <div class="h-48 bg-gradient-to-br from-[#1E40AF] to-[#3b82f6] flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <div class="w-16 h-16 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center mx-auto mb-3">
+                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+                            </div>
+                            <p class="font-bold">딥 블루</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-2xl font-bold text-gray-800">시안 7</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">Deep Blue</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">깊고 안정적인 딥 블루, 정부 및 공공기관의 신뢰성 강조</p>
+                        <div class="flex gap-2 mb-4">
+                            <span class="w-6 h-6 rounded-full bg-[#1E40AF] border-2 border-white shadow"></span>
+                            <span class="w-6 h-6 rounded-full bg-[#3b82f6] border-2 border-white shadow"></span>
+                            <span class="w-6 h-6 rounded-full bg-[#eff6ff] border-2 border-gray-200 shadow"></span>
+                        </div>
+                        <div class="flex gap-2">
+                            <a href="7/user.html" target="_blank" class="flex-1 text-center py-2 bg-[#1E40AF] text-white rounded-lg hover:bg-[#1e3a8a] transition-colors text-sm font-medium">사용자 화면</a>
+                            <a href="7/admin.html" target="_blank" class="flex-1 text-center py-2 border border-[#1E40AF] text-[#1E40AF] rounded-lg hover:bg-[#1E40AF]/5 transition-colors text-sm font-medium">관리자 화면</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mockup 8 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover transition-all duration-300">
+                    <div class="h-48 bg-gradient-to-br from-[#34D399] to-[#10b981] flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <div class="w-16 h-16 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center mx-auto mb-3">
+                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+                            </div>
+                            <p class="font-bold">민트 그린</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-2xl font-bold text-gray-800">시안 8</span>
+                            <span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-medium">Mint Green</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">청결하고 신선한 민트 그린, 의료기관의 위생적 이미지 표현</p>
+                        <div class="flex gap-2 mb-4">
+                            <span class="w-6 h-6 rounded-full bg-[#34D399] border-2 border-white shadow"></span>
+                            <span class="w-6 h-6 rounded-full bg-[#10b981] border-2 border-white shadow"></span>
+                            <span class="w-6 h-6 rounded-full bg-[#ecfdf5] border-2 border-gray-200 shadow"></span>
+                        </div>
+                        <div class="flex gap-2">
+                            <a href="8/user.html" target="_blank" class="flex-1 text-center py-2 bg-[#10b981] text-white rounded-lg hover:bg-[#059669] transition-colors text-sm font-medium">사용자 화면</a>
+                            <a href="8/admin.html" target="_blank" class="flex-1 text-center py-2 border border-[#10b981] text-[#10b981] rounded-lg hover:bg-[#10b981]/5 transition-colors text-sm font-medium">관리자 화면</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mockup 9 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover transition-all duration-300">
+                    <div class="h-48 bg-gradient-to-br from-[#059669] to-[#10b981] flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <div class="w-16 h-16 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center mx-auto mb-3">
+                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M17.73 12.02l3.98-3.98c.39-.39.39-1.02 0-1.41l-4.34-4.34c-.39-.39-1.02-.39-1.41 0l-3.98 3.98L8 2.29C7.8 2.1 7.55 2 7.29 2c-.25 0-.51.1-.7.29L2.25 6.63c-.39.39-.39 1.02 0 1.41l3.98 3.98L2.25 16c-.39.39-.39 1.02 0 1.41l4.34 4.34c.39.39 1.02.39 1.41 0l3.98-3.98 3.98 3.98c.2.2.45.29.71.29.26 0 .51-.1.71-.29l4.34-4.34c.39-.39.39-1.02 0-1.41l-3.99-3.98z"/></svg>
+                            </div>
+                            <p class="font-bold">포레스트 그린</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-2xl font-bold text-gray-800">시안 9</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">Forest Green</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">자연적이고 건강한 포레스트 그린, 바이오/헬스케어 이미지</p>
+                        <div class="flex gap-2 mb-4">
+                            <span class="w-6 h-6 rounded-full bg-[#059669] border-2 border-white shadow"></span>
+                            <span class="w-6 h-6 rounded-full bg-[#34d399] border-2 border-white shadow"></span>
+                            <span class="w-6 h-6 rounded-full bg-[#f0fdf4] border-2 border-gray-200 shadow"></span>
+                        </div>
+                        <div class="flex gap-2">
+                            <a href="9/user.html" target="_blank" class="flex-1 text-center py-2 bg-[#059669] text-white rounded-lg hover:bg-[#047857] transition-colors text-sm font-medium">사용자 화면</a>
+                            <a href="9/admin.html" target="_blank" class="flex-1 text-center py-2 border border-[#059669] text-[#059669] rounded-lg hover:bg-[#059669]/5 transition-colors text-sm font-medium">관리자 화면</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mockup 10 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover transition-all duration-300">
+                    <div class="h-48 bg-gradient-to-br from-[#0891B2] to-[#22d3ee] flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <div class="w-16 h-16 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center mx-auto mb-3">
+                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg>
+                            </div>
+                            <p class="font-bold">시안 블루</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-2xl font-bold text-gray-800">시안 10</span>
+                            <span class="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full text-xs font-medium">Cyan Blue</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">현대적이고 첨단적인 시안 블루, 혁신적 의료 기술 이미지</p>
+                        <div class="flex gap-2 mb-4">
+                            <span class="w-6 h-6 rounded-full bg-[#0891B2] border-2 border-white shadow"></span>
+                            <span class="w-6 h-6 rounded-full bg-[#22d3ee] border-2 border-white shadow"></span>
+                            <span class="w-6 h-6 rounded-full bg-[#ecfeff] border-2 border-gray-200 shadow"></span>
+                        </div>
+                        <div class="flex gap-2">
+                            <a href="10/user.html" target="_blank" class="flex-1 text-center py-2 bg-[#0891B2] text-white rounded-lg hover:bg-[#0e7490] transition-colors text-sm font-medium">사용자 화면</a>
+                            <a href="10/admin.html" target="_blank" class="flex-1 text-center py-2 border border-[#0891B2] text-[#0891B2] rounded-lg hover:bg-[#0891B2]/5 transition-colors text-sm font-medium">관리자 화면</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Mockups 11-15 (RFP 기반) -->
+        <section>
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Phase 3: RFP 기반 기능 특화 시안</h2>
+                    <p class="text-gray-500 mt-1">RFP 요구사항(SFR-001~010)을 완전히 반영한 상세 기능 구현</p>
+                </div>
+                <span class="px-4 py-2 bg-indigo-100 text-indigo-700 rounded-full text-sm font-medium">시안 11~15</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Mockup 11 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover transition-all duration-300">
+                    <div class="h-48 bg-gradient-to-br from-[#2563eb] to-[#1e3a8a] flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <div class="w-16 h-16 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center mx-auto mb-3">
+                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                            </div>
+                            <p class="font-bold">정부24 스타일</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-2xl font-bold text-gray-800">시안 11</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">Gov24</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-2">정부24 스타일의 공식 민원 상담 UI</p>
+                        <p class="text-xs text-gray-400 mb-4">SFR-001, 002, 006, 009, 010 반영</p>
+                        <div class="flex gap-2 mb-4">
+                            <span class="w-6 h-6 rounded-full bg-[#2563eb] border-2 border-white shadow"></span>
+                            <span class="w-6 h-6 rounded-full bg-[#1e3a8a] border-2 border-white shadow"></span>
+                            <span class="w-6 h-6 rounded-full bg-[#eff6ff] border-2 border-gray-200 shadow"></span>
+                        </div>
+                        <div class="flex gap-2">
+                            <a href="11/user.html" target="_blank" class="flex-1 text-center py-2 bg-[#2563eb] text-white rounded-lg hover:bg-[#1d4ed8] transition-colors text-sm font-medium">사용자 화면</a>
+                            <a href="11/admin.html" target="_blank" class="flex-1 text-center py-2 border border-[#2563eb] text-[#2563eb] rounded-lg hover:bg-[#2563eb]/5 transition-colors text-sm font-medium">관리자 화면</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mockup 12 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover transition-all duration-300">
+                    <div class="h-48 bg-gradient-to-br from-[#4f46e5] to-[#7c3aed] flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <div class="w-16 h-16 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center mx-auto mb-3">
+                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                            </div>
+                            <p class="font-bold">LLM/RAG 특화</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-2xl font-bold text-gray-800">시안 12</span>
+                            <span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs font-medium">AI/RAG</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-2">RAG 기반 근거자료 명시, 유사도 검색</p>
+                        <p class="text-xs text-gray-400 mb-4">SFR-001, 008, 009 반영</p>
+                        <div class="flex gap-2 mb-4">
+                            <span class="w-6 h-6 rounded-full bg-[#4f46e5] border-2 border-white shadow"></span>
+                            <span class="w-6 h-6 rounded-full bg-[#7c3aed] border-2 border-white shadow"></span>
+                            <span class="w-6 h-6 rounded-full bg-[#eef2ff] border-2 border-gray-200 shadow"></span>
+                        </div>
+                        <div class="flex gap-2">
+                            <a href="12/user.html" target="_blank" class="flex-1 text-center py-2 bg-[#4f46e5] text-white rounded-lg hover:bg-[#4338ca] transition-colors text-sm font-medium">사용자 화면</a>
+                            <a href="12/admin.html" target="_blank" class="flex-1 text-center py-2 border border-[#4f46e5] text-[#4f46e5] rounded-lg hover:bg-[#4f46e5]/5 transition-colors text-sm font-medium">관리자 화면</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mockup 13 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover transition-all duration-300">
+                    <div class="h-48 bg-gradient-to-br from-[#475569] to-[#0ea5e9] flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <div class="w-16 h-16 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center mx-auto mb-3">
+                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+                            </div>
+                            <p class="font-bold">통합관리 대시보드</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-2xl font-bold text-gray-800">시안 13</span>
+                            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-xs font-medium">Dashboard</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-2">멀티탭 관리화면, 실시간 모니터링</p>
+                        <p class="text-xs text-gray-400 mb-4">SFR-004, 007, 009, 010 반영</p>
+                        <div class="flex gap-2 mb-4">
+                            <span class="w-6 h-6 rounded-full bg-[#475569] border-2 border-white shadow"></span>
+                            <span class="w-6 h-6 rounded-full bg-[#0ea5e9] border-2 border-white shadow"></span>
+                            <span class="w-6 h-6 rounded-full bg-[#f1f5f9] border-2 border-gray-200 shadow"></span>
+                        </div>
+                        <div class="flex gap-2">
+                            <a href="13/user.html" target="_blank" class="flex-1 text-center py-2 bg-[#475569] text-white rounded-lg hover:bg-[#334155] transition-colors text-sm font-medium">사용자 화면</a>
+                            <a href="13/admin.html" target="_blank" class="flex-1 text-center py-2 border border-[#475569] text-[#475569] rounded-lg hover:bg-[#475569]/5 transition-colors text-sm font-medium">관리자 화면</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mockup 14 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover transition-all duration-300">
+                    <div class="h-48 bg-gradient-to-br from-[#059669] to-[#0d9488] flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <div class="w-16 h-16 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center mx-auto mb-3">
+                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+                            </div>
+                            <p class="font-bold">데이터 관리 센터</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-2xl font-bold text-gray-800">시안 14</span>
+                            <span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-medium">Data</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-2">15만건+ 학습데이터, 전처리/라벨링</p>
+                        <p class="text-xs text-gray-400 mb-4">SFR-003, 004, 010 반영</p>
+                        <div class="flex gap-2 mb-4">
+                            <span class="w-6 h-6 rounded-full bg-[#059669] border-2 border-white shadow"></span>
+                            <span class="w-6 h-6 rounded-full bg-[#0d9488] border-2 border-white shadow"></span>
+                            <span class="w-6 h-6 rounded-full bg-[#ecfdf5] border-2 border-gray-200 shadow"></span>
+                        </div>
+                        <div class="flex gap-2">
+                            <a href="14/user.html" target="_blank" class="flex-1 text-center py-2 bg-[#059669] text-white rounded-lg hover:bg-[#047857] transition-colors text-sm font-medium">사용자 화면</a>
+                            <a href="14/admin.html" target="_blank" class="flex-1 text-center py-2 border border-[#059669] text-[#059669] rounded-lg hover:bg-[#059669]/5 transition-colors text-sm font-medium">관리자 화면</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mockup 15 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover transition-all duration-300">
+                    <div class="h-48 bg-gradient-to-br from-[#f59e0b] to-[#ea580c] flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <div class="w-16 h-16 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center mx-auto mb-3">
+                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M22 11V3h-7v3H9V3H2v8h7V8h2v10h4v3h7v-8h-7v3h-2V8h2v3h7zM7 9H4V5h3v4zm10 6h3v4h-3v-4zm0-10h3v4h-3V5z"/></svg>
+                            </div>
+                            <p class="font-bold">시나리오 빌더</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-2xl font-bold text-gray-800">시안 15</span>
+                            <span class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-medium">Builder</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-2">플로우차트 대화설계, 분기조건 설정</p>
+                        <p class="text-xs text-gray-400 mb-4">SFR-005, 007, 009 반영</p>
+                        <div class="flex gap-2 mb-4">
+                            <span class="w-6 h-6 rounded-full bg-[#f59e0b] border-2 border-white shadow"></span>
+                            <span class="w-6 h-6 rounded-full bg-[#ea580c] border-2 border-white shadow"></span>
+                            <span class="w-6 h-6 rounded-full bg-[#fffbeb] border-2 border-gray-200 shadow"></span>
+                        </div>
+                        <div class="flex gap-2">
+                            <a href="15/user.html" target="_blank" class="flex-1 text-center py-2 bg-[#f59e0b] text-white rounded-lg hover:bg-[#d97706] transition-colors text-sm font-medium">사용자 화면</a>
+                            <a href="15/admin.html" target="_blank" class="flex-1 text-center py-2 border border-[#f59e0b] text-[#f59e0b] rounded-lg hover:bg-[#f59e0b]/5 transition-colors text-sm font-medium">관리자 화면</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-16">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <p class="text-gray-400 text-sm">오송첨단의료산업진흥재단 AI 챗봇 서비스 UI 디자인 시안</p>
+            <p class="text-gray-500 text-xs mt-2">© 2024 KBIO Health. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
