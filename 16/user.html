@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오송첨단의료산업진흥재단 - 종합 안내 키오스크</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Black Han Sans', sans-serif;
+        }
+
+        body {
+            overflow: hidden;
+        }
+
+        .neon-text {
+            text-shadow: 0 0 10px #00d4ff, 0 0 20px #00d4ff, 0 0 30px #00d4ff;
+        }
+
+        .neon-border {
+            box-shadow: 0 0 10px #00d4ff, 0 0 20px #00d4ff;
+            border: 2px solid #00d4ff;
+        }
+
+        .kiosk-btn {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kiosk-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .kiosk-btn:hover::before {
+            left: 100%;
+        }
+
+        .kiosk-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.5);
+        }
+
+        .kiosk-btn:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        .pulse-ring {
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(0.95);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(0.95);
+                opacity: 1;
+            }
+        }
+
+        .slide-in {
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chat-modal {
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .typing-indicator {
+            display: inline-flex;
+            gap: 4px;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00d4ff;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                opacity: 0.3;
+                transform: translateY(0);
+            }
+            30% {
+                opacity: 1;
+                transform: translateY(-10px);
+            }
+        }
+
+        .weather-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body class="h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <!-- 메인 화면 -->
+    <div id="mainScreen" class="h-screen flex flex-col">
+        <!-- 상단바 -->
+        <header class="bg-gradient-to-r from-slate-800 to-slate-900 border-b-2 border-cyan-400 px-8 py-6">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-4">
+                    <div class="w-16 h-16 bg-cyan-400 rounded-lg flex items-center justify-center">
+                        <span class="text-3xl">🏥</span>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl text-white neon-text">오송첨단의료산업진흥재단</h1>
+                        <p class="text-cyan-300 text-sm">Osong Medical Innovation Foundation</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-8">
+                    <div class="text-right">
+                        <div class="text-3xl text-white" id="currentTime">00:00:00</div>
+                        <div class="text-sm text-cyan-300" id="currentDate">2025년 12월 12일</div>
+                    </div>
+                    <div class="text-center weather-icon">
+                        <div class="text-4xl">☀️</div>
+                        <div class="text-white text-xl">23°C</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- 메인 컨텐츠 -->
+        <main class="flex-1 flex flex-col items-center justify-center p-12 overflow-y-auto">
+            <!-- 메인 타이틀 -->
+            <div class="text-center mb-16 slide-in">
+                <h2 class="text-6xl text-white neon-text mb-4">무엇을 도와드릴까요?</h2>
+                <p class="text-2xl text-cyan-300">원하시는 서비스를 선택해주세요</p>
+            </div>
+
+            <!-- 메뉴 그리드 -->
+            <div class="grid grid-cols-3 gap-8 max-w-7xl w-full slide-in">
+                <!-- 입주기업 안내 -->
+                <button onclick="openCategory('tenant')" class="kiosk-btn bg-gradient-to-br from-slate-700 to-slate-800 rounded-3xl p-12 border-2 border-cyan-400/30 hover:border-cyan-400">
+                    <div class="text-7xl mb-6">🏢</div>
+                    <h3 class="text-3xl text-white mb-3">입주기업 안내</h3>
+                    <p class="text-cyan-300 text-lg">입주절차 및 혜택 안내</p>
+                </button>
+
+                <!-- 지원사업 문의 -->
+                <button onclick="openCategory('support')" class="kiosk-btn bg-gradient-to-br from-slate-700 to-slate-800 rounded-3xl p-12 border-2 border-cyan-400/30 hover:border-cyan-400">
+                    <div class="text-7xl mb-6">📋</div>
+                    <h3 class="text-3xl text-white mb-3">지원사업 문의</h3>
+                    <p class="text-cyan-300 text-lg">정부 및 재단 지원사업</p>
+                </button>
+
+                <!-- 연구시설 예약 -->
+                <button onclick="openCategory('facility')" class="kiosk-btn bg-gradient-to-br from-slate-700 to-slate-800 rounded-3xl p-12 border-2 border-cyan-400/30 hover:border-cyan-400">
+                    <div class="text-7xl mb-6">🔬</div>
+                    <h3 class="text-3xl text-white mb-3">연구시설 예약</h3>
+                    <p class="text-cyan-300 text-lg">장비 및 시설 이용신청</p>
+                </button>
+
+                <!-- 상담원 연결 -->
+                <button onclick="connectAgent()" class="kiosk-btn bg-gradient-to-br from-slate-700 to-slate-800 rounded-3xl p-12 border-2 border-cyan-400/30 hover:border-cyan-400">
+                    <div class="text-7xl mb-6">📞</div>
+                    <h3 class="text-3xl text-white mb-3">상담원 연결</h3>
+                    <p class="text-cyan-300 text-lg">실시간 1:1 상담</p>
+                </button>
+
+                <!-- 나의 문의내역 -->
+                <button onclick="openCategory('history')" class="kiosk-btn bg-gradient-to-br from-slate-700 to-slate-800 rounded-3xl p-12 border-2 border-cyan-400/30 hover:border-cyan-400">
+                    <div class="text-7xl mb-6">📊</div>
+                    <h3 class="text-3xl text-white mb-3">나의 문의내역</h3>
+                    <p class="text-cyan-300 text-lg">이전 문의 확인</p>
+                </button>
+
+                <!-- 자주묻는 질문 -->
+                <button onclick="openCategory('faq')" class="kiosk-btn bg-gradient-to-br from-slate-700 to-slate-800 rounded-3xl p-12 border-2 border-cyan-400/30 hover:border-cyan-400">
+                    <div class="text-7xl mb-6">❓</div>
+                    <h3 class="text-3xl text-white mb-3">자주묻는 질문</h3>
+                    <p class="text-cyan-300 text-lg">FAQ 바로가기</p>
+                </button>
+            </div>
+        </main>
+
+        <!-- 하단 입력 영역 -->
+        <footer class="bg-gradient-to-r from-slate-800 to-slate-900 border-t-2 border-cyan-400 p-8">
+            <div class="max-w-7xl mx-auto flex gap-6">
+                <!-- AI 음성 인식 버튼 -->
+                <button onclick="startVoiceInput()" class="kiosk-btn neon-border bg-cyan-400/10 rounded-2xl px-12 py-8 flex items-center gap-4 pulse-ring">
+                    <div class="text-5xl">🎤</div>
+                    <div class="text-left">
+                        <div class="text-2xl text-white">AI 음성 인식</div>
+                        <div class="text-cyan-300">음성으로 질문하기</div>
+                    </div>
+                </button>
+
+                <!-- 텍스트 입력 -->
+                <div class="flex-1 relative">
+                    <input
+                        type="text"
+                        id="textInput"
+                        placeholder="질문을 입력하세요..."
+                        class="w-full h-full bg-slate-700/50 border-2 border-cyan-400/50 rounded-2xl px-8 text-2xl text-white placeholder-cyan-300/50 focus:outline-none focus:border-cyan-400"
+                        onkeypress="if(event.key === 'Enter') sendTextMessage()"
+                    >
+                    <button onclick="sendTextMessage()" class="absolute right-4 top-1/2 -translate-y-1/2 bg-cyan-400 hover:bg-cyan-300 rounded-xl px-8 py-4 text-slate-900 text-xl font-bold transition-all">
+                        전송
+                    </button>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 채팅 모달 (카테고리 선택 후) -->
+    <div id="chatModal" class="hidden fixed inset-0 bg-slate-900/95 z-50">
+        <div class="h-screen flex flex-col">
+            <!-- 채팅 헤더 -->
+            <div class="bg-gradient-to-r from-slate-800 to-slate-900 border-b-2 border-cyan-400 px-8 py-6">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center gap-4">
+                        <button onclick="closeChat()" class="text-4xl text-cyan-400 hover:text-cyan-300 transition-colors">
+                            ←
+                        </button>
+                        <div>
+                            <h2 class="text-3xl text-white neon-text" id="chatTitle">상담 진행중</h2>
+                            <p class="text-cyan-300 text-lg" id="chatSubtitle">AI 챗봇이 응답중입니다</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-2 bg-green-500/20 border border-green-400 rounded-full px-6 py-3">
+                            <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                            <span class="text-green-400 text-xl">온라인</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 채팅 메시지 영역 -->
+            <div id="chatMessages" class="flex-1 overflow-y-auto p-8 space-y-6">
+                <!-- 메시지들이 여기에 추가됨 -->
+            </div>
+
+            <!-- 채팅 입력 -->
+            <div class="bg-gradient-to-r from-slate-800 to-slate-900 border-t-2 border-cyan-400 p-8">
+                <div class="max-w-7xl mx-auto flex gap-6">
+                    <button onclick="startVoiceInChat()" class="kiosk-btn neon-border bg-cyan-400/10 rounded-2xl px-8 py-6 text-5xl">
+                        🎤
+                    </button>
+                    <div class="flex-1 relative">
+                        <input
+                            type="text"
+                            id="chatInput"
+                            placeholder="메시지를 입력하세요..."
+                            class="w-full h-full bg-slate-700/50 border-2 border-cyan-400/50 rounded-2xl px-8 text-2xl text-white placeholder-cyan-300/50 focus:outline-none focus:border-cyan-400"
+                            onkeypress="if(event.key === 'Enter') sendChatMessage()"
+                        >
+                        <button onclick="sendChatMessage()" class="absolute right-4 top-1/2 -translate-y-1/2 bg-cyan-400 hover:bg-cyan-300 rounded-xl px-8 py-4 text-slate-900 text-xl font-bold transition-all">
+                            전송
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 시계 업데이트
+        function updateTime() {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('ko-KR', { hour12: false });
+            const dateStr = now.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
+
+            document.getElementById('currentTime').textContent = timeStr;
+            document.getElementById('currentDate').textContent = dateStr;
+        }
+
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // 카테고리 열기
+        function openCategory(category) {
+            const categories = {
+                tenant: {
+                    title: '입주기업 안내',
+                    subtitle: '입주절차 및 혜택을 안내해드립니다',
+                    initialMessage: '입주기업 안내 서비스입니다. 궁금하신 사항을 선택해주세요.',
+                    options: [
+                        '입주 신청 절차',
+                        '입주 자격 요건',
+                        '입주 혜택',
+                        '임대료 안내',
+                        '입주 공간 현황'
+                    ]
+                },
+                support: {
+                    title: '지원사업 문의',
+                    subtitle: '정부 및 재단 지원사업을 안내합니다',
+                    initialMessage: '지원사업 안내 서비스입니다. 궁금하신 사항을 선택해주세요.',
+                    options: [
+                        'R&D 지원사업',
+                        '사업화 지원',
+                        '마케팅 지원',
+                        '컨설팅 지원',
+                        '금융 지원'
+                    ]
+                },
+                facility: {
+                    title: '연구시설 예약',
+                    subtitle: '장비 및 시설 이용을 도와드립니다',
+                    initialMessage: '연구시설 예약 서비스입니다. 이용하실 시설을 선택해주세요.',
+                    options: [
+                        '연구장비 예약',
+                        '회의실 예약',
+                        '실험실 예약',
+                        '예약 확인/취소',
+                        '시설 이용 안내'
+                    ]
+                },
+                history: {
+                    title: '나의 문의내역',
+                    subtitle: '이전 문의사항을 확인합니다',
+                    initialMessage: '고객님의 최근 문의내역입니다.',
+                    options: [
+                        '최근 1주일',
+                        '최근 1개월',
+                        '전체 내역',
+                        '답변 대기중',
+                        '완료된 문의'
+                    ]
+                },
+                faq: {
+                    title: '자주묻는 질문',
+                    subtitle: 'FAQ를 확인하세요',
+                    initialMessage: '자주 묻는 질문입니다. 카테고리를 선택해주세요.',
+                    options: [
+                        '입주 관련',
+                        '지원사업 관련',
+                        '시설 이용',
+                        '행정 절차',
+                        '기타 문의'
+                    ]
+                }
+            };
+
+            const cat = categories[category];
+            document.getElementById('chatTitle').textContent = cat.title;
+            document.getElementById('chatSubtitle').textContent = cat.subtitle;
+
+            // 모달 표시
+            document.getElementById('mainScreen').classList.add('hidden');
+            document.getElementById('chatModal').classList.remove('hidden');
+            document.getElementById('chatModal').classList.add('chat-modal');
+
+            // 초기 메시지 추가
+            const messagesDiv = document.getElementById('chatMessages');
+            messagesDiv.innerHTML = '';
+
+            addBotMessage(cat.initialMessage, cat.options);
+        }
+
+        // 봇 메시지 추가
+        function addBotMessage(text, options = null) {
+            const messagesDiv = document.getElementById('chatMessages');
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'flex justify-start slide-in';
+
+            let optionsHtml = '';
+            if (options && options.length > 0) {
+                optionsHtml = '<div class="grid grid-cols-2 gap-3 mt-4">';
+                options.forEach(option => {
+                    optionsHtml += `
+                        <button onclick="selectOption('${option}')" class="bg-slate-700 hover:bg-slate-600 border border-cyan-400/50 hover:border-cyan-400 rounded-xl px-6 py-4 text-white text-lg transition-all">
+                            ${option}
+                        </button>
+                    `;
+                });
+                optionsHtml += '</div>';
+            }
+
+            messageDiv.innerHTML = `
+                <div class="max-w-3xl">
+                    <div class="flex items-start gap-4">
+                        <div class="w-16 h-16 bg-cyan-400 rounded-2xl flex items-center justify-center flex-shrink-0">
+                            <span class="text-3xl">🤖</span>
+                        </div>
+                        <div class="bg-slate-700 rounded-3xl rounded-tl-none px-8 py-6 border border-cyan-400/30">
+                            <p class="text-white text-xl leading-relaxed">${text}</p>
+                            ${optionsHtml}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        // 사용자 메시지 추가
+        function addUserMessage(text) {
+            const messagesDiv = document.getElementById('chatMessages');
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'flex justify-end slide-in';
+
+            messageDiv.innerHTML = `
+                <div class="max-w-3xl">
+                    <div class="bg-cyan-400 rounded-3xl rounded-tr-none px-8 py-6">
+                        <p class="text-slate-900 text-xl font-bold leading-relaxed">${text}</p>
+                    </div>
+                </div>
+            `;
+
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        // 타이핑 인디케이터
+        function showTypingIndicator() {
+            const messagesDiv = document.getElementById('chatMessages');
+
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typingIndicator';
+            typingDiv.className = 'flex justify-start slide-in';
+
+            typingDiv.innerHTML = `
+                <div class="max-w-3xl">
+                    <div class="flex items-start gap-4">
+                        <div class="w-16 h-16 bg-cyan-400 rounded-2xl flex items-center justify-center flex-shrink-0">
+                            <span class="text-3xl">🤖</span>
+                        </div>
+                        <div class="bg-slate-700 rounded-3xl rounded-tl-none px-8 py-6 border border-cyan-400/30">
+                            <div class="typing-indicator">
+                                <div class="typing-dot"></div>
+                                <div class="typing-dot"></div>
+                                <div class="typing-dot"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            messagesDiv.appendChild(typingDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const indicator = document.getElementById('typingIndicator');
+            if (indicator) {
+                indicator.remove();
+            }
+        }
+
+        // 옵션 선택
+        function selectOption(option) {
+            addUserMessage(option);
+
+            showTypingIndicator();
+
+            setTimeout(() => {
+                hideTypingIndicator();
+
+                const responses = {
+                    '입주 신청 절차': '입주 신청 절차는 다음과 같습니다:\n\n1. 입주 신청서 제출\n2. 서류 심사\n3. 현장 실사\n4. 입주심사위원회 심의\n5. 계약 체결\n\n자세한 내용이 필요하신가요?',
+                    'R&D 지원사업': 'R&D 지원사업은 기업의 연구개발 활동을 지원합니다.\n\n• 지원규모: 최대 1억원\n• 지원기간: 1년\n• 신청자격: 입주기업 및 예비창업자\n\n신청 방법을 안내해드릴까요?',
+                    '연구장비 예약': '연구장비 예약 시스템을 안내해드립니다.\n\n이용 가능한 장비를 확인하시겠습니까?'
+                };
+
+                const response = responses[option] || `"${option}"에 대한 상세 정보를 안내해드리겠습니다. 추가로 궁금하신 사항이 있으신가요?`;
+
+                addBotMessage(response, ['추가 문의', '처음으로', '상담원 연결']);
+            }, 1500);
+        }
+
+        // 채팅 메시지 전송
+        function sendChatMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+
+            if (message) {
+                addUserMessage(message);
+                input.value = '';
+
+                showTypingIndicator();
+
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    addBotMessage('고객님의 문의를 잘 이해했습니다. 관련 정보를 찾아 안내해드리겠습니다.', ['만족', '추가 질문', '상담원 연결']);
+                }, 1500);
+            }
+        }
+
+        // 채팅 닫기
+        function closeChat() {
+            document.getElementById('chatModal').classList.add('hidden');
+            document.getElementById('mainScreen').classList.remove('hidden');
+        }
+
+        // 상담원 연결
+        function connectAgent() {
+            if (confirm('상담원과 연결하시겠습니까?\n\n현재 대기인원: 2명\n예상 대기시간: 약 3분')) {
+                openCategory('support');
+                setTimeout(() => {
+                    addBotMessage('상담원 연결을 요청하셨습니다. 잠시만 기다려주세요...', null);
+                    setTimeout(() => {
+                        addBotMessage('상담원(김지원)과 연결되었습니다. 무엇을 도와드릴까요?', null);
+                    }, 2000);
+                }, 500);
+            }
+        }
+
+        // 음성 입력 (메인)
+        function startVoiceInput() {
+            alert('🎤 음성 인식을 시작합니다.\n\n질문을 말씀해주세요.');
+            // 실제 구현시 Web Speech API 사용
+        }
+
+        // 음성 입력 (채팅)
+        function startVoiceInChat() {
+            alert('🎤 음성 인식을 시작합니다.\n\n질문을 말씀해주세요.');
+        }
+
+        // 텍스트 메시지 전송 (메인)
+        function sendTextMessage() {
+            const input = document.getElementById('textInput');
+            const message = input.value.trim();
+
+            if (message) {
+                // FAQ 카테고리로 이동하여 대화 시작
+                openCategory('faq');
+                setTimeout(() => {
+                    addUserMessage(message);
+                    input.value = '';
+
+                    showTypingIndicator();
+                    setTimeout(() => {
+                        hideTypingIndicator();
+                        addBotMessage('고객님의 질문을 분석중입니다. 관련 정보를 찾아드리겠습니다.', ['만족', '추가 질문', '상담원 연결']);
+                    }, 1500);
+                }, 300);
+            }
+        }
+
+        // 접근성: 키보드 네비게이션
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('chatModal');
+                if (!modal.classList.contains('hidden')) {
+                    closeChat();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

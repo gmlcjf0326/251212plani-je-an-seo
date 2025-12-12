@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오송첨단의료산업진흥재단 AI 전문가 시스템</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .scrollbar-thin::-webkit-scrollbar {
+            width: 8px;
+        }
+        .scrollbar-thin::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+        .scrollbar-thin::-webkit-scrollbar-thumb {
+            background: #374151;
+            border-radius: 4px;
+        }
+        .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+            background: #4b5563;
+        }
+        .code-block {
+            background: #0f172a;
+            border-left: 3px solid #10b981;
+        }
+        .channel-item {
+            transition: all 0.2s;
+        }
+        .channel-item:hover {
+            background: #1f2937;
+            border-left: 3px solid #10b981;
+            padding-left: 13px;
+        }
+        .message-bubble {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            border: 1px solid #374151;
+        }
+        .input-area {
+            background: #0f172a;
+            border: 1px solid #374151;
+            transition: all 0.3s;
+        }
+        .input-area:focus-within {
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 6px;
+        }
+        .online { background: #10b981; }
+        .away { background: #f59e0b; }
+        .busy { background: #ef4444; }
+    </style>
+</head>
+<body class="bg-gray-950 text-gray-300 overflow-hidden h-screen">
+
+    <!-- 전체 3컬럼 레이아웃 -->
+    <div class="flex h-screen">
+
+        <!-- 좌측 패널 (채널/DM) -->
+        <aside class="w-64 bg-gray-900 border-r border-gray-800 flex flex-col">
+            <!-- 헤더 -->
+            <div class="p-4 border-b border-gray-800">
+                <div class="flex items-center justify-between mb-4">
+                    <h1 class="text-sm font-bold text-emerald-400 font-mono">OSONG_MEDTECH</h1>
+                    <button class="text-gray-500 hover:text-emerald-400">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- 검색 -->
+                <div class="relative">
+                    <input type="text" placeholder="채널 검색... (Ctrl+K)"
+                           class="w-full bg-gray-800 text-gray-300 text-sm rounded px-3 py-2 pl-9 border border-gray-700 focus:border-emerald-500 focus:outline-none font-mono">
+                    <svg class="w-4 h-4 absolute left-3 top-2.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- 채널 목록 -->
+            <div class="flex-1 overflow-y-auto scrollbar-thin">
+                <!-- 채널 섹션 -->
+                <div class="p-3">
+                    <div class="text-xs font-bold text-gray-500 mb-2 flex items-center justify-between">
+                        <span class="font-mono">CHANNELS</span>
+                        <span class="bg-gray-800 px-2 py-0.5 rounded text-[10px]">8</span>
+                    </div>
+
+                    <div class="space-y-1">
+                        <div class="channel-item px-3 py-2 rounded cursor-pointer bg-gray-800 border-l-3 border-emerald-500">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-emerald-400 font-mono text-sm">#</span>
+                                    <span class="text-sm text-emerald-400 font-medium">입주-문의</span>
+                                </div>
+                                <span class="bg-emerald-500 text-white text-xs px-1.5 rounded-full font-mono">12</span>
+                            </div>
+                        </div>
+
+                        <div class="channel-item px-3 py-2 rounded cursor-pointer">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-gray-500 font-mono text-sm">#</span>
+                                    <span class="text-sm">지원-사업</span>
+                                </div>
+                                <span class="bg-sky-500 text-white text-xs px-1.5 rounded-full font-mono">3</span>
+                            </div>
+                        </div>
+
+                        <div class="channel-item px-3 py-2 rounded cursor-pointer">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-gray-500 font-mono text-sm">#</span>
+                                <span class="text-sm">연구개발-지원</span>
+                            </div>
+                        </div>
+
+                        <div class="channel-item px-3 py-2 rounded cursor-pointer">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-gray-500 font-mono text-sm">#</span>
+                                <span class="text-sm">시설-이용</span>
+                            </div>
+                        </div>
+
+                        <div class="channel-item px-3 py-2 rounded cursor-pointer">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-gray-500 font-mono text-sm">#</span>
+                                <span class="text-sm">교육-프로그램</span>
+                            </div>
+                        </div>
+
+                        <div class="channel-item px-3 py-2 rounded cursor-pointer">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-gray-500 font-mono text-sm">#</span>
+                                <span class="text-sm">민원-처리</span>
+                            </div>
+                        </div>
+
+                        <div class="channel-item px-3 py-2 rounded cursor-pointer">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-gray-500 font-mono text-sm">#</span>
+                                <span class="text-sm">규정-정책</span>
+                            </div>
+                        </div>
+
+                        <div class="channel-item px-3 py-2 rounded cursor-pointer">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-gray-500 font-mono text-sm">#</span>
+                                <span class="text-sm">일반-질문</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DM 섹션 -->
+                <div class="p-3 border-t border-gray-800">
+                    <div class="text-xs font-bold text-gray-500 mb-2 flex items-center justify-between">
+                        <span class="font-mono">DIRECT MESSAGES</span>
+                        <span class="bg-gray-800 px-2 py-0.5 rounded text-[10px]">3</span>
+                    </div>
+
+                    <div class="space-y-1">
+                        <div class="channel-item px-3 py-2 rounded cursor-pointer">
+                            <div class="flex items-center space-x-2">
+                                <span class="status-indicator online"></span>
+                                <span class="text-sm">김상담 (입주담당)</span>
+                            </div>
+                        </div>
+
+                        <div class="channel-item px-3 py-2 rounded cursor-pointer">
+                            <div class="flex items-center space-x-2">
+                                <span class="status-indicator away"></span>
+                                <span class="text-sm">박지원 (R&D팀)</span>
+                            </div>
+                        </div>
+
+                        <div class="channel-item px-3 py-2 rounded cursor-pointer">
+                            <div class="flex items-center space-x-2">
+                                <span class="status-indicator busy"></span>
+                                <span class="text-sm">이관리 (시설관리)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 하단 사용자 정보 -->
+            <div class="p-4 border-t border-gray-800">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded bg-gradient-to-br from-emerald-500 to-sky-500 flex items-center justify-center text-white font-bold">
+                        U
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="text-sm font-medium text-white truncate">사용자</div>
+                        <div class="text-xs text-gray-500 font-mono">user@osong.kr</div>
+                    </div>
+                    <button class="text-gray-500 hover:text-emerald-400">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 중앙 메인 영역 (채팅) -->
+        <main class="flex-1 flex flex-col bg-gray-950">
+            <!-- 상단 헤더 -->
+            <header class="h-16 border-b border-gray-800 px-6 flex items-center justify-between bg-gray-900">
+                <div class="flex items-center space-x-4">
+                    <h2 class="text-lg font-bold text-white flex items-center">
+                        <span class="text-emerald-400 font-mono mr-2">#</span>
+                        입주-문의
+                    </h2>
+                    <span class="badge bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                        ACTIVE
+                    </span>
+                    <span class="badge bg-gray-800 text-gray-400 border border-gray-700">
+                        AI Assistant
+                    </span>
+                </div>
+
+                <div class="flex items-center space-x-2">
+                    <button class="px-3 py-1.5 text-sm bg-gray-800 hover:bg-gray-700 rounded border border-gray-700 text-gray-300">
+                        <span class="font-mono">히스토리</span>
+                    </button>
+                    <button class="px-3 py-1.5 text-sm bg-gray-800 hover:bg-gray-700 rounded border border-gray-700 text-gray-300">
+                        <span class="font-mono">북마크</span>
+                    </button>
+                    <button class="px-3 py-1.5 text-sm bg-gray-800 hover:bg-gray-700 rounded border border-gray-700 text-gray-300">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <!-- 메시지 영역 -->
+            <div class="flex-1 overflow-y-auto scrollbar-thin px-6 py-6 space-y-6">
+
+                <!-- 시스템 메시지 -->
+                <div class="flex justify-center">
+                    <div class="bg-gray-900 border border-gray-800 rounded-lg px-4 py-2">
+                        <p class="text-xs text-gray-500 font-mono">
+                            <span class="text-emerald-400">●</span>
+                            세션 시작: 2025-12-12 14:30:45 KST
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 사용자 메시지 -->
+                <div class="flex justify-end">
+                    <div class="max-w-2xl">
+                        <div class="flex items-start space-x-3">
+                            <div class="flex-1">
+                                <div class="flex items-center justify-end space-x-2 mb-2">
+                                    <span class="text-xs text-gray-500 font-mono">14:31:02</span>
+                                    <span class="text-sm font-medium text-white">You</span>
+                                </div>
+                                <div class="bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-lg p-4 border border-emerald-500">
+                                    <p class="text-white">오송첨단의료산업진흥재단에 바이오 스타트업으로 입주하려고 합니다. 어떤 절차로 진행되나요?</p>
+                                </div>
+                            </div>
+                            <div class="w-10 h-10 rounded bg-gradient-to-br from-emerald-500 to-sky-500 flex items-center justify-center text-white font-bold flex-shrink-0">
+                                U
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI 응답 -->
+                <div class="flex justify-start">
+                    <div class="max-w-4xl w-full">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-10 h-10 rounded bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center flex-shrink-0 border border-emerald-500">
+                                <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-2 mb-2">
+                                    <span class="text-sm font-medium text-emerald-400 font-mono">AI Assistant</span>
+                                    <span class="badge bg-sky-500/20 text-sky-400 border border-sky-500/30">
+                                        RAG-ENABLED
+                                    </span>
+                                    <span class="text-xs text-gray-500 font-mono">14:31:05</span>
+                                    <span class="text-xs text-gray-600 font-mono">• 응답시간: 2.3s</span>
+                                </div>
+
+                                <div class="message-bubble rounded-lg p-6 space-y-4">
+                                    <div>
+                                        <p class="text-gray-300 leading-relaxed mb-4">
+                                            오송첨단의료산업진흥재단 바이오 스타트업 입주는 체계적인 단계별 프로세스로 진행됩니다. 아래 상세 절차를 안내해드리겠습니다.
+                                        </p>
+                                    </div>
+
+                                    <!-- 단계별 프로세스 -->
+                                    <div class="space-y-3">
+                                        <div class="bg-gray-900 rounded-lg p-4 border-l-4 border-emerald-500">
+                                            <div class="flex items-center space-x-3 mb-2">
+                                                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-emerald-500 text-white font-bold text-sm font-mono">1</span>
+                                                <h4 class="font-bold text-emerald-400 font-mono">입주신청 및 서류제출</h4>
+                                            </div>
+                                            <div class="ml-11">
+                                                <p class="text-sm text-gray-400 mb-2">필수 제출 서류:</p>
+                                                <ul class="text-sm text-gray-400 space-y-1">
+                                                    <li class="flex items-start">
+                                                        <span class="text-emerald-400 mr-2">•</span>
+                                                        <span>입주신청서 (재단 양식)</span>
+                                                    </li>
+                                                    <li class="flex items-start">
+                                                        <span class="text-emerald-400 mr-2">•</span>
+                                                        <span>사업자등록증 사본</span>
+                                                    </li>
+                                                    <li class="flex items-start">
+                                                        <span class="text-emerald-400 mr-2">•</span>
+                                                        <span>사업계획서 (기술성·시장성·사업성 중심)</span>
+                                                    </li>
+                                                    <li class="flex items-start">
+                                                        <span class="text-emerald-400 mr-2">•</span>
+                                                        <span>법인등기부등본 (법인의 경우)</span>
+                                                    </li>
+                                                </ul>
+                                                <p class="text-xs text-gray-500 mt-2 font-mono">⏱ 소요시간: 즉시 ~ 3일</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="bg-gray-900 rounded-lg p-4 border-l-4 border-sky-500">
+                                            <div class="flex items-center space-x-3 mb-2">
+                                                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-sky-500 text-white font-bold text-sm font-mono">2</span>
+                                                <h4 class="font-bold text-sky-400 font-mono">심사 및 평가</h4>
+                                            </div>
+                                            <div class="ml-11">
+                                                <p class="text-sm text-gray-400 mb-2">서류심사 → 발표심사 (PT) 2단계 진행</p>
+                                                <div class="bg-gray-950 rounded p-3 text-sm text-gray-400 space-y-1 font-mono">
+                                                    <div class="flex justify-between">
+                                                        <span>• 기술성 평가</span>
+                                                        <span class="text-sky-400">30%</span>
+                                                    </div>
+                                                    <div class="flex justify-between">
+                                                        <span>• 시장성 평가</span>
+                                                        <span class="text-sky-400">30%</span>
+                                                    </div>
+                                                    <div class="flex justify-between">
+                                                        <span>• 사업성 평가</span>
+                                                        <span class="text-sky-400">25%</span>
+                                                    </div>
+                                                    <div class="flex justify-between">
+                                                        <span>• 정책부합도</span>
+                                                        <span class="text-sky-400">15%</span>
+                                                    </div>
+                                                </div>
+                                                <p class="text-xs text-gray-500 mt-2 font-mono">⏱ 소요시간: 2~3주</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="bg-gray-900 rounded-lg p-4 border-l-4 border-purple-500">
+                                            <div class="flex items-center space-x-3 mb-2">
+                                                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-purple-500 text-white font-bold text-sm font-mono">3</span>
+                                                <h4 class="font-bold text-purple-400 font-mono">입주계약 체결</h4>
+                                            </div>
+                                            <div class="ml-11">
+                                                <p class="text-sm text-gray-400 mb-2">선정 통보 후 계약 진행:</p>
+                                                <ul class="text-sm text-gray-400 space-y-1">
+                                                    <li class="flex items-start">
+                                                        <span class="text-purple-400 mr-2">•</span>
+                                                        <span>입주계약서 작성 (2년 기본, 최대 5년 연장 가능)</span>
+                                                    </li>
+                                                    <li class="flex items-start">
+                                                        <span class="text-purple-400 mr-2">•</span>
+                                                        <span>보증금 및 첫 달 임대료 납부</span>
+                                                    </li>
+                                                    <li class="flex items-start">
+                                                        <span class="text-purple-400 mr-2">•</span>
+                                                        <span>시설이용 교육 이수</span>
+                                                    </li>
+                                                </ul>
+                                                <p class="text-xs text-gray-500 mt-2 font-mono">⏱ 소요시간: 1주</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="bg-gray-900 rounded-lg p-4 border-l-4 border-amber-500">
+                                            <div class="flex items-center space-x-3 mb-2">
+                                                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-amber-500 text-white font-bold text-sm font-mono">4</span>
+                                                <h4 class="font-bold text-amber-400 font-mono">입주 및 사업개시</h4>
+                                            </div>
+                                            <div class="ml-11">
+                                                <p class="text-sm text-gray-400">연구실/사무실 배정 → 장비 반입 → 사업 개시</p>
+                                                <div class="mt-2 bg-amber-500/10 border border-amber-500/30 rounded p-3">
+                                                    <p class="text-xs text-amber-300 font-medium">✓ 입주 후 지원사항</p>
+                                                    <p class="text-xs text-gray-400 mt-1">R&D 자문, 투자유치 연계, 공용장비 이용, 네트워킹 지원 등</p>
+                                                </div>
+                                                <p class="text-xs text-gray-500 mt-2 font-mono">⏱ 소요시간: 즉시</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 코드블록 형태 요약 -->
+                                    <div class="code-block rounded-lg p-4 mt-4">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <span class="text-xs font-bold text-emerald-400 font-mono">// 전체 프로세스 타임라인</span>
+                                            <span class="text-xs text-gray-500 font-mono">Total: 4~6주</span>
+                                        </div>
+                                        <div class="space-y-2 text-xs font-mono">
+                                            <div class="flex items-center">
+                                                <span class="text-gray-500 mr-3">Week 1</span>
+                                                <span class="text-emerald-400 mr-2">▶</span>
+                                                <span class="text-gray-300">신청서류 준비 및 제출</span>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <span class="text-gray-500 mr-3">Week 2-4</span>
+                                                <span class="text-sky-400 mr-2">▶</span>
+                                                <span class="text-gray-300">심사평가 (서류 → PT)</span>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <span class="text-gray-500 mr-3">Week 5</span>
+                                                <span class="text-purple-400 mr-2">▶</span>
+                                                <span class="text-gray-300">선정통보 및 계약체결</span>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <span class="text-gray-500 mr-3">Week 6</span>
+                                                <span class="text-amber-400 mr-2">▶</span>
+                                                <span class="text-gray-300">입주 및 사업개시</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 추가 안내 -->
+                                    <div class="bg-sky-500/10 border border-sky-500/30 rounded-lg p-4 mt-4">
+                                        <div class="flex items-start space-x-3">
+                                            <svg class="w-5 h-5 text-sky-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                            <div class="text-sm text-sky-300">
+                                                <p class="font-medium mb-1">입주 문의 및 상담</p>
+                                                <p class="text-sky-400/80">전화: 043-713-8340 | 이메일: startup@osong.or.kr</p>
+                                                <p class="text-sky-400/80 mt-1">상담시간: 평일 09:00 - 18:00</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 액션 버튼 -->
+                                <div class="flex items-center space-x-2 mt-3">
+                                    <button class="text-xs px-3 py-1.5 bg-gray-800 hover:bg-gray-700 rounded border border-gray-700 text-gray-400 font-mono">
+                                        📋 복사
+                                    </button>
+                                    <button class="text-xs px-3 py-1.5 bg-gray-800 hover:bg-gray-700 rounded border border-gray-700 text-gray-400 font-mono">
+                                        🔖 북마크
+                                    </button>
+                                    <button class="text-xs px-3 py-1.5 bg-gray-800 hover:bg-gray-700 rounded border border-gray-700 text-gray-400 font-mono">
+                                        👍 도움됨
+                                    </button>
+                                    <button class="text-xs px-3 py-1.5 bg-gray-800 hover:bg-gray-700 rounded border border-gray-700 text-gray-400 font-mono">
+                                        👎 개선필요
+                                    </button>
+                                    <button class="text-xs px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 rounded text-white font-mono">
+                                        📞 상담원 연결
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 입력 영역 -->
+            <div class="border-t border-gray-800 p-4 bg-gray-900">
+                <div class="input-area rounded-lg p-4">
+                    <div class="flex items-start space-x-3">
+                        <textarea
+                            placeholder="메시지를 입력하세요... (/help 명령어 안내)"
+                            rows="3"
+                            class="flex-1 bg-transparent text-gray-300 placeholder-gray-600 resize-none focus:outline-none text-sm leading-relaxed"
+                        ></textarea>
+                        <button class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded font-medium text-sm flex items-center space-x-2">
+                            <span>전송</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-800">
+                        <div class="flex items-center space-x-2">
+                            <button class="text-gray-500 hover:text-emerald-400 text-xs font-mono">
+                                📎 파일첨부
+                            </button>
+                            <button class="text-gray-500 hover:text-emerald-400 text-xs font-mono">
+                                💾 임시저장
+                            </button>
+                            <button class="text-gray-500 hover:text-emerald-400 text-xs font-mono">
+                                📝 템플릿
+                            </button>
+                        </div>
+                        <div class="text-xs text-gray-600 font-mono">
+                            <kbd class="px-2 py-1 bg-gray-800 rounded border border-gray-700">Ctrl</kbd> +
+                            <kbd class="px-2 py-1 bg-gray-800 rounded border border-gray-700">Enter</kbd>
+                            <span class="ml-2">전송</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- 우측 정보 패널 -->
+        <aside class="w-80 bg-gray-900 border-l border-gray-800 flex flex-col">
+            <!-- 탭 헤더 -->
+            <div class="border-b border-gray-800 flex">
+                <button class="flex-1 px-4 py-3 text-sm font-medium border-b-2 border-emerald-500 text-emerald-400 font-mono">
+                    컨텍스트
+                </button>
+                <button class="flex-1 px-4 py-3 text-sm font-medium text-gray-500 hover:text-gray-300 font-mono">
+                    스레드
+                </button>
+            </div>
+
+            <!-- 컨텍스트 내용 -->
+            <div class="flex-1 overflow-y-auto scrollbar-thin p-4 space-y-4">
+
+                <!-- 관련 문서 -->
+                <div>
+                    <h3 class="text-xs font-bold text-gray-500 mb-3 flex items-center font-mono">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        참조 문서 (3)
+                    </h3>
+                    <div class="space-y-2">
+                        <div class="bg-gray-800 rounded-lg p-3 border border-gray-700 hover:border-emerald-500 cursor-pointer transition">
+                            <div class="flex items-start justify-between mb-2">
+                                <span class="text-xs font-medium text-emerald-400 font-mono">입주신청_안내.pdf</span>
+                                <span class="badge bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                                    98%
+                                </span>
+                            </div>
+                            <p class="text-xs text-gray-400 line-clamp-2">바이오 스타트업 입주 신청 절차 및 제출 서류 안내...</p>
+                            <div class="flex items-center space-x-2 mt-2">
+                                <span class="text-xs text-gray-600 font-mono">2025-11-20</span>
+                                <span class="text-xs text-gray-600">•</span>
+                                <span class="text-xs text-gray-600 font-mono">공식문서</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-800 rounded-lg p-3 border border-gray-700 hover:border-sky-500 cursor-pointer transition">
+                            <div class="flex items-start justify-between mb-2">
+                                <span class="text-xs font-medium text-sky-400 font-mono">입주심사_규정.pdf</span>
+                                <span class="badge bg-sky-500/20 text-sky-400 border border-sky-500/30">
+                                    95%
+                                </span>
+                            </div>
+                            <p class="text-xs text-gray-400 line-clamp-2">입주기업 선정 심사 기준 및 평가 항목 상세...</p>
+                            <div class="flex items-center space-x-2 mt-2">
+                                <span class="text-xs text-gray-600 font-mono">2025-10-15</span>
+                                <span class="text-xs text-gray-600">•</span>
+                                <span class="text-xs text-gray-600 font-mono">정책문서</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-800 rounded-lg p-3 border border-gray-700 hover:border-purple-500 cursor-pointer transition">
+                            <div class="flex items-start justify-between mb-2">
+                                <span class="text-xs font-medium text-purple-400 font-mono">FAQ_입주문의.md</span>
+                                <span class="badge bg-purple-500/20 text-purple-400 border border-purple-500/30">
+                                    87%
+                                </span>
+                            </div>
+                            <p class="text-xs text-gray-400 line-clamp-2">입주 관련 자주 묻는 질문 및 답변 모음...</p>
+                            <div class="flex items-center space-x-2 mt-2">
+                                <span class="text-xs text-gray-600 font-mono">2025-12-01</span>
+                                <span class="text-xs text-gray-600">•</span>
+                                <span class="text-xs text-gray-600 font-mono">FAQ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 소스/근거 -->
+                <div>
+                    <h3 class="text-xs font-bold text-gray-500 mb-3 flex items-center font-mono">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                        </svg>
+                        근거 자료
+                    </h3>
+                    <div class="space-y-2">
+                        <div class="bg-gray-950 rounded p-3 border border-gray-800">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs text-gray-400 font-mono">재단 운영규정 제12조</span>
+                                <button class="text-emerald-400 text-xs hover:underline font-mono">보기</button>
+                            </div>
+                            <p class="text-xs text-gray-500 line-clamp-2">입주기업 선정 절차 및 심사위원회 구성...</p>
+                        </div>
+
+                        <div class="bg-gray-950 rounded p-3 border border-gray-800">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs text-gray-400 font-mono">입주계약 표준양식 v2.3</span>
+                                <button class="text-emerald-400 text-xs hover:underline font-mono">보기</button>
+                            </div>
+                            <p class="text-xs text-gray-500 line-clamp-2">입주기업과 재단 간 표준 계약서 양식...</p>
+                        </div>
+
+                        <div class="bg-gray-950 rounded p-3 border border-gray-800">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs text-gray-400 font-mono">FAQ#2025-0045</span>
+                                <button class="text-emerald-400 text-xs hover:underline font-mono">보기</button>
+                            </div>
+                            <p class="text-xs text-gray-500 line-clamp-2">바이오 스타트업 입주 조건 및 혜택...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 태그 -->
+                <div>
+                    <h3 class="text-xs font-bold text-gray-500 mb-3 flex items-center font-mono">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                        </svg>
+                        관련 태그
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="badge bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">#입주절차</span>
+                        <span class="badge bg-sky-500/20 text-sky-400 border border-sky-500/30">#바이오</span>
+                        <span class="badge bg-purple-500/20 text-purple-400 border border-purple-500/30">#스타트업</span>
+                        <span class="badge bg-amber-500/20 text-amber-400 border border-amber-500/30">#신청서류</span>
+                        <span class="badge bg-pink-500/20 text-pink-400 border border-pink-500/30">#심사평가</span>
+                        <span class="badge bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">#계약</span>
+                    </div>
+                </div>
+
+                <!-- 메타데이터 -->
+                <div class="border-t border-gray-800 pt-4">
+                    <h3 class="text-xs font-bold text-gray-500 mb-3 font-mono">응답 메타데이터</h3>
+                    <div class="bg-gray-950 rounded p-3 border border-gray-800 space-y-2 text-xs font-mono">
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">모델:</span>
+                            <span class="text-gray-400">GPT-4-Turbo</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">토큰:</span>
+                            <span class="text-gray-400">1,247</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">응답시간:</span>
+                            <span class="text-gray-400">2.3s</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">신뢰도:</span>
+                            <span class="text-emerald-400">95.3%</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">RAG 소스:</span>
+                            <span class="text-sky-400">3 docs</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 액션 -->
+                <div class="border-t border-gray-800 pt-4">
+                    <h3 class="text-xs font-bold text-gray-500 mb-3 font-mono">빠른 액션</h3>
+                    <div class="space-y-2">
+                        <button class="w-full px-3 py-2 bg-gray-800 hover:bg-gray-700 rounded border border-gray-700 text-left text-sm text-gray-300 flex items-center justify-between">
+                            <span>💾 대화 내보내기</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </button>
+                        <button class="w-full px-3 py-2 bg-gray-800 hover:bg-gray-700 rounded border border-gray-700 text-left text-sm text-gray-300 flex items-center justify-between">
+                            <span>📧 이메일 전송</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </button>
+                        <button class="w-full px-3 py-2 bg-gray-800 hover:bg-gray-700 rounded border border-gray-700 text-left text-sm text-gray-300 flex items-center justify-between">
+                            <span>🔗 링크 생성</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </aside>
+
+    </div>
+
+</body>
+</html>
