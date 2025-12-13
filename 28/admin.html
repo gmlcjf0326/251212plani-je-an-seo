@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오송첨단의료산업진흥재단 관리자 - Cyberpunk Neon</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff');
+
+        * {
+            font-family: 'GmarketSans', monospace, sans-serif;
+        }
+
+        body {
+            background: #0a0a0f;
+            background-image:
+                linear-gradient(rgba(255, 0, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { background-position: 0 0, 0 0; }
+            100% { background-position: 50px 50px, 50px 50px; }
+        }
+
+        .neon-card {
+            background: rgba(10, 10, 20, 0.9);
+            border: 2px solid #ff00ff;
+            border-radius: 1rem;
+            box-shadow:
+                0 0 20px rgba(255, 0, 255, 0.4),
+                0 0 40px rgba(0, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .neon-card:hover {
+            box-shadow:
+                0 0 30px rgba(255, 0, 255, 0.5),
+                0 0 60px rgba(0, 255, 255, 0.3);
+        }
+
+        .neon-text-pink {
+            color: #ff00ff;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.8);
+        }
+
+        .neon-text-cyan {
+            color: #00ffff;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+        }
+
+        .neon-text-white {
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+        }
+
+        .metric-card {
+            background: rgba(10, 10, 20, 0.9);
+            border: 2px solid;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: scan 3s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .metric-card.pink {
+            border-color: #ff00ff;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+        }
+
+        .metric-card.cyan {
+            border-color: #00ffff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .metric-card.purple {
+            border-color: #a000ff;
+            box-shadow: 0 0 20px rgba(160, 0, 255, 0.3);
+        }
+
+        .metric-card.blue {
+            border-color: #0080ff;
+            box-shadow: 0 0 20px rgba(0, 128, 255, 0.3);
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .tab-button {
+            background: rgba(10, 10, 20, 0.8);
+            color: #888;
+            border: 2px solid #333;
+            padding: 0.875rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, rgba(255, 0, 255, 0.3), rgba(0, 255, 255, 0.3));
+            color: #fff;
+            border-color: #ff00ff;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+        }
+
+        .tab-button:hover:not(.active) {
+            background: rgba(255, 0, 255, 0.1);
+            border-color: #ff00ff;
+            color: #ff00ff;
+        }
+
+        .data-row {
+            background: rgba(10, 10, 20, 0.8);
+            border: 1px solid #333;
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            transition: all 0.3s ease;
+        }
+
+        .data-row:hover {
+            border-color: #00ffff;
+            background: rgba(0, 255, 255, 0.05);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+        }
+
+        .neon-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.375rem 0.875rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid;
+        }
+
+        .neon-tag-pink {
+            background: rgba(255, 0, 255, 0.2);
+            border-color: #ff00ff;
+            color: #ff00ff;
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+        }
+
+        .neon-tag-cyan {
+            background: rgba(0, 255, 255, 0.2);
+            border-color: #00ffff;
+            color: #00ffff;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        .pulse-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 10px currentColor;
+            }
+            50% {
+                box-shadow: 0 0 20px currentColor;
+            }
+        }
+
+        .pulse-pink {
+            background: #ff00ff;
+            color: #ff00ff;
+        }
+
+        .hologram {
+            animation: hologramFlicker 0.1s infinite alternate;
+        }
+
+        @keyframes hologramFlicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.98; }
+        }
+
+        .glitch {
+            animation: glitch 5s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 90%, 100% { transform: translate(0, 0); }
+            92% { transform: translate(-2px, 2px); }
+            94% { transform: translate(2px, -2px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="min-h-screen p-6">
+        <div class="max-w-7xl mx-auto">
+
+            <!-- 헤더 -->
+            <div class="neon-card p-6 mb-6 hologram">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 bg-gradient-to-br from-pink-600 to-cyan-600 rounded-lg flex items-center justify-center text-4xl" style="box-shadow: 0 0 30px rgba(255, 0, 255, 0.6);">
+                            👑
+                        </div>
+                        <div>
+                            <h1 class="text-3xl font-bold neon-text-pink glitch">ADMIN.DASHBOARD</h1>
+                            <p class="neon-text-cyan flex items-center gap-2 mt-1">
+                                <span class="pulse-dot pulse-pink"></span>
+                                SYSTEM.CONTROL v2.0
+                            </p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="font-bold neon-text-white">ADMINISTRATOR</div>
+                        <div class="text-sm text-gray-500">2025-12-13 10:30</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 탭 메뉴 -->
+            <div class="neon-card p-4 mb-6">
+                <div class="flex gap-3 flex-wrap">
+                    <button class="tab-button active" onclick="showTab('overview')">
+                        📊 OVERVIEW
+                    </button>
+                    <button class="tab-button" onclick="showTab('llm')">
+                        🧠 LLM.ANALYSIS
+                    </button>
+                    <button class="tab-button" onclick="showTab('rag')">
+                        📚 DATA.CORE
+                    </button>
+                    <button class="tab-button" onclick="showTab('intent')">
+                        🎯 INTENT.SCAN
+                    </button>
+                    <button class="tab-button" onclick="showTab('qa')">
+                        💬 Q&A.LOG
+                    </button>
+                </div>
+            </div>
+
+            <!-- 대시보드 탭 -->
+            <div id="overviewTab">
+
+                <!-- 주요 메트릭 -->
+                <div class="grid grid-cols-4 gap-6 mb-6">
+                    <div class="metric-card pink">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-5xl">👥</span>
+                            <span class="neon-tag neon-tag-pink">+17.8%</span>
+                        </div>
+                        <div class="text-gray-400 font-bold mb-2">ACTIVE.USERS</div>
+                        <div class="metric-value neon-text-pink">5,247</div>
+                        <div class="text-sm text-gray-500 mt-2">THIS.WEEK</div>
+                    </div>
+
+                    <div class="metric-card cyan">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-5xl">💬</span>
+                            <span class="neon-tag neon-tag-cyan">+24.5%</span>
+                        </div>
+                        <div class="text-gray-400 font-bold mb-2">CONVERSATIONS</div>
+                        <div class="metric-value neon-text-cyan">21,847</div>
+                        <div class="text-sm text-gray-500 mt-2">THIS.WEEK</div>
+                    </div>
+
+                    <div class="metric-card purple">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-5xl">⭐</span>
+                            <span class="neon-tag-pink" style="background: rgba(160, 0, 255, 0.2); border: 1px solid #a000ff; color: #a000ff; padding: 0.375rem 0.875rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 600;">+6.2%</span>
+                        </div>
+                        <div class="text-gray-400 font-bold mb-2">SATISFACTION</div>
+                        <div class="metric-value" style="color: #a000ff; text-shadow: 0 0 10px rgba(160, 0, 255, 0.8);">97.8%</div>
+                        <div class="text-sm text-gray-500 mt-2">AVERAGE</div>
+                    </div>
+
+                    <div class="metric-card blue">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-5xl">🎯</span>
+                            <span style="background: rgba(0, 128, 255, 0.2); border: 1px solid #0080ff; color: #0080ff; padding: 0.375rem 0.875rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 600; display: inline-flex;">+8.3%</span>
+                        </div>
+                        <div class="text-gray-400 font-bold mb-2">ACCURACY</div>
+                        <div class="metric-value" style="color: #0080ff; text-shadow: 0 0 10px rgba(0, 128, 255, 0.8);">94.2%</div>
+                        <div class="text-sm text-gray-500 mt-2">RAG.BASED</div>
+                    </div>
+                </div>
+
+                <!-- 차트 -->
+                <div class="grid grid-cols-3 gap-6 mb-6">
+
+                    <div class="neon-card p-6 col-span-2">
+                        <h3 class="text-xl font-bold neon-text-white mb-6 flex items-center gap-2">
+                            <span>📈</span>
+                            TRAFFIC.ANALYSIS
+                        </h3>
+                        <canvas id="mainChart"></canvas>
+                    </div>
+
+                    <div class="neon-card p-6">
+                        <h3 class="text-xl font-bold neon-text-white mb-6 flex items-center gap-2">
+                            <span>🥧</span>
+                            CATEGORY.MAP
+                        </h3>
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+
+                </div>
+
+                <!-- 실시간 활동 -->
+                <div class="neon-card p-6 mb-6">
+                    <h3 class="text-xl font-bold neon-text-white mb-6 flex items-center gap-2">
+                        <span class="pulse-dot pulse-pink"></span>
+                        REALTIME.ACTIVITY.LOG
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="data-row">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-3xl">💬</span>
+                                    <div>
+                                        <div class="font-bold neon-text-white">ENTERPRISE.QUERY</div>
+                                        <div class="text-sm text-gray-400">USER #5247 - "바이오 스타트업 입주 조건"</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="neon-tag neon-tag-pink">입주기업</span>
+                                    <span class="text-sm text-gray-500">NOW</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="data-row">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-3xl">📋</span>
+                                    <div>
+                                        <div class="font-bold neon-text-white">SUPPORT.REQUEST</div>
+                                        <div class="text-sm text-gray-400">USER #5246 - "R&D 지원 프로그램"</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="neon-tag neon-tag-cyan">지원사업</span>
+                                    <span class="text-sm text-gray-500">2.MIN.AGO</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="data-row">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-3xl">🔬</span>
+                                    <div>
+                                        <div class="font-bold neon-text-white">LAB.ACCESS</div>
+                                        <div class="text-sm text-gray-400">USER #5245 - "전자현미경 예약"</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="neon-tag neon-tag-pink">연구시설</span>
+                                    <span class="text-sm text-gray-500">5.MIN.AGO</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 시스템 상태 -->
+                <div class="grid grid-cols-3 gap-6">
+                    <div class="neon-card p-6 text-center">
+                        <div class="text-5xl mb-3">⚡</div>
+                        <div class="font-bold text-gray-400 mb-2">RESPONSE.TIME</div>
+                        <div class="metric-value neon-text-cyan">1.1초</div>
+                        <div class="text-sm neon-text-cyan mt-2">OPTIMAL</div>
+                    </div>
+                    <div class="neon-card p-6 text-center">
+                        <div class="text-5xl mb-3">🖥️</div>
+                        <div class="font-bold text-gray-400 mb-2">SYSTEM.STATUS</div>
+                        <div class="metric-value neon-text-pink text-2xl">ONLINE</div>
+                        <div class="text-sm neon-text-pink mt-2">99.9% UPTIME</div>
+                    </div>
+                    <div class="neon-card p-6 text-center">
+                        <div class="text-5xl mb-3">💾</div>
+                        <div class="font-bold text-gray-400 mb-2">DATABASE</div>
+                        <div class="metric-value" style="color: #a000ff; text-shadow: 0 0 10px rgba(160, 0, 255, 0.8); font-size: 2rem;">ACTIVE</div>
+                        <div class="text-sm text-purple-400 mt-2">CONNECTED</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- LLM 분석 탭 -->
+            <div id="llmTab" style="display: none;">
+
+                <div class="neon-card p-6 mb-6">
+                    <h3 class="text-2xl font-bold neon-text-pink mb-6 flex items-center gap-3">
+                        <span class="text-4xl">🧠</span>
+                        NEURAL.NETWORK.MONITOR
+                    </h3>
+
+                    <div class="grid grid-cols-3 gap-6 mb-6">
+                        <div class="metric-card pink">
+                            <div class="text-5xl mb-3">⚡</div>
+                            <div class="font-bold text-gray-400 mb-2">AVG.RESPONSE</div>
+                            <div class="metric-value neon-text-pink">1.1초</div>
+                        </div>
+                        <div class="metric-card cyan">
+                            <div class="text-5xl mb-3">🎯</div>
+                            <div class="font-bold text-gray-400 mb-2">ACCURACY</div>
+                            <div class="metric-value neon-text-cyan">95.8%</div>
+                        </div>
+                        <div class="metric-card purple">
+                            <div class="text-5xl mb-3">💡</div>
+                            <div class="font-bold text-gray-400 mb-2">TOKEN.USAGE</div>
+                            <div class="metric-value text-2xl" style="color: #a000ff; text-shadow: 0 0 10px rgba(160, 0, 255, 0.8);">4.3M</div>
+                        </div>
+                    </div>
+
+                    <div class="data-row">
+                        <h4 class="font-bold text-lg neon-text-white mb-4">MODEL.CONFIG</h4>
+                        <div class="grid grid-cols-4 gap-6">
+                            <div>
+                                <div class="text-sm text-gray-400 mb-2">MODEL</div>
+                                <div class="font-bold neon-text-cyan">GPT-4 TURBO</div>
+                            </div>
+                            <div>
+                                <div class="text-sm text-gray-400 mb-2">TEMPERATURE</div>
+                                <div class="font-bold neon-text-pink">0.7</div>
+                            </div>
+                            <div>
+                                <div class="text-sm text-gray-400 mb-2">MAX.TOKENS</div>
+                                <div class="font-bold neon-text-cyan">2048</div>
+                            </div>
+                            <div>
+                                <div class="text-sm text-gray-400 mb-2">TOP.P</div>
+                                <div class="font-bold neon-text-pink">0.95</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- RAG 데이터 탭 -->
+            <div id="ragTab" style="display: none;">
+
+                <div class="neon-card p-6 mb-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-2xl font-bold neon-text-cyan flex items-center gap-3">
+                            <span class="text-4xl">📚</span>
+                            DATA.CORE.MANAGEMENT
+                        </h3>
+                        <button class="px-6 py-3 bg-gradient-to-r from-pink-600 to-cyan-600 text-white rounded-lg font-bold hover:shadow-lg transition-all" style="box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);">
+                            ➕ ADD.DATA
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-4 gap-4 mb-6">
+                        <div class="metric-card pink text-center">
+                            <div class="text-4xl mb-2">📄</div>
+                            <div class="font-bold text-gray-400 mb-1">DOCUMENTS</div>
+                            <div class="text-3xl font-bold neon-text-pink">3,547</div>
+                        </div>
+                        <div class="metric-card cyan text-center">
+                            <div class="text-4xl mb-2">🔤</div>
+                            <div class="font-bold text-gray-400 mb-1">VECTORS</div>
+                            <div class="text-3xl font-bold neon-text-cyan">72,143</div>
+                        </div>
+                        <div class="metric-card purple text-center">
+                            <div class="text-4xl mb-2">📊</div>
+                            <div class="font-bold text-gray-400 mb-1">ACCURACY</div>
+                            <div class="text-3xl font-bold" style="color: #a000ff; text-shadow: 0 0 10px rgba(160, 0, 255, 0.8);">96.8%</div>
+                        </div>
+                        <div class="metric-card blue text-center">
+                            <div class="text-4xl mb-2">⏱️</div>
+                            <div class="font-bold text-gray-400 mb-1">SEARCH.TIME</div>
+                            <div class="text-3xl font-bold" style="color: #0080ff; text-shadow: 0 0 10px rgba(0, 128, 255, 0.8);">0.14초</div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="data-row">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <span class="neon-tag neon-tag-pink">입주기업</span>
+                                    <div class="font-bold neon-text-white">ENTERPRISE.GUIDE v3.2</div>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="text-sm text-gray-400">VECTORS: 6,847</div>
+                                    <span class="neon-tag neon-tag-cyan">ACTIVE</span>
+                                    <div class="text-sm text-gray-500">2025-12-13</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="data-row">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <span class="neon-tag neon-tag-cyan">지원사업</span>
+                                    <div class="font-bold neon-text-white">R&D.SUPPORT.DATABASE</div>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="text-sm text-gray-400">VECTORS: 9,234</div>
+                                    <span class="neon-tag neon-tag-cyan">ACTIVE</span>
+                                    <div class="text-sm text-gray-500">2025-12-12</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="data-row">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <span class="neon-tag neon-tag-pink">연구시설</span>
+                                    <div class="font-bold neon-text-white">RESEARCH.LAB.MANUAL v3.0</div>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="text-sm text-gray-400">VECTORS: 5,562</div>
+                                    <span class="neon-tag neon-tag-cyan">ACTIVE</span>
+                                    <div class="text-sm text-gray-500">2025-12-11</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 의도 분석 탭 -->
+            <div id="intentTab" style="display: none;">
+
+                <div class="neon-card p-6 mb-6">
+                    <h3 class="text-2xl font-bold neon-text-white mb-6 flex items-center gap-3">
+                        <span class="text-4xl">🎯</span>
+                        INTENT.ANALYSIS.SYSTEM
+                    </h3>
+
+                    <div class="grid grid-cols-2 gap-6 mb-6">
+                        <div class="metric-card pink">
+                            <h4 class="font-bold text-lg text-gray-400 mb-4">CLASSIFICATION.ACCURACY</h4>
+                            <div class="metric-value neon-text-pink">93.5%</div>
+                            <div class="text-sm text-gray-400 mt-2">+7.2% FROM.LAST.WEEK</div>
+                        </div>
+                        <div class="metric-card cyan">
+                            <h4 class="font-bold text-lg text-gray-400 mb-4">INTENT.TYPES</h4>
+                            <div class="metric-value neon-text-cyan">22개</div>
+                            <div class="text-sm text-gray-400 mt-2">MAIN.CATEGORIES</div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="data-row">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="font-bold neon-text-white">ENTERPRISE.INFO</div>
+                                <div class="text-sm font-bold neon-text-pink">41.2%</div>
+                            </div>
+                            <div class="h-3 bg-gray-800 rounded-full overflow-hidden">
+                                <div class="h-full rounded-full" style="width: 41.2%; background: linear-gradient(90deg, #ff00ff, #ff0080); box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);"></div>
+                            </div>
+                        </div>
+
+                        <div class="data-row">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="font-bold neon-text-white">SUPPORT.PROGRAM</div>
+                                <div class="text-sm font-bold neon-text-cyan">34.8%</div>
+                            </div>
+                            <div class="h-3 bg-gray-800 rounded-full overflow-hidden">
+                                <div class="h-full rounded-full" style="width: 34.8%; background: linear-gradient(90deg, #00ffff, #0080ff); box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);"></div>
+                            </div>
+                        </div>
+
+                        <div class="data-row">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="font-bold neon-text-white">RESEARCH.LAB</div>
+                                <div class="text-sm font-bold" style="color: #a000ff; text-shadow: 0 0 10px rgba(160, 0, 255, 0.8);">17.3%</div>
+                            </div>
+                            <div class="h-3 bg-gray-800 rounded-full overflow-hidden">
+                                <div class="h-full rounded-full" style="width: 17.3%; background: linear-gradient(90deg, #a000ff, #6000ff); box-shadow: 0 0 10px rgba(160, 0, 255, 0.5);"></div>
+                            </div>
+                        </div>
+
+                        <div class="data-row">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="font-bold neon-text-white">OTHER</div>
+                                <div class="text-sm font-bold text-gray-500">6.7%</div>
+                            </div>
+                            <div class="h-3 bg-gray-800 rounded-full overflow-hidden">
+                                <div class="h-full bg-gray-600 rounded-full" style="width: 6.7%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Q&A 관리 탭 -->
+            <div id="qaTab" style="display: none;">
+
+                <div class="neon-card p-6 mb-6">
+                    <h3 class="text-xl font-bold neon-text-white mb-6 flex items-center gap-2">
+                        <span class="text-3xl">💬</span>
+                        Q&A.ARCHIVE.LOG
+                    </h3>
+
+                    <div class="space-y-4">
+                        <div class="data-row">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="font-bold neon-text-white">STARTUP.QUALIFICATION</div>
+                                <div class="text-sm text-gray-500">2025-12-13 10:28</div>
+                            </div>
+                            <div class="text-gray-400 mb-3">Q: 바이오 스타트업 입주 자격 요건</div>
+                            <div class="flex gap-2">
+                                <span class="neon-tag neon-tag-pink">입주기업</span>
+                                <span class="neon-tag neon-tag-cyan">⭐⭐⭐⭐⭐</span>
+                                <span class="neon-tag neon-tag-pink">RAG.SEARCHED</span>
+                            </div>
+                        </div>
+
+                        <div class="data-row">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="font-bold neon-text-white">R&D.SUPPORT.APPLICATION</div>
+                                <div class="text-sm text-gray-500">2025-12-13 10:22</div>
+                            </div>
+                            <div class="text-gray-400 mb-3">Q: 2025년 R&D 지원사업 신청 기간</div>
+                            <div class="flex gap-2">
+                                <span class="neon-tag neon-tag-cyan">지원사업</span>
+                                <span class="neon-tag neon-tag-cyan">⭐⭐⭐⭐</span>
+                                <span class="neon-tag neon-tag-pink">RAG.SEARCHED</span>
+                            </div>
+                        </div>
+
+                        <div class="data-row">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="font-bold neon-text-white">LAB.EQUIPMENT.BOOKING</div>
+                                <div class="text-sm text-gray-500">2025-12-13 10:15</div>
+                            </div>
+                            <div class="text-gray-400 mb-3">Q: 전자현미경 예약 방법</div>
+                            <div class="flex gap-2">
+                                <span class="neon-tag neon-tag-pink">연구시설</span>
+                                <span class="neon-tag neon-tag-cyan">⭐⭐⭐⭐⭐</span>
+                                <span class="neon-tag neon-tag-pink">RAG.SEARCHED</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            document.getElementById('overviewTab').style.display = 'none';
+            document.getElementById('llmTab').style.display = 'none';
+            document.getElementById('ragTab').style.display = 'none';
+            document.getElementById('intentTab').style.display = 'none';
+            document.getElementById('qaTab').style.display = 'none';
+
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            const tabs = { overview: 'overviewTab', llm: 'llmTab', rag: 'ragTab', intent: 'intentTab', qa: 'qaTab' };
+            document.getElementById(tabs[tabName]).style.display = 'block';
+            event.target.classList.add('active');
+        }
+
+        // 차트
+        window.addEventListener('load', function() {
+            const mainCtx = document.getElementById('mainChart').getContext('2d');
+            new Chart(mainCtx, {
+                type: 'line',
+                data: {
+                    labels: ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'],
+                    datasets: [{
+                        label: 'CONVERSATIONS',
+                        data: [3120, 3450, 3780, 3950, 4280, 4620, 4950],
+                        borderColor: '#ff00ff',
+                        backgroundColor: 'rgba(255, 0, 255, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        borderWidth: 3
+                    }, {
+                        label: 'USERS',
+                        data: [2340, 2520, 2680, 2850, 3020, 3250, 3480],
+                        borderColor: '#00ffff',
+                        backgroundColor: 'rgba(0, 255, 255, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                color: '#ffffff',
+                                font: { size: 14, family: 'GmarketSans' }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(255, 0, 255, 0.1)' },
+                            ticks: { color: '#888' }
+                        },
+                        x: {
+                            grid: { color: 'rgba(0, 255, 255, 0.1)' },
+                            ticks: { color: '#888' }
+                        }
+                    }
+                }
+            });
+
+            const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+            new Chart(categoryCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['입주기업', '지원사업', '연구시설', '임상시험', '기타'],
+                    datasets: [{
+                        data: [41.2, 34.8, 17.3, 4.5, 2.2],
+                        backgroundColor: [
+                            '#ff00ff',
+                            '#00ffff',
+                            '#a000ff',
+                            '#0080ff',
+                            '#666666'
+                        ],
+                        borderWidth: 2,
+                        borderColor: '#0a0a0f'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#ffffff',
+                                font: { size: 11, family: 'GmarketSans' },
+                                padding: 12
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

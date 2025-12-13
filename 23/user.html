@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오송첨단의료산업진흥재단 AI 챗봇 - 한국 전통</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff');
+
+        * {
+            font-family: 'GmarketSans', sans-serif;
+        }
+
+        :root {
+            --dancheong-teal: #007F7F;
+            --dancheong-red: #C8102E;
+            --dancheong-yellow: #F1B434;
+            --dancheong-beige: #F5F1E8;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dancheong-beige) 0%, #e8dfd2 100%);
+        }
+
+        /* 한국 전통 패턴 배경 */
+        .pattern-bg {
+            background-image:
+                repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(0,127,127,.03) 35px, rgba(0,127,127,.03) 70px),
+                repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(200,16,46,.03) 35px, rgba(200,16,46,.03) 70px);
+        }
+
+        .dancheong-border {
+            border-top: 4px solid var(--dancheong-red);
+            border-bottom: 2px solid var(--dancheong-yellow);
+            position: relative;
+        }
+
+        .dancheong-border::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--dancheong-teal);
+        }
+
+        .traditional-card {
+            background: white;
+            border: 3px solid var(--dancheong-teal);
+            border-radius: 0;
+            box-shadow: 8px 8px 0 rgba(0, 127, 127, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .traditional-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 10px 10px 0 rgba(0, 127, 127, 0.2);
+        }
+
+        .seal-badge {
+            width: 80px;
+            height: 80px;
+            background: var(--dancheong-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            border: 4px solid var(--dancheong-yellow);
+            box-shadow: 0 4px 15px rgba(200, 16, 46, 0.3);
+            animation: sealRotate 20s linear infinite;
+        }
+
+        @keyframes sealRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .menu-item {
+            background: linear-gradient(135deg, var(--dancheong-teal) 0%, #005f5f 100%);
+            color: white;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .menu-item:hover::before {
+            left: 100%;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 127, 127, 0.3);
+        }
+
+        .chat-bubble-user {
+            background: linear-gradient(135deg, var(--dancheong-teal) 0%, #006666 100%);
+            color: white;
+            border-radius: 20px 20px 5px 20px;
+            box-shadow: 0 4px 10px rgba(0, 127, 127, 0.2);
+        }
+
+        .chat-bubble-ai {
+            background: white;
+            border: 2px solid var(--dancheong-yellow);
+            border-radius: 20px 20px 20px 5px;
+            box-shadow: 0 4px 10px rgba(241, 180, 52, 0.2);
+        }
+
+        .traditional-divider {
+            height: 3px;
+            background: linear-gradient(90deg,
+                var(--dancheong-red) 0%,
+                var(--dancheong-yellow) 33%,
+                var(--dancheong-teal) 66%,
+                var(--dancheong-red) 100%);
+        }
+
+        .korean-ornament {
+            display: inline-block;
+            color: var(--dancheong-red);
+            font-size: 1.5rem;
+            animation: ornamentPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes ornamentPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .rag-indicator {
+            background: linear-gradient(135deg, var(--dancheong-yellow) 0%, #d9a02c 100%);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: bold;
+            color: #5a3a00;
+            box-shadow: 0 2px 8px rgba(241, 180, 52, 0.3);
+        }
+
+        .llm-badge {
+            background: var(--dancheong-red);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col pattern-bg">
+
+    <!-- 헤더 (단청 스타일) -->
+    <div class="dancheong-border bg-white shadow-xl">
+        <div class="max-w-6xl mx-auto py-6 px-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <div class="seal-badge">
+                        印
+                    </div>
+                    <div>
+                        <h1 class="text-3xl font-bold" style="color: var(--dancheong-teal);">오송첨단의료산업진흥재단</h1>
+                        <p class="text-gray-600">智慧型 對話 시스템 (AI RAG 챗봇)</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="rag-indicator">
+                        📚 RAG 검색 활성
+                    </div>
+                    <div class="llm-badge">
+                        LLM
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 메인 컨텐츠 -->
+    <div class="flex-1 overflow-y-auto p-6">
+        <div class="max-w-6xl mx-auto space-y-6">
+
+            <!-- 환영 메시지 -->
+            <div class="traditional-card p-8">
+                <div class="text-center">
+                    <div class="flex justify-center gap-3 mb-4">
+                        <span class="korean-ornament">❀</span>
+                        <h2 class="text-3xl font-bold" style="color: var(--dancheong-red);">환영합니다</h2>
+                        <span class="korean-ornament">❀</span>
+                    </div>
+                    <p class="text-xl text-gray-700 mb-4">오송첨단의료산업진흥재단 AI 어시스턴트입니다</p>
+                    <div class="traditional-divider my-4"></div>
+                    <p class="text-gray-600">입주기업, 지원사업, 연구시설 등 다양한 정보를 제공해드립니다</p>
+                </div>
+            </div>
+
+            <!-- 주요 메뉴 -->
+            <div>
+                <h3 class="text-xl font-bold mb-4 flex items-center gap-2" style="color: var(--dancheong-teal);">
+                    <span class="text-2xl">⚡</span>
+                    주요 서비스
+                </h3>
+                <div class="grid grid-cols-3 gap-4">
+                    <button class="menu-item p-6 text-center" onclick="quickQuery('입주기업')">
+                        <div class="text-5xl mb-3">🏢</div>
+                        <div class="font-bold text-xl mb-2">입주기업 안내</div>
+                        <div class="text-sm opacity-90">기업 입주 정보 및 혜택</div>
+                    </button>
+
+                    <button class="menu-item p-6 text-center" onclick="quickQuery('지원사업')">
+                        <div class="text-5xl mb-3">📋</div>
+                        <div class="font-bold text-xl mb-2">지원사업</div>
+                        <div class="text-sm opacity-90">각종 지원 프로그램 안내</div>
+                    </button>
+
+                    <button class="menu-item p-6 text-center" onclick="quickQuery('연구시설')">
+                        <div class="text-5xl mb-3">🔬</div>
+                        <div class="font-bold text-xl mb-2">연구시설</div>
+                        <div class="text-sm opacity-90">연구 인프라 이용 안내</div>
+                    </button>
+
+                    <button class="menu-item p-6 text-center" onclick="quickQuery('임상시험')">
+                        <div class="text-5xl mb-3">🧪</div>
+                        <div class="font-bold text-xl mb-2">임상시험</div>
+                        <div class="text-sm opacity-90">임상시험 지원 서비스</div>
+                    </button>
+
+                    <button class="menu-item p-6 text-center" onclick="quickQuery('네트워킹')">
+                        <div class="text-5xl mb-3">🤝</div>
+                        <div class="font-bold text-xl mb-2">네트워킹</div>
+                        <div class="text-sm opacity-90">기업 간 협력 지원</div>
+                    </button>
+
+                    <button class="menu-item p-6 text-center" onclick="quickQuery('교육프로그램')">
+                        <div class="text-5xl mb-3">📚</div>
+                        <div class="font-bold text-xl mb-2">교육 프로그램</div>
+                        <div class="text-sm opacity-90">전문 인력 양성 과정</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- AI 기술 설명 -->
+            <div class="traditional-card p-6">
+                <h3 class="text-xl font-bold mb-4 flex items-center gap-2" style="color: var(--dancheong-red);">
+                    <span class="text-2xl">🤖</span>
+                    AI 지능형 대화 시스템
+                </h3>
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="text-center p-4 bg-gray-50 rounded-lg">
+                        <div class="text-4xl mb-2">🧠</div>
+                        <div class="font-bold text-gray-800 mb-1">LLM 기반</div>
+                        <div class="text-sm text-gray-600">대규모 언어모델로 자연스러운 대화</div>
+                    </div>
+                    <div class="text-center p-4 bg-gray-50 rounded-lg">
+                        <div class="text-4xl mb-2">📊</div>
+                        <div class="font-bold text-gray-800 mb-1">RAG 검색</div>
+                        <div class="text-sm text-gray-600">학습데이터 기반 정확한 답변</div>
+                    </div>
+                    <div class="text-center p-4 bg-gray-50 rounded-lg">
+                        <div class="text-4xl mb-2">🎯</div>
+                        <div class="font-bold text-gray-800 mb-1">의도 분석</div>
+                        <div class="text-sm text-gray-600">질문 의도를 정확히 파악</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 챗 영역 -->
+            <div id="chatArea" class="traditional-card p-6" style="display: none;">
+                <h3 class="text-xl font-bold mb-4 flex items-center gap-2" style="color: var(--dancheong-teal);">
+                    <span class="text-2xl">💬</span>
+                    대화 내역
+                </h3>
+                <div class="traditional-divider mb-4"></div>
+                <div id="chatMessages" class="space-y-4 max-h-96 overflow-y-auto">
+                    <!-- 메시지가 여기에 추가됩니다 -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 입력 영역 -->
+    <div class="bg-white shadow-2xl border-t-4" style="border-top-color: var(--dancheong-teal);">
+        <div class="max-w-6xl mx-auto p-4">
+            <div class="flex gap-3">
+                <input
+                    type="text"
+                    id="messageInput"
+                    placeholder="💬 무엇을 도와드릴까요? (Enter로 전송)"
+                    class="flex-1 px-6 py-4 rounded-lg border-3 focus:outline-none text-lg"
+                    style="border: 3px solid var(--dancheong-yellow);"
+                />
+                <button
+                    onclick="sendMessage()"
+                    class="px-8 py-4 rounded-lg font-bold text-lg text-white transition-all hover:opacity-90"
+                    style="background: linear-gradient(135deg, var(--dancheong-red) 0%, #a00d24 100%);">
+                    전송 📤
+                </button>
+            </div>
+            <div class="mt-2 flex items-center gap-2 text-sm text-gray-600">
+                <span class="w-2 h-2 rounded-full" style="background: var(--dancheong-teal);"></span>
+                <span>AI가 학습데이터를 검색하여 답변합니다</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let messageCount = 0;
+
+        function quickQuery(topic) {
+            document.getElementById('messageInput').value = topic + '에 대해 자세히 알려주세요';
+            sendMessage();
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+
+            if (message === '') return;
+
+            messageCount++;
+
+            // 챗 영역 표시
+            const chatArea = document.getElementById('chatArea');
+            chatArea.style.display = 'block';
+
+            const chatMessages = document.getElementById('chatMessages');
+
+            // 사용자 메시지 추가
+            const userMessage = document.createElement('div');
+            userMessage.className = 'flex justify-end animate-fadeIn';
+            userMessage.innerHTML = `
+                <div class="chat-bubble-user px-6 py-3 max-w-md">
+                    <div class="font-bold mb-1">나</div>
+                    <div>${message}</div>
+                </div>
+            `;
+            chatMessages.appendChild(userMessage);
+
+            // AI 응답 (시뮬레이션)
+            setTimeout(() => {
+                const aiMessage = document.createElement('div');
+                aiMessage.className = 'flex justify-start animate-fadeIn';
+
+                // 의도 분석 시뮬레이션
+                const intents = ['입주기업', '지원사업', '연구시설', '임상시험', '일반문의'];
+                const randomIntent = intents[Math.floor(Math.random() * intents.length)];
+
+                aiMessage.innerHTML = `
+                    <div class="chat-bubble-ai px-6 py-3 max-w-md">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-2xl">🤖</span>
+                            <div class="font-bold" style="color: var(--dancheong-teal);">AI 어시스턴트</div>
+                        </div>
+                        <div class="mb-3 flex gap-2">
+                            <span class="text-xs px-2 py-1 rounded-full bg-yellow-100 text-yellow-800">의도: ${randomIntent}</span>
+                            <span class="text-xs px-2 py-1 rounded-full bg-blue-100 text-blue-800">RAG 검색됨</span>
+                        </div>
+                        <div class="text-gray-700 mb-3">
+                            "${message}"에 대해 안내해드리겠습니다.<br><br>
+                            오송첨단의료산업진흥재단은 의료산업 발전을 위한 다양한 지원을 제공하고 있습니다.
+                            학습된 데이터베이스에서 관련 정보를 검색하여 정확한 답변을 제공해드립니다.
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 rounded-lg text-sm font-bold text-white transition-all hover:opacity-80"
+                                    style="background: var(--dancheong-teal);" onclick="this.disabled=true; this.textContent='평가 완료 ✓'">
+                                👍 도움됨
+                            </button>
+                            <button class="px-4 py-2 rounded-lg text-sm font-bold bg-gray-300 text-gray-700 hover:bg-gray-400">
+                                👎
+                            </button>
+                            <button class="px-4 py-2 rounded-lg text-sm font-bold bg-white border-2 text-gray-700 hover:bg-gray-50"
+                                    style="border-color: var(--dancheong-yellow);">
+                                🔍 더 알아보기
+                            </button>
+                        </div>
+                    </div>
+                `;
+                chatMessages.appendChild(aiMessage);
+
+                // 스크롤 하단으로
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 1000);
+
+            input.value = '';
+
+            // 스크롤 하단으로
+            setTimeout(() => {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 100);
+        }
+
+        // Enter 키로 전송
+        document.getElementById('messageInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // 페이드인 애니메이션
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .animate-fadeIn {
+                animation: fadeIn 0.3s ease-out;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+
+</body>
+</html>
