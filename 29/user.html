@@ -3,448 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>오송첨단의료산업진흥재단 AI 챗봇 - Minimal White</title>
+    <title>오송첨단의료산업진흥재단 - 공공기관 클린 디자인</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff');
-
-        * {
-            font-family: 'GmarketSans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        }
-
-        body {
-            background: #fafafa;
-            color: #1a1a1a;
-        }
-
-        /* 미니멀 카드 */
-        .minimal-card {
-            background: #ffffff;
-            border: 1px solid #e8e8e8;
-            border-radius: 1.25rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .minimal-card:hover {
-            border-color: #d0d0d0;
-            transform: translateY(-2px);
-        }
-
-        /* 미니멀 버튼 */
-        .minimal-btn {
-            background: #1a1a1a;
-            color: #ffffff;
-            border: none;
-            padding: 0.875rem 2rem;
-            border-radius: 0.75rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .minimal-btn:hover {
-            background: #000000;
-            transform: scale(1.02);
-        }
-
-        .minimal-btn-outline {
-            background: transparent;
-            color: #1a1a1a;
-            border: 1px solid #d0d0d0;
-            padding: 0.875rem 2rem;
-            border-radius: 0.75rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .minimal-btn-outline:hover {
-            background: #f5f5f5;
-            border-color: #1a1a1a;
-        }
-
-        /* 채팅 메시지 */
-        .chat-message-user {
-            background: #1a1a1a;
-            color: #ffffff;
-            padding: 1rem 1.5rem;
-            border-radius: 1.25rem;
-            max-width: 70%;
-            margin-left: auto;
-        }
-
-        .chat-message-ai {
-            background: #f5f5f5;
-            color: #1a1a1a;
-            padding: 1rem 1.5rem;
-            border-radius: 1.25rem;
-            max-width: 70%;
-            border: 1px solid #e8e8e8;
-        }
-
-        /* 태그 */
-        .minimal-tag {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.375rem 0.875rem;
-            border-radius: 9999px;
-            font-size: 0.8125rem;
-            font-weight: 500;
-            background: #f5f5f5;
-            color: #1a1a1a;
-            border: 1px solid #e8e8e8;
-        }
-
-        /* 인풋 */
-        .minimal-input {
-            background: #ffffff;
-            border: 1px solid #d0d0d0;
-            border-radius: 0.75rem;
-            padding: 0.875rem 1.25rem;
-            width: 100%;
-            color: #1a1a1a;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .minimal-input:focus {
-            outline: none;
-            border-color: #1a1a1a;
-        }
-
-        .minimal-input::placeholder {
-            color: #9a9a9a;
-        }
-
-        /* 채팅 위젯 */
-        .chat-widget {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 420px;
-            max-height: 600px;
-            background: #ffffff;
-            border: 1px solid #e8e8e8;
-            border-radius: 1.5rem;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
-            display: none;
-            flex-direction: column;
-            z-index: 1000;
-        }
-
-        .chat-widget.active {
-            display: flex;
-        }
-
-        .widget-header {
-            background: #ffffff;
-            border-bottom: 1px solid #e8e8e8;
-            padding: 1.5rem;
-            border-radius: 1.375rem 1.375rem 0 0;
-        }
-
-        /* 애니메이션 */
-        .fade-in {
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* 호버 효과 */
-        .hover-lift {
-            transition: transform 0.3s ease;
-        }
-
-        .hover-lift:hover {
-            transform: translateY(-4px);
-        }
-
-        /* 구분선 */
-        .divider {
-            height: 1px;
-            background: #e8e8e8;
-            margin: 2rem 0;
-        }
-
-        /* 상태 표시 */
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #1a1a1a;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
+        * { font-family: 'Pretendard', sans-serif; }
+        body { background: #fafafa; }
+        .clean-card { background: white; border-radius: 12px; border: 1px solid #e5e7eb; transition: all 0.3s; }
+        .clean-card:hover { border-color: #1e40af; box-shadow: 0 4px 16px rgba(30,64,175,0.1); }
+        .gov-header { background: linear-gradient(90deg, #1e3a8a 0%, #1e40af 100%); }
+        .metric-card { background: white; border-radius: 10px; padding: 24px; border-left: 4px solid; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .clean-btn { background: linear-gradient(135deg, #1e40af, #1e3a8a); color: white; padding: 12px 28px; border-radius: 8px; font-weight: 600; border: none; transition: all 0.3s; }
+        .clean-btn:hover { box-shadow: 0 4px 16px rgba(30,64,175,0.3); transform: translateY(-2px); }
+        .badge { background: #eff6ff; color: #1e40af; padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; border: 1px solid #bfdbfe; }
     </style>
 </head>
 <body>
-
-    <div class="min-h-screen py-12 px-6">
-        <div class="max-w-6xl mx-auto">
-
-            <!-- 헤더 -->
-            <div class="minimal-card p-8 mb-12">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-5">
-                        <div class="w-14 h-14 bg-black rounded-2xl flex items-center justify-center text-3xl">
-                            🏥
-                        </div>
-                        <div>
-                            <h1 class="text-2xl font-semibold text-gray-900 mb-1">오송첨단의료산업진흥재단</h1>
-                            <p class="text-gray-500 flex items-center gap-2">
-                                <span class="status-dot"></span>
-                                AI Assistant
-                            </p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <div class="minimal-tag">LLM</div>
-                        <div class="minimal-tag">RAG</div>
-                        <div class="minimal-tag">Intent Analysis</div>
-                    </div>
+    <div class="gov-header text-white p-6">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <div class="w-14 h-14 bg-white/10 rounded-xl flex items-center justify-center text-3xl">🏥</div>
+                <div>
+                    <h1 class="text-2xl font-bold">오송첨단의료산업진흥재단</h1>
+                    <p class="text-sm text-blue-100">공공 AI 상담 서비스</p>
                 </div>
             </div>
-
-            <!-- 메인 환영 섹션 -->
-            <div class="text-center mb-20">
-                <div class="text-8xl mb-8">🤖</div>
-                <h2 class="text-5xl font-semibold text-gray-900 mb-5 tracking-tight">안녕하세요</h2>
-                <p class="text-xl text-gray-500 mb-12 leading-relaxed">
-                    오송첨단의료산업진흥재단의 AI 어시스턴트입니다<br>
-                    무엇을 도와드릴까요?
-                </p>
-                <div class="flex justify-center gap-4">
-                    <button class="minimal-btn" onclick="openChat('문의 시작')">
-                        문의하기
-                    </button>
-                    <button class="minimal-btn-outline">
-                        둘러보기
-                    </button>
-                </div>
-            </div>
-
-            <!-- 서비스 카드 -->
-            <div class="grid grid-cols-3 gap-8 mb-16">
-
-                <div class="minimal-card p-8 cursor-pointer hover-lift" onclick="openChat('입주기업')">
-                    <div class="text-5xl mb-5">🏢</div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">입주기업</h3>
-                    <p class="text-gray-500 mb-6 leading-relaxed">기업 입주 절차 및 혜택 안내</p>
-                    <button class="minimal-btn w-full">문의하기</button>
-                </div>
-
-                <div class="minimal-card p-8 cursor-pointer hover-lift" onclick="openChat('지원사업')">
-                    <div class="text-5xl mb-5">📋</div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">지원사업</h3>
-                    <p class="text-gray-500 mb-6 leading-relaxed">각종 지원 프로그램 안내</p>
-                    <button class="minimal-btn w-full">문의하기</button>
-                </div>
-
-                <div class="minimal-card p-8 cursor-pointer hover-lift" onclick="openChat('연구시설')">
-                    <div class="text-5xl mb-5">🔬</div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">연구시설</h3>
-                    <p class="text-gray-500 mb-6 leading-relaxed">첨단 연구 인프라 이용</p>
-                    <button class="minimal-btn w-full">문의하기</button>
-                </div>
-
-            </div>
-
-            <!-- 추가 서비스 -->
-            <div class="grid grid-cols-4 gap-6 mb-16">
-
-                <div class="minimal-card p-6 cursor-pointer hover-lift text-center" onclick="openChat('임상시험')">
-                    <div class="text-4xl mb-3">🧪</div>
-                    <h4 class="text-base font-semibold text-gray-900 mb-2">임상시험</h4>
-                    <p class="text-sm text-gray-500 mb-4">임상시험 지원</p>
-                    <button class="minimal-btn-outline w-full text-sm py-2">문의</button>
-                </div>
-
-                <div class="minimal-card p-6 cursor-pointer hover-lift text-center" onclick="openChat('네트워킹')">
-                    <div class="text-4xl mb-3">🤝</div>
-                    <h4 class="text-base font-semibold text-gray-900 mb-2">네트워킹</h4>
-                    <p class="text-sm text-gray-500 mb-4">기업 협력 지원</p>
-                    <button class="minimal-btn-outline w-full text-sm py-2">문의</button>
-                </div>
-
-                <div class="minimal-card p-6 cursor-pointer hover-lift text-center" onclick="openChat('교육')">
-                    <div class="text-4xl mb-3">📚</div>
-                    <h4 class="text-base font-semibold text-gray-900 mb-2">교육</h4>
-                    <p class="text-sm text-gray-500 mb-4">전문 교육 과정</p>
-                    <button class="minimal-btn-outline w-full text-sm py-2">문의</button>
-                </div>
-
-                <div class="minimal-card p-6 cursor-pointer hover-lift text-center" onclick="openChat('일반문의')">
-                    <div class="text-4xl mb-3">💬</div>
-                    <h4 class="text-base font-semibold text-gray-900 mb-2">일반문의</h4>
-                    <p class="text-sm text-gray-500 mb-4">기타 문의사항</p>
-                    <button class="minimal-btn-outline w-full text-sm py-2">문의</button>
-                </div>
-
-            </div>
-
-            <!-- AI 기술 설명 -->
-            <div class="minimal-card p-12">
-                <h3 class="text-2xl font-semibold text-gray-900 mb-10 text-center">
-                    AI Technology
-                </h3>
-                <div class="grid grid-cols-3 gap-12">
-                    <div class="text-center">
-                        <div class="text-5xl mb-5">🧠</div>
-                        <h4 class="text-lg font-semibold text-gray-900 mb-3">Language Model</h4>
-                        <p class="text-gray-500 leading-relaxed">고성능 자연어 처리 엔진</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-5xl mb-5">📊</div>
-                        <h4 class="text-lg font-semibold text-gray-900 mb-3">RAG System</h4>
-                        <p class="text-gray-500 leading-relaxed">학습 데이터 기반 검색</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-5xl mb-5">🎯</div>
-                        <h4 class="text-lg font-semibold text-gray-900 mb-3">Intent Analysis</h4>
-                        <p class="text-gray-500 leading-relaxed">질문 의도 정확 파악</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- 플로팅 챗봇 위젯 -->
-    <div id="chatWidget" class="chat-widget">
-        <div class="widget-header">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-black rounded-xl flex items-center justify-center text-2xl">
-                        🤖
-                    </div>
-                    <div>
-                        <div class="font-semibold text-gray-900">AI Assistant</div>
-                        <div class="text-xs text-gray-500 flex items-center gap-2">
-                            <span class="status-dot" style="width: 6px; height: 6px;"></span>
-                            온라인
-                        </div>
-                    </div>
-                </div>
-                <button onclick="closeChat()" class="text-gray-400 hover:text-gray-900 text-2xl transition-all">×</button>
-            </div>
-        </div>
-        <div id="chatMessages" class="flex-1 overflow-y-auto p-6 space-y-4" style="max-height: 420px; background: #fafafa;">
-            <!-- 메시지가 여기에 추가됩니다 -->
-        </div>
-        <div class="p-4 border-t border-gray-200 bg-white" style="border-radius: 0 0 1.375rem 1.375rem;">
-            <div class="flex gap-3">
-                <input
-                    type="text"
-                    id="chatInput"
-                    placeholder="메시지를 입력하세요..."
-                    class="minimal-input"
-                />
-                <button onclick="sendChatMessage()" class="minimal-btn">
-                    📤
-                </button>
+            <div class="flex gap-2">
+                <div class="badge bg-white/10 text-white border-white/20">LLM 가동</div>
+                <div class="badge bg-white/10 text-white border-white/20">RAG 활성</div>
             </div>
         </div>
     </div>
 
-    <script>
-        function openChat(topic) {
-            const widget = document.getElementById('chatWidget');
-            widget.classList.add('active');
+    <div class="max-w-7xl mx-auto p-6">
+        <div class="grid grid-cols-4 gap-5 mb-6">
+            <div class="metric-card" style="border-left-color:#2563eb;"><div class="text-sm text-gray-600 mb-1">일일 상담</div><div class="text-3xl font-bold text-blue-700">1,347</div></div>
+            <div class="metric-card" style="border-left-color:#059669;"><div class="text-sm text-gray-600 mb-1">처리율</div><div class="text-3xl font-bold text-green-700">98.2%</div></div>
+            <div class="metric-card" style="border-left-color:#0891b2;"><div class="text-sm text-gray-600 mb-1">응답시간</div><div class="text-3xl font-bold text-cyan-700">1.0초</div></div>
+            <div class="metric-card" style="border-left-color:#7c3aed;"><div class="text-sm text-gray-600 mb-1">만족도</div><div class="text-3xl font-bold text-purple-700">96.5%</div></div>
+        </div>
 
-            if (topic) {
-                setTimeout(() => {
-                    document.getElementById('chatInput').value = topic + '에 대해 알려주세요';
-                    sendChatMessage();
-                }, 300);
-            }
-        }
+        <div class="clean-card p-10 mb-6 text-center">
+            <div class="text-7xl mb-5">🤖</div>
+            <h2 class="text-3xl font-bold text-gray-900 mb-3">AI 상담 서비스</h2>
+            <p class="text-gray-600 mb-6">궁금하신 사항을 문의해 주세요</p>
+            <div class="flex justify-center gap-3">
+                <button class="clean-btn">상담 시작</button>
+                <button class="clean-btn" style="background:white;color:#1e40af;border:2px solid #1e40af;">자주 묻는 질문</button>
+            </div>
+        </div>
 
-        function closeChat() {
-            const widget = document.getElementById('chatWidget');
-            widget.classList.remove('active');
-        }
-
-        function sendChatMessage() {
-            const input = document.getElementById('chatInput');
-            const message = input.value.trim();
-
-            if (message === '') return;
-
-            const chatMessages = document.getElementById('chatMessages');
-
-            // 사용자 메시지
-            const userMsg = document.createElement('div');
-            userMsg.className = 'fade-in';
-            userMsg.innerHTML = `
-                <div class="chat-message-user">
-                    ${message}
-                </div>
-            `;
-            chatMessages.appendChild(userMsg);
-
-            input.value = '';
-
-            // AI 응답
-            setTimeout(() => {
-                const intents = ['입주기업', '지원사업', '연구시설', '임상시험', '일반문의'];
-                const randomIntent = intents[Math.floor(Math.random() * intents.length)];
-
-                const aiMsg = document.createElement('div');
-                aiMsg.className = 'fade-in';
-                aiMsg.innerHTML = `
-                    <div class="chat-message-ai">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="text-xl">🤖</span>
-                            <span class="font-semibold text-gray-900">AI Assistant</span>
-                        </div>
-                        <div class="mb-3 flex gap-2 flex-wrap">
-                            <span class="minimal-tag text-xs">의도: ${randomIntent}</span>
-                            <span class="minimal-tag text-xs">RAG ✓</span>
-                            <span class="minimal-tag text-xs">LLM ✓</span>
-                        </div>
-                        <div class="text-gray-900 leading-relaxed">
-                            "${message}"에 대해 안내해드리겠습니다.<br><br>
-                            오송첨단의료산업진흥재단은 의료산업 발전을 위한 다양한 지원을 제공하고 있습니다.
-                            학습된 데이터베이스에서 정확한 정보를 검색하여 답변드립니다.
-                        </div>
-                        <div class="mt-4 flex gap-2">
-                            <button class="minimal-btn-outline text-sm px-4 py-2"
-                                    onclick="this.disabled=true; this.textContent='✓ 완료'">
-                                👍 도움됨
-                            </button>
-                            <button class="minimal-btn-outline text-sm px-4 py-2">
-                                👎 재질문
-                            </button>
-                        </div>
-                    </div>
-                `;
-                chatMessages.appendChild(aiMsg);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            }, 800);
-
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        // Enter 키로 전송
-        document.getElementById('chatInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                sendChatMessage();
-            }
-        });
-    </script>
-
+        <div class="grid grid-cols-3 gap-6">
+            <div class="clean-card p-6 text-center">
+                <div class="w-16 h-16 mx-auto mb-4 bg-blue-50 rounded-xl flex items-center justify-center text-4xl">🏢</div>
+                <h3 class="text-xl font-bold mb-2">입주기업</h3>
+                <p class="text-sm text-gray-600">입주 절차 및 혜택</p>
+            </div>
+            <div class="clean-card p-6 text-center">
+                <div class="w-16 h-16 mx-auto mb-4 bg-green-50 rounded-xl flex items-center justify-center text-4xl">📋</div>
+                <h3 class="text-xl font-bold mb-2">지원사업</h3>
+                <p class="text-sm text-gray-600">R&D 및 사업화</p>
+            </div>
+            <div class="clean-card p-6 text-center">
+                <div class="w-16 h-16 mx-auto mb-4 bg-cyan-50 rounded-xl flex items-center justify-center text-4xl">🔬</div>
+                <h3 class="text-xl font-bold mb-2">연구시설</h3>
+                <p class="text-sm text-gray-600">첨단 연구 인프라</p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

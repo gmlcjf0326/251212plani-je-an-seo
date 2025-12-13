@@ -3,622 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>오송첨단의료산업진흥재단 관리자 - Minimal White</title>
+    <title>관리자 - 공공기관 클린</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff');
-
-        * {
-            font-family: 'GmarketSans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        }
-
-        body {
-            background: #fafafa;
-            color: #1a1a1a;
-        }
-
-        .minimal-card {
-            background: #ffffff;
-            border: 1px solid #e8e8e8;
-            border-radius: 1.25rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .minimal-card:hover {
-            border-color: #d0d0d0;
-        }
-
-        .metric-card {
-            background: #ffffff;
-            border: 1px solid #e8e8e8;
-            border-radius: 1.25rem;
-            padding: 2rem;
-            transition: all 0.3s ease;
-        }
-
-        .metric-card:hover {
-            border-color: #1a1a1a;
-            transform: translateY(-2px);
-        }
-
-        .metric-value {
-            font-size: 2.5rem;
-            font-weight: 600;
-            color: #1a1a1a;
-        }
-
-        .tab-button {
-            background: transparent;
-            color: #6b7280;
-            border: 1px solid transparent;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.75rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .tab-button.active {
-            background: #1a1a1a;
-            color: #ffffff;
-        }
-
-        .tab-button:hover:not(.active) {
-            background: #f5f5f5;
-            color: #1a1a1a;
-        }
-
-        .data-row {
-            background: #ffffff;
-            border: 1px solid #e8e8e8;
-            border-radius: 0.875rem;
-            padding: 1.25rem;
-            transition: all 0.3s ease;
-        }
-
-        .data-row:hover {
-            border-color: #d0d0d0;
-            background: #fafafa;
-        }
-
-        .minimal-tag {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.375rem 0.875rem;
-            border-radius: 9999px;
-            font-size: 0.8125rem;
-            font-weight: 500;
-            background: #f5f5f5;
-            color: #1a1a1a;
-            border: 1px solid #e8e8e8;
-        }
-
-        .minimal-btn {
-            background: #1a1a1a;
-            color: #ffffff;
-            border: none;
-            padding: 0.875rem 2rem;
-            border-radius: 0.75rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .minimal-btn:hover {
-            background: #000000;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #1a1a1a;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
-
-        .divider {
-            height: 1px;
-            background: #e8e8e8;
-            margin: 2rem 0;
-        }
+        * { font-family: 'Pretendard', sans-serif; }
+        body { background: #fafafa; }
+        .clean-card { background: white; border-radius: 12px; border: 1px solid #e5e7eb; }
+        .metric-card { background: white; border-radius: 10px; padding: 24px; border-left: 4px solid; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .tab-btn { background: white; color: #64748b; border: 1px solid #e5e7eb; padding: 10px 20px; border-radius: 8px; font-weight: 600; transition: all 0.3s; }
+        .tab-btn.active { background: linear-gradient(135deg, #1e40af, #1e3a8a); color: white; border-color: #1e40af; }
     </style>
 </head>
-<body>
-
-    <div class="min-h-screen py-12 px-6">
-        <div class="max-w-7xl mx-auto">
-
-            <!-- 헤더 -->
-            <div class="minimal-card p-8 mb-12">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-5">
-                        <div class="w-14 h-14 bg-black rounded-2xl flex items-center justify-center text-3xl">
-                            👑
-                        </div>
-                        <div>
-                            <h1 class="text-2xl font-semibold text-gray-900 mb-1">관리자 대시보드</h1>
-                            <p class="text-gray-500 flex items-center gap-2">
-                                <span class="status-dot"></span>
-                                System Management
-                            </p>
-                        </div>
-                    </div>
-                    <div class="text-right">
-                        <div class="font-semibold text-gray-900">관리자</div>
-                        <div class="text-sm text-gray-500">2025-12-13 10:30</div>
-                    </div>
+<body class="p-6">
+    <div class="clean-card p-6 mb-6">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <div class="w-14 h-14 bg-gradient-to-br from-blue-700 to-blue-900 rounded-xl flex items-center justify-center text-3xl">👑</div>
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900">클린 관리자 대시보드</h1>
+                    <p class="text-sm text-gray-600">통합 운영 관리</p>
                 </div>
             </div>
-
-            <!-- 탭 메뉴 -->
-            <div class="minimal-card p-3 mb-12">
-                <div class="flex gap-2">
-                    <button class="tab-button active" onclick="showTab('overview')">
-                        대시보드
-                    </button>
-                    <button class="tab-button" onclick="showTab('llm')">
-                        LLM 분석
-                    </button>
-                    <button class="tab-button" onclick="showTab('rag')">
-                        RAG 데이터
-                    </button>
-                    <button class="tab-button" onclick="showTab('intent')">
-                        의도분석
-                    </button>
-                    <button class="tab-button" onclick="showTab('qa')">
-                        Q&A 관리
-                    </button>
-                </div>
+            <div class="text-right">
+                <div class="font-bold text-gray-900">관리자</div>
+                <div class="text-sm text-gray-600">2025-12-13 10:30</div>
             </div>
-
-            <!-- 대시보드 탭 -->
-            <div id="overviewTab">
-
-                <!-- 주요 메트릭 -->
-                <div class="grid grid-cols-4 gap-6 mb-12">
-                    <div class="metric-card">
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-4xl">👥</span>
-                            <span class="minimal-tag">+14.2%</span>
-                        </div>
-                        <div class="text-gray-500 text-sm mb-2">활성 사용자</div>
-                        <div class="metric-value">4,582</div>
-                    </div>
-
-                    <div class="metric-card">
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-4xl">💬</span>
-                            <span class="minimal-tag">+21.8%</span>
-                        </div>
-                        <div class="text-gray-500 text-sm mb-2">총 대화 수</div>
-                        <div class="metric-value">18,947</div>
-                    </div>
-
-                    <div class="metric-card">
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-4xl">⭐</span>
-                            <span class="minimal-tag">+5.3%</span>
-                        </div>
-                        <div class="text-gray-500 text-sm mb-2">평균 만족도</div>
-                        <div class="metric-value">96.2%</div>
-                    </div>
-
-                    <div class="metric-card">
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-4xl">🎯</span>
-                            <span class="minimal-tag">+6.7%</span>
-                        </div>
-                        <div class="text-gray-500 text-sm mb-2">응답 정확도</div>
-                        <div class="metric-value">93.5%</div>
-                    </div>
-                </div>
-
-                <!-- 차트 -->
-                <div class="grid grid-cols-3 gap-6 mb-12">
-
-                    <div class="minimal-card p-8 col-span-2">
-                        <h3 class="text-lg font-semibold text-gray-900 mb-8">대화량 및 사용자 추이</h3>
-                        <canvas id="mainChart"></canvas>
-                    </div>
-
-                    <div class="minimal-card p-8">
-                        <h3 class="text-lg font-semibold text-gray-900 mb-8">카테고리 분포</h3>
-                        <canvas id="categoryChart"></canvas>
-                    </div>
-
-                </div>
-
-                <!-- 실시간 활동 -->
-                <div class="minimal-card p-8">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-6">실시간 활동 로그</h3>
-                    <div class="space-y-3">
-                        <div class="data-row">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-3">
-                                    <span class="text-2xl">💬</span>
-                                    <div>
-                                        <div class="font-semibold text-gray-900">입주기업 문의</div>
-                                        <div class="text-sm text-gray-500">사용자 #4582 - "바이오 스타트업 입주 조건"</div>
-                                    </div>
-                                </div>
-                                <div class="flex items-center gap-3">
-                                    <span class="minimal-tag">입주기업</span>
-                                    <span class="text-sm text-gray-500">방금 전</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="data-row">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-3">
-                                    <span class="text-2xl">📋</span>
-                                    <div>
-                                        <div class="font-semibold text-gray-900">지원사업 안내</div>
-                                        <div class="text-sm text-gray-500">사용자 #4581 - "R&D 지원 프로그램"</div>
-                                    </div>
-                                </div>
-                                <div class="flex items-center gap-3">
-                                    <span class="minimal-tag">지원사업</span>
-                                    <span class="text-sm text-gray-500">2분 전</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="data-row">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-3">
-                                    <span class="text-2xl">🔬</span>
-                                    <div>
-                                        <div class="font-semibold text-gray-900">연구시설 이용</div>
-                                        <div class="text-sm text-gray-500">사용자 #4580 - "전자현미경 예약"</div>
-                                    </div>
-                                </div>
-                                <div class="flex items-center gap-3">
-                                    <span class="minimal-tag">연구시설</span>
-                                    <span class="text-sm text-gray-500">5분 전</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- LLM 분석 탭 -->
-            <div id="llmTab" style="display: none;">
-
-                <div class="minimal-card p-8 mb-12">
-                    <h3 class="text-2xl font-semibold text-gray-900 mb-8">LLM 성능 모니터링</h3>
-
-                    <div class="grid grid-cols-3 gap-6 mb-8">
-                        <div class="metric-card">
-                            <div class="text-4xl mb-4">⚡</div>
-                            <div class="text-gray-500 text-sm mb-2">평균 응답 시간</div>
-                            <div class="metric-value">1.3초</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="text-4xl mb-4">🎯</div>
-                            <div class="text-gray-500 text-sm mb-2">응답 정확도</div>
-                            <div class="metric-value">94.8%</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="text-4xl mb-4">💡</div>
-                            <div class="text-gray-500 text-sm mb-2">토큰 사용량</div>
-                            <div class="metric-value text-2xl">4.1M</div>
-                        </div>
-                    </div>
-
-                    <div class="data-row">
-                        <h4 class="font-semibold text-gray-900 mb-6">모델 설정</h4>
-                        <div class="grid grid-cols-4 gap-6">
-                            <div>
-                                <div class="text-sm text-gray-500 mb-2">사용 모델</div>
-                                <div class="font-semibold text-gray-900">GPT-4 Turbo</div>
-                            </div>
-                            <div>
-                                <div class="text-sm text-gray-500 mb-2">Temperature</div>
-                                <div class="font-semibold text-gray-900">0.7</div>
-                            </div>
-                            <div>
-                                <div class="text-sm text-gray-500 mb-2">Max Tokens</div>
-                                <div class="font-semibold text-gray-900">2048</div>
-                            </div>
-                            <div>
-                                <div class="text-sm text-gray-500 mb-2">Top P</div>
-                                <div class="font-semibold text-gray-900">0.95</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- RAG 데이터 탭 -->
-            <div id="ragTab" style="display: none;">
-
-                <div class="minimal-card p-8 mb-12">
-                    <div class="flex items-center justify-between mb-8">
-                        <h3 class="text-2xl font-semibold text-gray-900">학습 데이터 관리</h3>
-                        <button class="minimal-btn">
-                            데이터 추가
-                        </button>
-                    </div>
-
-                    <div class="grid grid-cols-4 gap-4 mb-8">
-                        <div class="metric-card text-center">
-                            <div class="text-3xl mb-2">📄</div>
-                            <div class="text-gray-500 text-sm mb-1">총 문서</div>
-                            <div class="text-2xl font-semibold text-gray-900">2,947</div>
-                        </div>
-                        <div class="metric-card text-center">
-                            <div class="text-3xl mb-2">🔤</div>
-                            <div class="text-gray-500 text-sm mb-1">임베딩 벡터</div>
-                            <div class="text-2xl font-semibold text-gray-900">63,124</div>
-                        </div>
-                        <div class="metric-card text-center">
-                            <div class="text-3xl mb-2">📊</div>
-                            <div class="text-gray-500 text-sm mb-1">검색 정확도</div>
-                            <div class="text-2xl font-semibold text-gray-900">95.3%</div>
-                        </div>
-                        <div class="metric-card text-center">
-                            <div class="text-3xl mb-2">⏱️</div>
-                            <div class="text-gray-500 text-sm mb-1">검색 시간</div>
-                            <div class="text-2xl font-semibold text-gray-900">0.17초</div>
-                        </div>
-                    </div>
-
-                    <div class="space-y-3">
-                        <div class="data-row">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-3">
-                                    <span class="minimal-tag">입주기업</span>
-                                    <div class="font-semibold text-gray-900">입주 기업 안내서 v2.9</div>
-                                </div>
-                                <div class="flex items-center gap-4">
-                                    <div class="text-sm text-gray-500">벡터: 6,024</div>
-                                    <span class="minimal-tag">활성</span>
-                                    <div class="text-sm text-gray-500">2025-12-12</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="data-row">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-3">
-                                    <span class="minimal-tag">지원사업</span>
-                                    <div class="font-semibold text-gray-900">R&D 지원사업 가이드</div>
-                                </div>
-                                <div class="flex items-center gap-4">
-                                    <div class="text-sm text-gray-500">벡터: 7,458</div>
-                                    <span class="minimal-tag">활성</span>
-                                    <div class="text-sm text-gray-500">2025-12-11</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="data-row">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-3">
-                                    <span class="minimal-tag">연구시설</span>
-                                    <div class="font-semibold text-gray-900">연구시설 이용 매뉴얼</div>
-                                </div>
-                                <div class="flex items-center gap-4">
-                                    <div class="text-sm text-gray-500">벡터: 4,735</div>
-                                    <span class="minimal-tag">활성</span>
-                                    <div class="text-sm text-gray-500">2025-12-10</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- 의도 분석 탭 -->
-            <div id="intentTab" style="display: none;">
-
-                <div class="minimal-card p-8 mb-12">
-                    <h3 class="text-2xl font-semibold text-gray-900 mb-8">사용자 의도 분석</h3>
-
-                    <div class="grid grid-cols-2 gap-6 mb-8">
-                        <div class="metric-card">
-                            <h4 class="font-semibold text-gray-900 mb-4">의도 분류 정확도</h4>
-                            <div class="metric-value">92.3%</div>
-                            <div class="text-sm text-gray-500 mt-2">지난 주 대비 +5.8%</div>
-                        </div>
-                        <div class="metric-card">
-                            <h4 class="font-semibold text-gray-900 mb-4">분류된 의도 유형</h4>
-                            <div class="metric-value">20개</div>
-                            <div class="text-sm text-gray-500 mt-2">주요 카테고리</div>
-                        </div>
-                    </div>
-
-                    <div class="space-y-4">
-                        <div>
-                            <div class="flex items-center justify-between mb-3">
-                                <div class="font-semibold text-gray-900">입주기업 정보</div>
-                                <div class="text-sm font-semibold text-gray-900">40.5%</div>
-                            </div>
-                            <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                                <div class="h-full bg-black rounded-full" style="width: 40.5%;"></div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div class="flex items-center justify-between mb-3">
-                                <div class="font-semibold text-gray-900">지원사업 안내</div>
-                                <div class="text-sm font-semibold text-gray-900">33.2%</div>
-                            </div>
-                            <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                                <div class="h-full bg-black rounded-full" style="width: 33.2%;"></div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div class="flex items-center justify-between mb-3">
-                                <div class="font-semibold text-gray-900">연구시설 이용</div>
-                                <div class="text-sm font-semibold text-gray-900">18.5%</div>
-                            </div>
-                            <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                                <div class="h-full bg-black rounded-full" style="width: 18.5%;"></div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div class="flex items-center justify-between mb-3">
-                                <div class="font-semibold text-gray-900">기타</div>
-                                <div class="text-sm font-semibold text-gray-500">7.8%</div>
-                            </div>
-                            <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                                <div class="h-full bg-gray-400 rounded-full" style="width: 7.8%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Q&A 관리 탭 -->
-            <div id="qaTab" style="display: none;">
-
-                <div class="minimal-card p-8">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-6">최근 질의응답</h3>
-
-                    <div class="space-y-4">
-                        <div class="data-row">
-                            <div class="flex items-center justify-between mb-3">
-                                <div class="font-semibold text-gray-900">입주 자격 조건</div>
-                                <div class="text-sm text-gray-500">2025-12-13 10:28</div>
-                            </div>
-                            <div class="text-gray-600 mb-3">Q: 바이오 스타트업 입주 자격 요건</div>
-                            <div class="flex gap-2">
-                                <span class="minimal-tag">입주기업</span>
-                                <span class="minimal-tag">만족도: ⭐⭐⭐⭐⭐</span>
-                                <span class="minimal-tag">RAG 검색됨</span>
-                            </div>
-                        </div>
-
-                        <div class="data-row">
-                            <div class="flex items-center justify-between mb-3">
-                                <div class="font-semibold text-gray-900">R&D 지원 신청</div>
-                                <div class="text-sm text-gray-500">2025-12-13 10:22</div>
-                            </div>
-                            <div class="text-gray-600 mb-3">Q: 2025년 R&D 지원사업 신청 기간</div>
-                            <div class="flex gap-2">
-                                <span class="minimal-tag">지원사업</span>
-                                <span class="minimal-tag">만족도: ⭐⭐⭐⭐</span>
-                                <span class="minimal-tag">RAG 검색됨</span>
-                            </div>
-                        </div>
-
-                        <div class="data-row">
-                            <div class="flex items-center justify-between mb-3">
-                                <div class="font-semibold text-gray-900">연구 장비 예약</div>
-                                <div class="text-sm text-gray-500">2025-12-13 10:15</div>
-                            </div>
-                            <div class="text-gray-600 mb-3">Q: 전자현미경 사용 예약 방법</div>
-                            <div class="flex gap-2">
-                                <span class="minimal-tag">연구시설</span>
-                                <span class="minimal-tag">만족도: ⭐⭐⭐⭐⭐</span>
-                                <span class="minimal-tag">RAG 검색됨</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
         </div>
     </div>
 
+    <div class="clean-card p-4 mb-6 flex gap-3">
+        <button class="tab-btn active" onclick="showTab('overview')">📊 대시보드</button>
+        <button class="tab-btn" onclick="showTab('llm')">🧠 LLM</button>
+        <button class="tab-btn" onclick="showTab('rag')">📚 RAG</button>
+        <button class="tab-btn" onclick="showTab('intent')">🎯 분석</button>
+        <button class="tab-btn" onclick="showTab('qa')">💬 Q&A</button>
+    </div>
+
+    <div id="overviewTab">
+        <div class="grid grid-cols-4 gap-5 mb-6">
+            <div class="metric-card" style="border-left-color:#2563eb;"><div class="text-sm text-gray-600 mb-2">사용자</div><div class="text-3xl font-bold text-blue-700">5,484</div><div class="text-xs text-green-600 mt-1">▲ 20.2%</div></div>
+            <div class="metric-card" style="border-left-color:#059669;"><div class="text-sm text-gray-600 mb-2">상담</div><div class="text-3xl font-bold text-green-700">22,147</div><div class="text-xs text-green-600 mt-1">▲ 26.8%</div></div>
+            <div class="metric-card" style="border-left-color:#0891b2;"><div class="text-sm text-gray-600 mb-2">만족도</div><div class="text-3xl font-bold text-cyan-700">98.2%</div><div class="text-xs text-green-600 mt-1">▲ 7.3%</div></div>
+            <div class="metric-card" style="border-left-color:#7c3aed;"><div class="text-sm text-gray-600 mb-2">정확도</div><div class="text-3xl font-bold text-purple-700">97.2%</div><div class="text-xs text-green-600 mt-1">▲ 9.1%</div></div>
+        </div>
+        <div class="grid grid-cols-3 gap-6">
+            <div class="clean-card p-6 col-span-2"><h3 class="text-lg font-bold mb-4">📈 추이</h3><canvas id="mainChart"></canvas></div>
+            <div class="clean-card p-6"><h3 class="text-lg font-bold mb-4">🥧 분포</h3><canvas id="categoryChart"></canvas></div>
+        </div>
+    </div>
+
+    <div id="llmTab" style="display:none;"><div class="clean-card p-6"><h3 class="text-xl font-bold mb-6">🧠 LLM</h3><div class="grid grid-cols-3 gap-6"><div class="metric-card" style="border-left-color:#2563eb;"><div class="text-4xl mb-3">⚡</div><div class="text-sm text-gray-600 mb-1">응답시간</div><div class="text-3xl font-bold text-blue-700">1.0초</div></div><div class="metric-card" style="border-left-color:#059669;"><div class="text-4xl mb-3">🎯</div><div class="text-sm text-gray-600 mb-1">정확도</div><div class="text-3xl font-bold text-green-700">98.2%</div></div><div class="metric-card" style="border-left-color:#0891b2;"><div class="text-4xl mb-3">💡</div><div class="text-sm text-gray-600 mb-1">토큰</div><div class="text-3xl font-bold text-cyan-700">5.1M</div></div></div></div></div>
+    <div id="ragTab" style="display:none;"><div class="clean-card p-6"><h3 class="text-xl font-bold mb-6">📚 RAG</h3><div class="grid grid-cols-4 gap-4"><div class="metric-card text-center" style="border-left:none;border-top:4px solid #2563eb;"><div class="text-3xl mb-2">📄</div><div class="text-xs text-gray-600 mb-1">문서</div><div class="text-2xl font-bold text-blue-700">4,047</div></div><div class="metric-card text-center" style="border-left:none;border-top:4px solid #059669;"><div class="text-3xl mb-2">🔤</div><div class="text-xs text-gray-600 mb-1">벡터</div><div class="text-2xl font-bold text-green-700">82,534</div></div><div class="metric-card text-center" style="border-left:none;border-top:4px solid #0891b2;"><div class="text-3xl mb-2">📊</div><div class="text-xs text-gray-600 mb-1">정확도</div><div class="text-2xl font-bold text-cyan-700">98.8%</div></div><div class="metric-card text-center" style="border-left:none;border-top:4px solid #7c3aed;"><div class="text-3xl mb-2">⏱️</div><div class="text-xs text-gray-600 mb-1">속도</div><div class="text-2xl font-bold text-purple-700">0.10초</div></div></div></div></div>
+    <div id="intentTab" style="display:none;"><div class="clean-card p-6"><h3 class="text-xl font-bold mb-6">🎯 분석</h3><div class="grid grid-cols-2 gap-6"><div class="metric-card" style="border-left-color:#2563eb;"><h4 class="font-bold mb-2">정확도</h4><div class="text-3xl font-bold text-blue-700">97.5%</div></div><div class="metric-card" style="border-left-color:#059669;"><h4 class="font-bold mb-2">유형</h4><div class="text-3xl font-bold text-green-700">25개</div></div></div></div></div>
+    <div id="qaTab" style="display:none;"><div class="clean-card p-6"><h3 class="text-xl font-bold mb-6">💬 Q&A</h3><div class="p-4 bg-gray-50 rounded-lg border border-gray-200"><div class="font-bold mb-1">최근 문의</div><div class="text-sm text-gray-600">Q: 입주 조건은?</div></div></div></div>
+
     <script>
-        function showTab(tabName) {
-            document.getElementById('overviewTab').style.display = 'none';
-            document.getElementById('llmTab').style.display = 'none';
-            document.getElementById('ragTab').style.display = 'none';
-            document.getElementById('intentTab').style.display = 'none';
-            document.getElementById('qaTab').style.display = 'none';
-
-            document.querySelectorAll('.tab-button').forEach(btn => {
-                btn.classList.remove('active');
-            });
-
-            const tabs = { overview: 'overviewTab', llm: 'llmTab', rag: 'ragTab', intent: 'intentTab', qa: 'qaTab' };
-            document.getElementById(tabs[tabName]).style.display = 'block';
-            event.target.classList.add('active');
-        }
-
-        // 차트
-        window.addEventListener('load', function() {
-            const mainCtx = document.getElementById('mainChart').getContext('2d');
-            new Chart(mainCtx, {
-                type: 'line',
-                data: {
-                    labels: ['월', '화', '수', '목', '금', '토', '일'],
-                    datasets: [{
-                        label: '대화 수',
-                        data: [2520, 2780, 2950, 3180, 3420, 3650, 3880],
-                        borderColor: '#1a1a1a',
-                        backgroundColor: 'rgba(26, 26, 26, 0.05)',
-                        tension: 0.4,
-                        fill: true,
-                        borderWidth: 2
-                    }, {
-                        label: '사용자 수',
-                        data: [2020, 2180, 2340, 2520, 2680, 2850, 3020],
-                        borderColor: '#6b7280',
-                        backgroundColor: 'rgba(107, 114, 128, 0.05)',
-                        tension: 0.4,
-                        fill: true,
-                        borderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            display: true,
-                            labels: { font: { size: 13, family: 'GmarketSans' } }
-                        }
-                    },
-                    scales: { y: { beginAtZero: true } }
-                }
-            });
-
-            const categoryCtx = document.getElementById('categoryChart').getContext('2d');
-            new Chart(categoryCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['입주기업', '지원사업', '연구시설', '임상시험', '기타'],
-                    datasets: [{
-                        data: [40.5, 33.2, 18.5, 5.2, 2.6],
-                        backgroundColor: [
-                            '#1a1a1a',
-                            '#4b5563',
-                            '#6b7280',
-                            '#9ca3af',
-                            '#d1d5db'
-                        ],
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: { font: { size: 11, family: 'GmarketSans' }, padding: 12 }
-                        }
-                    }
-                }
-            });
+        function showTab(tab) {['overviewTab','llmTab','ragTab','intentTab','qaTab'].forEach(id => document.getElementById(id).style.display='none');document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));document.getElementById(tab+'Tab').style.display='block';event.target.classList.add('active');}
+        window.addEventListener('load', () => {
+            new Chart(document.getElementById('mainChart'), {type: 'line',data: {labels: ['월','화','수','목','금','토','일'],datasets: [{label: '상담', data: [3600,3920,4280,4520,4880,5280,5620], borderColor: '#1e40af', backgroundColor: 'rgba(30,64,175,0.1)', tension: 0.4, fill: true}]},options: {responsive: true, plugins: {legend: {display: true}}, scales: {y: {beginAtZero: true}}}});
+            new Chart(document.getElementById('categoryChart'), {type: 'doughnut',data: {labels: ['입주','지원','연구','임상','기타'],datasets: [{data: [46,38,13,2,1], backgroundColor: ['#2563eb','#059669','#0891b2','#7c3aed','#6b7280']}]},options: {responsive: true, plugins: {legend: {position: 'bottom'}}}});
         });
     </script>
-
 </body>
 </html>
