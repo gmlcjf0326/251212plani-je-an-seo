@@ -3,586 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>오송첨단의료산업진흥재단 AI 챗봇 - 모듈러 그리드</title>
+    <title>오송첨단의료산업진흥재단 AI 챗봇 - 공공기관 포털</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff');
-
-        * {
-            font-family: 'GmarketSans', sans-serif;
-        }
-
-        body {
-            background: #f0f4f8;
-        }
-
-        /* 그리드 시스템 */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 1rem;
-        }
-
-        .grid-item {
-            background: white;
-            border-radius: 1rem;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .grid-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
-        }
-
-        .grid-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-        }
-
-        /* 드래그 가능 느낌 */
-        .module-draggable {
-            cursor: move;
-            user-select: none;
-        }
-
-        .module-draggable:active {
-            cursor: grabbing;
-        }
-
-        .module-handle {
-            cursor: grab;
-            padding: 0.5rem;
-            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
-            border-radius: 0.5rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.25rem;
-        }
-
-        .module-handle:active {
-            cursor: grabbing;
-        }
-
-        .handle-dot {
-            width: 4px;
-            height: 4px;
-            background: #9ca3af;
-            border-radius: 50%;
-        }
-
-        /* 모듈 스타일 */
-        .module-card {
-            background: white;
-            border: 2px solid #e5e7eb;
-            border-radius: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .module-card:hover {
-            border-color: #3b82f6;
-            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.15);
-        }
-
-        .module-header {
-            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
-            border-bottom: 2px solid #e5e7eb;
-            padding: 1rem;
-            border-radius: 0.875rem 0.875rem 0 0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .quick-action-btn {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            color: white;
-            border: none;
-            padding: 1rem 1.5rem;
-            border-radius: 0.75rem;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-        }
-
-        .quick-action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
-        }
-
-        .tag {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.375rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: 600;
-        }
-
-        .tag-blue { background: #dbeafe; color: #1e40af; }
-        .tag-purple { background: #ede9fe; color: #6b21a8; }
-        .tag-pink { background: #fce7f3; color: #9d174d; }
-        .tag-green { background: #dcfce7; color: #15803d; }
-
-        .chat-widget {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 400px;
-            max-height: 600px;
-            background: white;
-            border-radius: 1.5rem;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            display: none;
-            flex-direction: column;
-            z-index: 1000;
-        }
-
-        .chat-widget.active {
-            display: flex;
-        }
-
-        .widget-header {
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-            color: white;
-            padding: 1.25rem;
-            border-radius: 1.375rem 1.375rem 0 0;
-        }
-
-        .chat-message-user {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            color: white;
-            padding: 0.875rem 1.25rem;
-            border-radius: 1.25rem 1.25rem 0.25rem 1.25rem;
-            max-width: 70%;
-            margin-left: auto;
-        }
-
-        .chat-message-ai {
-            background: #f3f4f6;
-            color: #1f2937;
-            padding: 0.875rem 1.25rem;
-            border-radius: 1.25rem 1.25rem 1.25rem 0.25rem;
-            max-width: 70%;
-        }
-
-        .status-indicator {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            display: inline-block;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .status-online { background: #22c55e; }
-        .status-processing { background: #3b82f6; }
-
-        /* 커스터마이즈 버튼 */
-        .customize-btn {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            background: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 9999px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            font-weight: bold;
-            color: #3b82f6;
-            border: 2px solid #e5e7eb;
-            transition: all 0.3s ease;
-            z-index: 100;
-        }
-
-        .customize-btn:hover {
-            border-color: #3b82f6;
-            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
-        }
-
-        .slide-in {
-            animation: slideIn 0.4s ease-out;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        body { font-family: 'Pretendard', sans-serif; background: #f8f9fa; }
+        .portal-header { background: #1e3a8a; border-bottom: 3px solid #2563eb; }
+        .portal-card { background: white; border: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .portal-card:hover { box-shadow: 0 4px 12px rgba(30, 64, 175, 0.1); }
     </style>
 </head>
 <body>
-
-    <!-- 커스터마이즈 버튼 -->
-    <button class="customize-btn" onclick="alert('모듈 레이아웃을 커스터마이즈할 수 있습니다!')">
-        ⚙️ 레이아웃 편집
-    </button>
-
-    <div class="min-h-screen p-6">
-        <div class="max-w-7xl mx-auto">
-
-            <!-- 헤더 모듈 -->
-            <div class="grid-item p-6 mb-6 module-draggable">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-4">
-                        <div class="module-handle">
-                            <div class="handle-dot"></div>
-                            <div class="handle-dot"></div>
-                            <div class="handle-dot"></div>
-                            <div class="handle-dot"></div>
-                            <div class="handle-dot"></div>
-                            <div class="handle-dot"></div>
-                        </div>
-                        <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center text-3xl">
-                            🏥
-                        </div>
-                        <div>
-                            <h1 class="text-3xl font-bold text-gray-800">오송첨단의료산업진흥재단</h1>
-                            <p class="text-gray-600">AI 기반 지능형 대화 시스템</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <div class="tag tag-blue">
-                            <span class="status-indicator status-online mr-2"></span>
-                            LLM 활성
-                        </div>
-                        <div class="tag tag-purple">
-                            <span class="status-indicator status-online mr-2"></span>
-                            RAG 준비됨
-                        </div>
-                        <div class="tag tag-pink">
-                            <span class="status-indicator status-online mr-2"></span>
-                            의도분석 ON
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 메인 그리드 -->
-            <div class="grid-container mb-6">
-
-                <!-- 환영 메시지 모듈 -->
-                <div class="grid-item p-8 module-draggable" style="grid-column: span 8;">
-                    <div class="module-header">
-                        <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
-                            <span>✨</span>
-                            Welcome
-                        </h2>
-                        <div class="module-handle">
-                            <div class="handle-dot"></div>
-                            <div class="handle-dot"></div>
-                            <div class="handle-dot"></div>
-                            <div class="handle-dot"></div>
-                            <div class="handle-dot"></div>
-                            <div class="handle-dot"></div>
-                        </div>
-                    </div>
-                    <div class="p-6 text-center">
-                        <div class="text-6xl mb-4">🤖</div>
-                        <h3 class="text-3xl font-bold text-gray-800 mb-3">안녕하세요!</h3>
-                        <p class="text-xl text-gray-600 mb-4">무엇을 도와드릴까요?</p>
-                        <p class="text-gray-500">입주기업, 지원사업, 연구시설 등 다양한 정보를 제공합니다</p>
-                    </div>
-                </div>
-
-                <!-- 빠른 통계 모듈 -->
-                <div class="grid-item p-6 module-draggable" style="grid-column: span 4;">
-                    <div class="module-header">
-                        <h3 class="font-bold text-gray-800">📊 실시간 통계</h3>
-                        <div class="module-handle">
-                            <div class="handle-dot"></div>
-                            <div class="handle-dot"></div>
-                            <div class="handle-dot"></div>
-                            <div class="handle-dot"></div>
-                        </div>
-                    </div>
-                    <div class="p-6 space-y-4">
-                        <div>
-                            <div class="text-sm text-gray-600 mb-1">오늘의 대화</div>
-                            <div class="text-3xl font-bold text-blue-600">247건</div>
-                        </div>
-                        <div>
-                            <div class="text-sm text-gray-600 mb-1">평균 응답시간</div>
-                            <div class="text-3xl font-bold text-purple-600">1.2초</div>
-                        </div>
-                        <div>
-                            <div class="text-sm text-gray-600 mb-1">만족도</div>
-                            <div class="text-3xl font-bold text-pink-600">95.8%</div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- 퀵 액션 그리드 -->
-            <div class="grid-container mb-6">
-
-                <div class="grid-item p-6 module-draggable text-center" style="grid-column: span 4;" onclick="openChat('입주기업')">
-                    <div class="module-handle mx-auto mb-3">
-                        <div class="handle-dot"></div>
-                        <div class="handle-dot"></div>
-                        <div class="handle-dot"></div>
-                        <div class="handle-dot"></div>
-                    </div>
-                    <div class="text-6xl mb-4">🏢</div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">입주기업 안내</h3>
-                    <p class="text-gray-600 mb-4">기업 입주 정보 및 혜택</p>
-                    <button class="quick-action-btn w-full">문의하기</button>
-                </div>
-
-                <div class="grid-item p-6 module-draggable text-center" style="grid-column: span 4;" onclick="openChat('지원사업')">
-                    <div class="module-handle mx-auto mb-3">
-                        <div class="handle-dot"></div>
-                        <div class="handle-dot"></div>
-                        <div class="handle-dot"></div>
-                        <div class="handle-dot"></div>
-                    </div>
-                    <div class="text-6xl mb-4">📋</div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">지원사업</h3>
-                    <p class="text-gray-600 mb-4">각종 지원 프로그램 안내</p>
-                    <button class="quick-action-btn w-full">문의하기</button>
-                </div>
-
-                <div class="grid-item p-6 module-draggable text-center" style="grid-column: span 4;" onclick="openChat('연구시설')">
-                    <div class="module-handle mx-auto mb-3">
-                        <div class="handle-dot"></div>
-                        <div class="handle-dot"></div>
-                        <div class="handle-dot"></div>
-                        <div class="handle-dot"></div>
-                    </div>
-                    <div class="text-6xl mb-4">🔬</div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">연구시설</h3>
-                    <p class="text-gray-600 mb-4">첨단 연구 인프라 이용</p>
-                    <button class="quick-action-btn w-full">문의하기</button>
-                </div>
-
-                <div class="grid-item p-6 module-draggable text-center" style="grid-column: span 3;" onclick="openChat('임상시험')">
-                    <div class="module-handle mx-auto mb-3">
-                        <div class="handle-dot"></div>
-                        <div class="handle-dot"></div>
-                        <div class="handle-dot"></div>
-                    </div>
-                    <div class="text-5xl mb-3">🧪</div>
-                    <h4 class="text-lg font-bold text-gray-800 mb-2">임상시험</h4>
-                    <button class="quick-action-btn w-full text-sm">문의</button>
-                </div>
-
-                <div class="grid-item p-6 module-draggable text-center" style="grid-column: span 3;" onclick="openChat('네트워킹')">
-                    <div class="module-handle mx-auto mb-3">
-                        <div class="handle-dot"></div>
-                        <div class="handle-dot"></div>
-                        <div class="handle-dot"></div>
-                    </div>
-                    <div class="text-5xl mb-3">🤝</div>
-                    <h4 class="text-lg font-bold text-gray-800 mb-2">네트워킹</h4>
-                    <button class="quick-action-btn w-full text-sm">문의</button>
-                </div>
-
-                <div class="grid-item p-6 module-draggable text-center" style="grid-column: span 3;" onclick="openChat('교육')">
-                    <div class="module-handle mx-auto mb-3">
-                        <div class="handle-dot"></div>
-                        <div class="handle-dot"></div>
-                        <div class="handle-dot"></div>
-                    </div>
-                    <div class="text-5xl mb-3">📚</div>
-                    <h4 class="text-lg font-bold text-gray-800 mb-2">교육 프로그램</h4>
-                    <button class="quick-action-btn w-full text-sm">문의</button>
-                </div>
-
-                <div class="grid-item p-6 module-draggable text-center" style="grid-column: span 3;" onclick="openChat('문의')">
-                    <div class="module-handle mx-auto mb-3">
-                        <div class="handle-dot"></div>
-                        <div class="handle-dot"></div>
-                        <div class="handle-dot"></div>
-                    </div>
-                    <div class="text-5xl mb-3">💬</div>
-                    <h4 class="text-lg font-bold text-gray-800 mb-2">일반 문의</h4>
-                    <button class="quick-action-btn w-full text-sm">문의</button>
-                </div>
-
-            </div>
-
-            <!-- AI 기술 스택 모듈 -->
-            <div class="grid-item p-6 module-draggable mb-6">
-                <div class="module-header">
-                    <h3 class="text-xl font-bold text-gray-800 flex items-center gap-2">
-                        <span>🤖</span>
-                        AI Technology Stack
-                    </h3>
-                    <div class="module-handle">
-                        <div class="handle-dot"></div>
-                        <div class="handle-dot"></div>
-                        <div class="handle-dot"></div>
-                        <div class="handle-dot"></div>
-                        <div class="handle-dot"></div>
-                        <div class="handle-dot"></div>
-                    </div>
-                </div>
-                <div class="p-6 grid grid-cols-3 gap-6">
-                    <div class="text-center p-6 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl">
-                        <div class="text-5xl mb-3">🧠</div>
-                        <h4 class="font-bold text-gray-800 mb-2">Large Language Model</h4>
-                        <p class="text-sm text-gray-600">GPT 기반 자연어 처리 엔진</p>
-                    </div>
-                    <div class="text-center p-6 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl">
-                        <div class="text-5xl mb-3">📊</div>
-                        <h4 class="font-bold text-gray-800 mb-2">RAG System</h4>
-                        <p class="text-sm text-gray-600">학습데이터 기반 검색 증강</p>
-                    </div>
-                    <div class="text-center p-6 bg-gradient-to-br from-pink-50 to-pink-100 rounded-xl">
-                        <div class="text-5xl mb-3">🎯</div>
-                        <h4 class="font-bold text-gray-800 mb-2">Intent Analysis</h4>
-                        <p class="text-sm text-gray-600">질문 의도 정확 파악</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- 플로팅 챗봇 위젯 -->
-    <div id="chatWidget" class="chat-widget">
-        <div class="widget-header">
+    <header class="portal-header shadow-lg">
+        <div class="max-w-7xl mx-auto px-6 py-5">
             <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-2xl">🤖</div>
-                    <div>
-                        <div class="font-bold">AI 어시스턴트</div>
-                        <div class="text-sm text-white/80 flex items-center gap-2">
-                            <span class="status-indicator status-online"></span>
-                            온라인
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 bg-white rounded flex items-center justify-center">
+                        <svg class="w-8 h-8 text-blue-900" fill="currentColor" viewBox="0 0 24 24"><path d="M19.43 12.98c.04-.32.07-.64.07-.98 0-.34-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.09-.16-.26-.25-.44-.25-.06 0-.12.01-.17.03l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.06-.02-.12-.03-.18-.03-.17 0-.34.09-.43.25l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98 0 .33.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.09.16.26.25.44.25.06 0 .12-.01.17-.03l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.06.02.12.03.18.03.17 0 .34-.09.43-.25l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/></svg>
+                    </div>
+                    <div class="text-white">
+                        <h1 class="text-xl font-bold">오송첨단의료산업진흥재단</h1>
+                        <p class="text-sm text-blue-100">공공기관 통합 지원 포털</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-6 py-8">
+        <div class="grid grid-cols-12 gap-6">
+            <div class="col-span-9">
+                <div class="portal-card rounded-lg overflow-hidden" style="height: calc(100vh - 200px);">
+                    <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
+                        <h2 class="font-bold text-gray-800 text-lg">AI 상담 서비스</h2>
+                        <p class="text-sm text-gray-600 mt-1">평균 응답시간: 2초 이내 | 정확도: 98.7%</p>
+                    </div>
+                    <div class="h-full flex flex-col">
+                        <div class="flex-1 overflow-y-auto p-6 space-y-4">
+                            <div class="flex items-start gap-3">
+                                <div class="w-10 h-10 bg-blue-900 rounded flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="bg-blue-50 border border-blue-200 rounded p-4">
+                                        <p class="font-bold text-gray-800 mb-2">안녕하세요. 오송첨단의료산업진흥재단 AI 상담입니다.</p>
+                                        <p class="text-gray-700 text-sm mb-3">의료산업 발전을 위한 각종 지원 서비스에 대해 안내해드립니다.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border-t border-gray-200 bg-white p-4">
+                            <div class="flex items-end gap-3">
+                                <input type="text" placeholder="문의사항을 입력하세요" class="flex-1 px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <button class="px-6 py-3 bg-blue-900 text-white rounded font-bold hover:bg-blue-800">전송</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <button onclick="closeChat()" class="text-white text-2xl hover:bg-white/20 w-8 h-8 rounded-full">×</button>
             </div>
-        </div>
-        <div id="chatMessages" class="flex-1 overflow-y-auto p-4 space-y-3" style="max-height: 400px;">
-            <!-- 메시지가 여기에 추가됩니다 -->
-        </div>
-        <div class="p-4 border-t border-gray-200">
-            <div class="flex gap-2">
-                <input
-                    type="text"
-                    id="chatInput"
-                    placeholder="메시지를 입력하세요..."
-                    class="flex-1 px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-blue-500 focus:outline-none"
-                />
-                <button onclick="sendChatMessage()" class="quick-action-btn">
-                    📤
-                </button>
+            <div class="col-span-3">
+                <div class="portal-card rounded-lg p-4 mb-6">
+                    <h3 class="font-bold text-gray-800 mb-3">주요 서비스</h3>
+                    <div class="space-y-2">
+                        <button class="w-full text-left px-4 py-3 bg-blue-50 border border-blue-200 text-blue-900 rounded text-sm font-medium">입주기업 지원</button>
+                        <button class="w-full text-left px-4 py-3 hover:bg-gray-50 border border-gray-200 text-gray-700 rounded text-sm">연구개발 지원</button>
+                        <button class="w-full text-left px-4 py-3 hover:bg-gray-50 border border-gray-200 text-gray-700 rounded text-sm">시설 이용</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-    <script>
-        function openChat(topic) {
-            const widget = document.getElementById('chatWidget');
-            widget.classList.add('active');
-
-            if (topic) {
-                setTimeout(() => {
-                    document.getElementById('chatInput').value = topic + '에 대해 알려주세요';
-                    sendChatMessage();
-                }, 300);
-            }
-        }
-
-        function closeChat() {
-            const widget = document.getElementById('chatWidget');
-            widget.classList.remove('active');
-        }
-
-        function sendChatMessage() {
-            const input = document.getElementById('chatInput');
-            const message = input.value.trim();
-
-            if (message === '') return;
-
-            const chatMessages = document.getElementById('chatMessages');
-
-            // 사용자 메시지
-            const userMsg = document.createElement('div');
-            userMsg.className = 'slide-in';
-            userMsg.innerHTML = `
-                <div class="chat-message-user">
-                    ${message}
-                </div>
-            `;
-            chatMessages.appendChild(userMsg);
-
-            input.value = '';
-
-            // AI 응답
-            setTimeout(() => {
-                const intents = ['입주기업', '지원사업', '연구시설', '임상시험', '일반문의'];
-                const randomIntent = intents[Math.floor(Math.random() * intents.length)];
-
-                const aiMsg = document.createElement('div');
-                aiMsg.className = 'slide-in';
-                aiMsg.innerHTML = `
-                    <div class="chat-message-ai">
-                        <div class="flex items-center gap-2 mb-2">
-                            <span class="text-xl">🤖</span>
-                            <span class="font-bold">AI 어시스턴트</span>
-                        </div>
-                        <div class="mb-3 flex gap-2 flex-wrap">
-                            <span class="tag tag-blue text-xs">의도: ${randomIntent}</span>
-                            <span class="tag tag-purple text-xs">RAG ✓</span>
-                            <span class="tag tag-green text-xs">LLM ✓</span>
-                        </div>
-                        <div class="text-gray-700">
-                            "${message}"에 대해 안내해드리겠습니다.<br><br>
-                            오송첨단의료산업진흥재단은 의료산업 발전을 위한 다양한 지원을 제공하고 있습니다.
-                            학습된 데이터베이스에서 정확한 정보를 검색하여 답변드립니다.
-                        </div>
-                        <div class="mt-3 flex gap-2">
-                            <button class="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-sm font-bold hover:bg-blue-200"
-                                    onclick="this.disabled=true; this.textContent='✓ 완료'">
-                                👍 도움됨
-                            </button>
-                            <button class="px-3 py-1 bg-gray-100 text-gray-700 rounded-lg text-sm font-bold hover:bg-gray-200">
-                                👎
-                            </button>
-                        </div>
-                    </div>
-                `;
-                chatMessages.appendChild(aiMsg);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            }, 1000);
-
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        // Enter 키로 전송
-        document.getElementById('chatInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                sendChatMessage();
-            }
-        });
-
-        // 드래그 앤 드롭 시뮬레이션 (실제 구현 시 라이브러리 사용 권장)
-        document.querySelectorAll('.module-draggable').forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.cursor = 'move';
-            });
-        });
-    </script>
-
 </body>
 </html>

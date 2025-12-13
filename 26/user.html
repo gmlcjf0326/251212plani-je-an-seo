@@ -3,151 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>오송첨단의료산업진흥재단 AI 챗봇 - 헬스케어 대시보드</title>
+    <title>오송첨단의료산업진흥재단 AI 챗봇 - 공공 보건의료 시스템</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff');
-
         * {
-            font-family: 'GmarketSans', sans-serif;
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, #e0f2f1 0%, #e3f2fd 100%);
+            background: linear-gradient(135deg, #e0e7ff 0%, #e0f2fe 100%);
         }
 
-        /* 헬스케어 카드 스타일 */
-        .health-card {
+        /* 공공기관 카드 스타일 */
+        .gov-card {
             background: white;
-            border-radius: 1.5rem;
-            border: 3px solid #e0e0e0;
+            border-radius: 0.75rem;
+            border: 2px solid #cbd5e1;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
 
-        .health-card::before {
+        .gov-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 6px;
-            background: linear-gradient(90deg, #10b981, #3b82f6);
+            height: 4px;
+            background: linear-gradient(90deg, #1e40af, #2563eb);
         }
 
-        .health-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.2);
-            border-color: #10b981;
+        .gov-card:hover {
+            border-color: #1e40af;
+            box-shadow: 0 8px 30px rgba(30, 64, 175, 0.15);
         }
 
-        /* 메트릭 카드 */
-        .metric-card {
-            background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
-            border-radius: 1.25rem;
+        /* 통계 카드 */
+        .stat-card {
+            background: white;
+            border-radius: 0.75rem;
             padding: 1.5rem;
-            border: 2px solid #d1fae5;
+            border-left: 4px solid #2563eb;
             transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
 
-        .metric-card:hover {
-            border-color: #10b981;
-            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.15);
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(30, 64, 175, 0.2);
         }
 
-        .metric-value {
-            font-size: 2.5rem;
-            font-weight: bold;
-            background: linear-gradient(135deg, #10b981, #3b82f6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e3a8a;
         }
 
-        /* 채팅 메시지 스타일 */
+        /* 채팅 메시지 */
         .chat-message-user {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            background: linear-gradient(135deg, #1e40af, #1e3a8a);
             color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 1.5rem 1.5rem 0.25rem 1.5rem;
-            max-width: 75%;
+            padding: 1rem 1.25rem;
+            border-radius: 0.75rem 0.75rem 0.25rem 0.75rem;
+            max-width: 70%;
             margin-left: auto;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 2px 8px rgba(30, 64, 175, 0.3);
         }
 
         .chat-message-ai {
-            background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
-            color: #1f2937;
-            padding: 1rem 1.5rem;
-            border-radius: 1.5rem 1.5rem 1.5rem 0.25rem;
-            max-width: 75%;
-            border: 2px solid #d1fae5;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1);
+            background: #f8fafc;
+            color: #1e293b;
+            padding: 1rem 1.25rem;
+            border-radius: 0.75rem 0.75rem 0.75rem 0.25rem;
+            max-width: 70%;
+            border: 2px solid #e2e8f0;
         }
 
-        /* 헬스 아이콘 펄스 */
-        .health-pulse {
+        /* 공공기관 버튼 */
+        .gov-btn {
+            background: linear-gradient(135deg, #1e40af, #1e3a8a);
+            color: white;
+            border: none;
+            padding: 0.875rem 1.75rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(30, 64, 175, 0.3);
+        }
+
+        .gov-btn:hover {
+            background: linear-gradient(135deg, #1e3a8a, #1e40af);
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.4);
+            transform: translateY(-1px);
+        }
+
+        /* 태그 */
+        .gov-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.375rem 0.875rem;
+            border-radius: 0.375rem;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            border: 1px solid;
+        }
+
+        .tag-primary {
+            background: #dbeafe;
+            border-color: #3b82f6;
+            color: #1e40af;
+        }
+
+        .tag-success {
+            background: #d1fae5;
+            border-color: #10b981;
+            color: #065f46;
+        }
+
+        /* 상태 표시 */
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #10b981;
             animation: pulse 2s ease-in-out infinite;
         }
 
         @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            50% {
-                transform: scale(1.05);
-                opacity: 0.8;
-            }
-        }
-
-        /* 상태 표시기 */
-        .status-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            animation: blink 2s ease-in-out infinite;
-        }
-
-        @keyframes blink {
             0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
+            50% { opacity: 0.5; }
         }
 
-        .status-healthy { background: #10b981; }
-        .status-active { background: #3b82f6; }
-
-        /* 버튼 스타일 */
-        .health-btn {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 1rem;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-        }
-
-        .health-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
-        }
-
-        /* 태그 스타일 */
-        .health-tag {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.5rem 1rem;
+        /* 진행바 */
+        .progress-bar {
+            height: 6px;
+            background: linear-gradient(90deg, #1e40af, #2563eb);
             border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            background: linear-gradient(135deg, #d1fae5 0%, #dbeafe 100%);
-            color: #065f46;
+            transition: all 0.5s ease;
         }
 
-        /* 챗봇 위젯 */
+        /* 채팅 위젯 */
         .chat-widget {
             position: fixed;
             bottom: 2rem;
@@ -155,12 +153,12 @@
             width: 450px;
             max-height: 650px;
             background: white;
-            border-radius: 2rem;
-            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+            border-radius: 1rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
             display: none;
             flex-direction: column;
             z-index: 1000;
-            border: 3px solid #d1fae5;
+            border: 2px solid #cbd5e1;
         }
 
         .chat-widget.active {
@@ -168,33 +166,25 @@
         }
 
         .widget-header {
-            background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+            background: linear-gradient(135deg, #1e40af, #1e3a8a);
             color: white;
-            padding: 1.5rem;
-            border-radius: 1.75rem 1.75rem 0 0;
+            padding: 1.25rem;
+            border-radius: 0.875rem 0.875rem 0 0;
         }
 
-        .slide-in {
-            animation: slideIn 0.4s ease-out;
+        .fade-in {
+            animation: fadeIn 0.4s ease-out;
         }
 
-        @keyframes slideIn {
+        @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(10px);
             }
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
-        }
-
-        /* 데이터 비주얼라이제이션 바 */
-        .data-bar {
-            height: 8px;
-            background: linear-gradient(90deg, #10b981, #3b82f6);
-            border-radius: 9999px;
-            transition: all 0.5s ease;
         }
     </style>
 </head>
@@ -204,215 +194,224 @@
         <div class="max-w-7xl mx-auto">
 
             <!-- 헤더 -->
-            <div class="health-card p-6 mb-6">
+            <div class="gov-card p-6 mb-6">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-4">
-                        <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-blue-500 rounded-2xl flex items-center justify-center text-4xl health-pulse">
+                        <div class="w-16 h-16 bg-gradient-to-br from-blue-700 to-blue-900 rounded-lg flex items-center justify-center text-4xl shadow-lg">
                             🏥
                         </div>
                         <div>
-                            <h1 class="text-3xl font-bold text-gray-800">오송첨단의료산업진흥재단</h1>
+                            <h1 class="text-2xl font-bold text-gray-900">오송첨단의료산업진흥재단</h1>
                             <p class="text-gray-600 flex items-center gap-2 mt-1">
-                                <span class="status-dot status-healthy"></span>
-                                AI 헬스케어 어시스턴트 시스템
+                                <span class="status-dot"></span>
+                                공공 보건의료 AI 상담 서비스
                             </p>
                         </div>
                     </div>
-                    <div class="flex items-center gap-3">
-                        <div class="health-tag">
-                            <span class="mr-2">🧠</span>
-                            LLM Active
+                    <div class="flex items-center gap-2">
+                        <div class="gov-tag tag-primary">
+                            LLM 운영중
                         </div>
-                        <div class="health-tag">
-                            <span class="mr-2">📊</span>
-                            RAG Ready
+                        <div class="gov-tag tag-success">
+                            RAG 활성
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 메트릭 대시보드 -->
-            <div class="grid grid-cols-4 gap-6 mb-6">
-                <div class="metric-card">
+            <!-- 통계 현황 -->
+            <div class="grid grid-cols-4 gap-4 mb-6">
+                <div class="stat-card">
                     <div class="flex items-center justify-between mb-3">
-                        <span class="text-4xl">👥</span>
-                        <span class="text-xs text-green-700 font-bold bg-green-100 px-2 py-1 rounded-full">+12.5%</span>
+                        <span class="text-3xl">📊</span>
+                        <span class="text-xs font-bold text-blue-700 bg-blue-50 px-2 py-1 rounded">+12.3%</span>
                     </div>
-                    <div class="text-sm text-gray-600 mb-1">활성 사용자</div>
-                    <div class="metric-value">4,287</div>
-                    <div class="mt-3 h-2 bg-gray-200 rounded-full overflow-hidden">
-                        <div class="data-bar" style="width: 75%"></div>
+                    <div class="text-sm text-gray-600 mb-1">일일 상담건수</div>
+                    <div class="stat-value">1,247건</div>
+                    <div class="mt-3 bg-gray-100 rounded-full overflow-hidden h-1.5">
+                        <div class="progress-bar" style="width: 78%"></div>
                     </div>
                 </div>
 
-                <div class="metric-card">
+                <div class="stat-card" style="border-left-color: #059669;">
                     <div class="flex items-center justify-between mb-3">
-                        <span class="text-4xl">💬</span>
-                        <span class="text-xs text-blue-700 font-bold bg-blue-100 px-2 py-1 rounded-full">+18.3%</span>
+                        <span class="text-3xl">✅</span>
+                        <span class="text-xs font-bold text-green-700 bg-green-50 px-2 py-1 rounded">우수</span>
                     </div>
-                    <div class="text-sm text-gray-600 mb-1">오늘 대화</div>
-                    <div class="metric-value">1,547</div>
-                    <div class="mt-3 h-2 bg-gray-200 rounded-full overflow-hidden">
-                        <div class="data-bar" style="width: 85%"></div>
+                    <div class="text-sm text-gray-600 mb-1">처리 완료율</div>
+                    <div class="stat-value" style="color: #065f46;">96.8%</div>
+                    <div class="mt-3 bg-gray-100 rounded-full overflow-hidden h-1.5">
+                        <div class="progress-bar" style="width: 96.8%; background: linear-gradient(90deg, #059669, #10b981);"></div>
                     </div>
                 </div>
 
-                <div class="metric-card">
+                <div class="stat-card" style="border-left-color: #3b82f6;">
                     <div class="flex items-center justify-between mb-3">
-                        <span class="text-4xl">⚡</span>
-                        <span class="text-xs text-green-700 font-bold bg-green-100 px-2 py-1 rounded-full">0.9초</span>
+                        <span class="text-3xl">⚡</span>
+                        <span class="text-xs font-bold text-blue-700 bg-blue-50 px-2 py-1 rounded">빠름</span>
                     </div>
-                    <div class="text-sm text-gray-600 mb-1">응답 속도</div>
-                    <div class="metric-value">빠름</div>
-                    <div class="mt-3 h-2 bg-gray-200 rounded-full overflow-hidden">
-                        <div class="data-bar" style="width: 95%"></div>
+                    <div class="text-sm text-gray-600 mb-1">평균 응답시간</div>
+                    <div class="stat-value">1.2초</div>
+                    <div class="mt-3 bg-gray-100 rounded-full overflow-hidden h-1.5">
+                        <div class="progress-bar" style="width: 92%"></div>
                     </div>
                 </div>
 
-                <div class="metric-card">
+                <div class="stat-card" style="border-left-color: #0891b2;">
                     <div class="flex items-center justify-between mb-3">
-                        <span class="text-4xl">⭐</span>
-                        <span class="text-xs text-green-700 font-bold bg-green-100 px-2 py-1 rounded-full">우수</span>
+                        <span class="text-3xl">⭐</span>
+                        <span class="text-xs font-bold text-cyan-700 bg-cyan-50 px-2 py-1 rounded">+4.5%</span>
                     </div>
-                    <div class="text-sm text-gray-600 mb-1">만족도</div>
-                    <div class="metric-value">96.8%</div>
-                    <div class="mt-3 h-2 bg-gray-200 rounded-full overflow-hidden">
-                        <div class="data-bar" style="width: 96.8%"></div>
+                    <div class="text-sm text-gray-600 mb-1">사용자 만족도</div>
+                    <div class="stat-value" style="color: #0e7490;">94.5%</div>
+                    <div class="mt-3 bg-gray-100 rounded-full overflow-hidden h-1.5">
+                        <div class="progress-bar" style="width: 94.5%; background: linear-gradient(90deg, #0891b2, #06b6d4);"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- 메인 환영 섹션 -->
-            <div class="health-card p-10 mb-6 text-center">
+            <!-- 메인 안내 -->
+            <div class="gov-card p-10 mb-6 text-center">
                 <div class="max-w-3xl mx-auto">
-                    <div class="text-7xl mb-6 health-pulse">🤖</div>
-                    <h2 class="text-4xl font-bold text-gray-800 mb-4">안녕하세요!</h2>
-                    <p class="text-xl text-gray-600 mb-6">
-                        오송첨단의료산업진흥재단의 AI 어시스턴트입니다.<br>
-                        무엇을 도와드릴까요?
+                    <div class="text-7xl mb-6">🤖</div>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-3">공공 보건의료 AI 상담</h2>
+                    <p class="text-lg text-gray-600 mb-8">
+                        오송첨단의료산업진흥재단의 AI 상담 서비스입니다<br>
+                        궁금하신 사항을 문의해 주세요
                     </p>
-                    <div class="flex justify-center gap-4">
-                        <button class="health-btn" onclick="openChat('입주기업 안내')">
-                            💼 입주기업 문의
+                    <div class="flex justify-center gap-3">
+                        <button class="gov-btn" onclick="openChat('상담 시작')">
+                            💬 상담 시작하기
                         </button>
-                        <button class="health-btn" onclick="openChat('지원사업 안내')">
-                            📋 지원사업 문의
+                        <button class="gov-btn" style="background: white; color: #1e40af; border: 2px solid #1e40af;">
+                            📋 자주 묻는 질문
                         </button>
                     </div>
                 </div>
             </div>
 
-            <!-- 서비스 카드 그리드 -->
+            <!-- 서비스 안내 -->
             <div class="grid grid-cols-3 gap-6 mb-6">
 
-                <div class="health-card p-6 cursor-pointer" onclick="openChat('입주기업')">
+                <div class="gov-card p-6 cursor-pointer" onclick="openChat('입주기업')">
                     <div class="text-center">
-                        <div class="text-6xl mb-4">🏢</div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-3">입주기업 안내</h3>
-                        <p class="text-gray-600 mb-4">기업 입주 절차 및 혜택 안내</p>
-                        <div class="flex flex-wrap gap-2 justify-center mb-4">
-                            <span class="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full font-bold">입주조건</span>
-                            <span class="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-bold">지원혜택</span>
-                            <span class="text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full font-bold">신청방법</span>
+                        <div class="w-16 h-16 mx-auto mb-4 bg-blue-50 rounded-lg flex items-center justify-center text-4xl">
+                            🏢
                         </div>
-                        <button class="w-full health-btn">문의하기</button>
-                    </div>
-                </div>
-
-                <div class="health-card p-6 cursor-pointer" onclick="openChat('지원사업')">
-                    <div class="text-center">
-                        <div class="text-6xl mb-4">📋</div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-3">지원사업</h3>
-                        <p class="text-gray-600 mb-4">각종 지원 프로그램 및 사업</p>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">입주기업 안내</h3>
+                        <p class="text-gray-600 text-sm mb-4">기업 입주 절차 및 지원 혜택</p>
                         <div class="flex flex-wrap gap-2 justify-center mb-4">
-                            <span class="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full font-bold">R&D 지원</span>
-                            <span class="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-bold">자금지원</span>
-                            <span class="text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full font-bold">컨설팅</span>
+                            <span class="gov-tag tag-primary text-xs">입주조건</span>
+                            <span class="gov-tag tag-primary text-xs">지원혜택</span>
+                            <span class="gov-tag tag-primary text-xs">신청절차</span>
                         </div>
-                        <button class="w-full health-btn">문의하기</button>
+                        <button class="gov-btn w-full text-sm">문의하기</button>
                     </div>
                 </div>
 
-                <div class="health-card p-6 cursor-pointer" onclick="openChat('연구시설')">
+                <div class="gov-card p-6 cursor-pointer" onclick="openChat('지원사업')">
                     <div class="text-center">
-                        <div class="text-6xl mb-4">🔬</div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-3">연구시설</h3>
-                        <p class="text-gray-600 mb-4">첨단 연구 인프라 이용 안내</p>
+                        <div class="w-16 h-16 mx-auto mb-4 bg-green-50 rounded-lg flex items-center justify-center text-4xl">
+                            📋
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">지원사업</h3>
+                        <p class="text-gray-600 text-sm mb-4">R&D 및 사업화 지원 프로그램</p>
                         <div class="flex flex-wrap gap-2 justify-center mb-4">
-                            <span class="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full font-bold">장비예약</span>
-                            <span class="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-bold">이용요금</span>
-                            <span class="text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full font-bold">시설안내</span>
+                            <span class="gov-tag tag-success text-xs">R&D</span>
+                            <span class="gov-tag tag-success text-xs">자금지원</span>
+                            <span class="gov-tag tag-success text-xs">컨설팅</span>
                         </div>
-                        <button class="w-full health-btn">문의하기</button>
+                        <button class="gov-btn w-full text-sm" style="background: linear-gradient(135deg, #059669, #047857);">문의하기</button>
                     </div>
                 </div>
 
-                <div class="health-card p-6 cursor-pointer" onclick="openChat('임상시험')">
+                <div class="gov-card p-6 cursor-pointer" onclick="openChat('연구시설')">
                     <div class="text-center">
-                        <div class="text-5xl mb-3">🧪</div>
-                        <h4 class="text-lg font-bold text-gray-800 mb-2">임상시험</h4>
-                        <p class="text-sm text-gray-600 mb-3">임상시험 지원 서비스</p>
-                        <button class="w-full health-btn text-sm py-2">문의</button>
-                    </div>
-                </div>
-
-                <div class="health-card p-6 cursor-pointer" onclick="openChat('네트워킹')">
-                    <div class="text-center">
-                        <div class="text-5xl mb-3">🤝</div>
-                        <h4 class="text-lg font-bold text-gray-800 mb-2">네트워킹</h4>
-                        <p class="text-sm text-gray-600 mb-3">기업 간 협력 지원</p>
-                        <button class="w-full health-btn text-sm py-2">문의</button>
-                    </div>
-                </div>
-
-                <div class="health-card p-6 cursor-pointer" onclick="openChat('교육')">
-                    <div class="text-center">
-                        <div class="text-5xl mb-3">📚</div>
-                        <h4 class="text-lg font-bold text-gray-800 mb-2">교육 프로그램</h4>
-                        <p class="text-sm text-gray-600 mb-3">전문 교육 과정 안내</p>
-                        <button class="w-full health-btn text-sm py-2">문의</button>
+                        <div class="w-16 h-16 mx-auto mb-4 bg-cyan-50 rounded-lg flex items-center justify-center text-4xl">
+                            🔬
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">연구시설</h3>
+                        <p class="text-gray-600 text-sm mb-4">첨단 연구시설 이용 안내</p>
+                        <div class="flex flex-wrap gap-2 justify-center mb-4">
+                            <span class="gov-tag text-xs" style="background: #cffafe; border-color: #06b6d4; color: #0e7490;">장비예약</span>
+                            <span class="gov-tag text-xs" style="background: #cffafe; border-color: #06b6d4; color: #0e7490;">이용요금</span>
+                            <span class="gov-tag text-xs" style="background: #cffafe; border-color: #06b6d4; color: #0e7490;">시설안내</span>
+                        </div>
+                        <button class="gov-btn w-full text-sm" style="background: linear-gradient(135deg, #0891b2, #0e7490);">문의하기</button>
                     </div>
                 </div>
 
             </div>
 
-            <!-- AI 기술 스택 -->
-            <div class="health-card p-8">
-                <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center flex items-center justify-center gap-3">
-                    <span class="text-4xl">🤖</span>
-                    AI Technology Stack
+            <!-- 추가 서비스 -->
+            <div class="grid grid-cols-4 gap-4 mb-6">
+
+                <div class="gov-card p-5 cursor-pointer text-center" onclick="openChat('임상시험')">
+                    <div class="text-4xl mb-3">🧪</div>
+                    <h4 class="font-bold text-gray-900 mb-2">임상시험 지원</h4>
+                    <p class="text-xs text-gray-600 mb-3">임상시험 인프라 지원</p>
+                    <button class="gov-btn w-full text-xs py-2">문의</button>
+                </div>
+
+                <div class="gov-card p-5 cursor-pointer text-center" onclick="openChat('네트워킹')">
+                    <div class="text-4xl mb-3">🤝</div>
+                    <h4 class="font-bold text-gray-900 mb-2">네트워킹</h4>
+                    <p class="text-xs text-gray-600 mb-3">기업간 협력 지원</p>
+                    <button class="gov-btn w-full text-xs py-2">문의</button>
+                </div>
+
+                <div class="gov-card p-5 cursor-pointer text-center" onclick="openChat('교육')">
+                    <div class="text-4xl mb-3">📚</div>
+                    <h4 class="font-bold text-gray-900 mb-2">교육 프로그램</h4>
+                    <p class="text-xs text-gray-600 mb-3">전문인력 양성 교육</p>
+                    <button class="gov-btn w-full text-xs py-2">문의</button>
+                </div>
+
+                <div class="gov-card p-5 cursor-pointer text-center" onclick="openChat('인증')">
+                    <div class="text-4xl mb-3">📜</div>
+                    <h4 class="font-bold text-gray-900 mb-2">인증 지원</h4>
+                    <p class="text-xs text-gray-600 mb-3">각종 인증 취득 지원</p>
+                    <button class="gov-btn w-full text-xs py-2">문의</button>
+                </div>
+
+            </div>
+
+            <!-- AI 기술 안내 -->
+            <div class="gov-card p-8">
+                <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">
+                    AI 기술 시스템 구성
                 </h3>
                 <div class="grid grid-cols-3 gap-6">
-                    <div class="text-center p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-2xl border-2 border-green-200">
+                    <div class="text-center p-6 bg-blue-50 rounded-lg border-2 border-blue-200">
                         <div class="text-5xl mb-3">🧠</div>
-                        <h4 class="font-bold text-gray-800 mb-2">Large Language Model</h4>
-                        <p class="text-sm text-gray-600">고성능 자연어 처리 엔진으로 정확한 답변 생성</p>
+                        <h4 class="font-bold text-gray-900 mb-2">자연어처리 엔진</h4>
+                        <p class="text-sm text-gray-600">고성능 LLM 기반 대화형 AI</p>
                         <div class="mt-4">
                             <div class="text-xs text-gray-500 mb-1">성능</div>
-                            <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                                <div class="data-bar" style="width: 95%"></div>
+                            <div class="bg-gray-200 rounded-full h-1.5 overflow-hidden">
+                                <div class="progress-bar" style="width: 95%"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="text-center p-6 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl border-2 border-blue-200">
-                        <div class="text-5xl mb-3">📊</div>
-                        <h4 class="font-bold text-gray-800 mb-2">RAG System</h4>
-                        <p class="text-sm text-gray-600">학습된 데이터베이스 기반 검색 증강 생성</p>
+                    <div class="text-center p-6 bg-green-50 rounded-lg border-2 border-green-200">
+                        <div class="text-5xl mb-3">📚</div>
+                        <h4 class="font-bold text-gray-900 mb-2">RAG 검색 시스템</h4>
+                        <p class="text-sm text-gray-600">학습 데이터 기반 정확한 답변</p>
                         <div class="mt-4">
                             <div class="text-xs text-gray-500 mb-1">정확도</div>
-                            <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                                <div class="data-bar" style="width: 92%"></div>
+                            <div class="bg-gray-200 rounded-full h-1.5 overflow-hidden">
+                                <div class="progress-bar" style="width: 92%; background: linear-gradient(90deg, #059669, #10b981);"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="text-center p-6 bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl border-2 border-purple-200">
+                    <div class="text-center p-6 bg-cyan-50 rounded-lg border-2 border-cyan-200">
                         <div class="text-5xl mb-3">🎯</div>
-                        <h4 class="font-bold text-gray-800 mb-2">Intent Analysis</h4>
-                        <p class="text-sm text-gray-600">사용자 질문 의도를 정확하게 파악 및 분류</p>
+                        <h4 class="font-bold text-gray-900 mb-2">의도 분석 엔진</h4>
+                        <p class="text-sm text-gray-600">질문 의도 자동 파악 및 분류</p>
                         <div class="mt-4">
                             <div class="text-xs text-gray-500 mb-1">분류율</div>
-                            <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                                <div class="data-bar" style="width: 89%"></div>
+                            <div class="bg-gray-200 rounded-full h-1.5 overflow-hidden">
+                                <div class="progress-bar" style="width: 89%; background: linear-gradient(90deg, #0891b2, #06b6d4);"></div>
                             </div>
                         </div>
                     </div>
@@ -427,31 +426,31 @@
         <div class="widget-header">
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
-                    <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-3xl">🤖</div>
+                    <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center text-3xl">🤖</div>
                     <div>
-                        <div class="font-bold text-lg">헬스케어 AI 어시스턴트</div>
+                        <div class="font-bold text-lg">AI 상담 서비스</div>
                         <div class="text-sm text-white/90 flex items-center gap-2">
-                            <span class="status-dot status-healthy"></span>
-                            온라인 상태
+                            <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+                            상담 가능
                         </div>
                     </div>
                 </div>
                 <button onclick="closeChat()" class="text-white text-3xl hover:bg-white/20 w-10 h-10 rounded-full transition-all">×</button>
             </div>
         </div>
-        <div id="chatMessages" class="flex-1 overflow-y-auto p-5 space-y-4" style="max-height: 450px; background: linear-gradient(135deg, #f0fdf4 0%, #e0f2f1 100%);">
+        <div id="chatMessages" class="flex-1 overflow-y-auto p-5 space-y-4" style="max-height: 450px; background: #f8fafc;">
             <!-- 메시지가 여기에 추가됩니다 -->
         </div>
-        <div class="p-4 bg-white border-t-2 border-green-100">
+        <div class="p-4 bg-white border-t-2 border-gray-200">
             <div class="flex gap-3">
                 <input
                     type="text"
                     id="chatInput"
-                    placeholder="메시지를 입력하세요..."
-                    class="flex-1 px-5 py-3 border-2 border-gray-300 rounded-xl focus:border-green-500 focus:outline-none transition-all"
+                    placeholder="문의 내용을 입력하세요..."
+                    class="flex-1 px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-700 focus:outline-none transition-all"
                 />
-                <button onclick="sendChatMessage()" class="health-btn">
-                    📤
+                <button onclick="sendChatMessage()" class="gov-btn">
+                    전송
                 </button>
             </div>
         </div>
@@ -464,7 +463,7 @@
 
             if (topic) {
                 setTimeout(() => {
-                    document.getElementById('chatInput').value = topic + '에 대해 알려주세요';
+                    document.getElementById('chatInput').value = topic + '에 대해 문의드립니다';
                     sendChatMessage();
                 }, 300);
             }
@@ -485,7 +484,7 @@
 
             // 사용자 메시지
             const userMsg = document.createElement('div');
-            userMsg.className = 'slide-in';
+            userMsg.className = 'fade-in';
             userMsg.innerHTML = `
                 <div class="chat-message-user">
                     ${message}
@@ -501,30 +500,29 @@
                 const randomIntent = intents[Math.floor(Math.random() * intents.length)];
 
                 const aiMsg = document.createElement('div');
-                aiMsg.className = 'slide-in';
+                aiMsg.className = 'fade-in';
                 aiMsg.innerHTML = `
                     <div class="chat-message-ai">
                         <div class="flex items-center gap-2 mb-3">
                             <span class="text-2xl">🤖</span>
-                            <span class="font-bold text-gray-800">헬스케어 AI</span>
+                            <span class="font-bold text-gray-900">AI 상담원</span>
                         </div>
                         <div class="mb-3 flex gap-2 flex-wrap">
-                            <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-bold">의도: ${randomIntent}</span>
-                            <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-bold">RAG ✓</span>
-                            <span class="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded-full font-bold">LLM ✓</span>
+                            <span class="gov-tag tag-primary text-xs">분류: ${randomIntent}</span>
+                            <span class="gov-tag tag-success text-xs">RAG 검색 완료</span>
                         </div>
                         <div class="text-gray-700 leading-relaxed">
-                            "${message}"에 대해 안내해드리겠습니다.<br><br>
-                            오송첨단의료산업진흥재단은 의료산업 발전을 위한 다양한 지원을 제공하고 있습니다.
-                            학습된 데이터베이스에서 정확한 정보를 검색하여 답변드립니다.
+                            "${message}"에 대해 안내해 드리겠습니다.<br><br>
+                            오송첨단의료산업진흥재단은 의료산업 발전을 위한 다양한 공공 지원 서비스를 제공하고 있습니다.
+                            학습된 데이터베이스를 기반으로 정확한 정보를 제공해 드립니다.
                         </div>
                         <div class="mt-4 flex gap-2">
-                            <button class="px-4 py-2 bg-green-100 text-green-700 rounded-lg text-sm font-bold hover:bg-green-200 transition-all"
+                            <button class="px-4 py-2 bg-blue-50 text-blue-700 rounded-lg text-sm font-bold hover:bg-blue-100 transition-all border border-blue-200"
                                     onclick="this.disabled=true; this.textContent='✓ 완료'">
                                 👍 도움됨
                             </button>
                             <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-bold hover:bg-gray-200 transition-all">
-                                👎 재질문
+                                👎 추가 문의
                             </button>
                         </div>
                     </div>

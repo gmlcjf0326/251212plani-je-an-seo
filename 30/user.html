@@ -3,556 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>오송첨단의료산업진흥재단 AI 챗봇 - 3D Card Effect</title>
+    <title>오송첨단의료산업진흥재단 - 공공 인포그래픽 시스템</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff');
-
-        * {
-            font-family: 'GmarketSans', sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            perspective: 1500px;
-        }
-
-        /* 3D 카드 효과 */
-        .card-3d {
-            background: white;
-            border-radius: 1.5rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-style: preserve-3d;
-            position: relative;
-        }
-
-        .card-3d::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-            border-radius: 1.5rem;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: -1;
-        }
-
-        .card-3d:hover {
-            transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
-            box-shadow:
-                0 20px 60px rgba(0, 0, 0, 0.3),
-                0 0 40px rgba(102, 126, 234, 0.2);
-        }
-
-        .card-3d:hover::before {
-            opacity: 1;
-        }
-
-        /* 3D 회전 카드 */
-        .card-rotate {
-            background: white;
-            border-radius: 1.5rem;
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-style: preserve-3d;
-            cursor: pointer;
-        }
-
-        .card-rotate:hover {
-            transform: rotateY(10deg) rotateX(5deg) scale(1.05);
-            box-shadow:
-                0 30px 80px rgba(0, 0, 0, 0.3),
-                inset 0 0 40px rgba(255, 255, 255, 0.5);
-        }
-
-        /* 깊이감 효과 */
-        .depth-layer {
-            position: relative;
-            transform-style: preserve-3d;
-        }
-
-        .depth-layer::after {
-            content: '';
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            right: -10px;
-            bottom: -10px;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3));
-            border-radius: 1.5rem;
-            z-index: -1;
-            transform: translateZ(-20px);
-            transition: all 0.4s ease;
-        }
-
-        .depth-layer:hover::after {
-            transform: translateZ(-40px);
-            opacity: 0.5;
-        }
-
-        /* 그라데이션 버튼 */
-        .btn-3d {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-3d::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .btn-3d:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
-        }
-
-        .btn-3d:hover::before {
-            left: 100%;
-        }
-
-        /* 채팅 메시지 */
-        .chat-message-user {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 1.25rem 1.25rem 0.25rem 1.25rem;
-            max-width: 75%;
-            margin-left: auto;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-            transform: translateZ(10px);
-        }
-
-        .chat-message-ai {
-            background: white;
-            color: #1f2937;
-            padding: 1rem 1.5rem;
-            border-radius: 1.25rem 1.25rem 1.25rem 0.25rem;
-            max-width: 75%;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transform: translateZ(10px);
-        }
-
-        /* 3D 태그 */
-        .tag-3d {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.5rem 1rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
-            color: #5a67d8;
-            border: 2px solid rgba(102, 126, 234, 0.3);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .tag-3d:hover {
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-        }
-
-        /* 채팅 위젯 */
-        .chat-widget {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 450px;
-            max-height: 650px;
-            background: white;
-            border-radius: 2rem;
-            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.4);
-            display: none;
-            flex-direction: column;
-            z-index: 1000;
-            transform-style: preserve-3d;
-        }
-
-        .chat-widget.active {
-            display: flex;
-            animation: slideUp 0.5s ease-out;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px) rotateX(-10deg);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) rotateX(0);
-            }
-        }
-
-        .widget-header {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 1.5rem;
-            border-radius: 1.75rem 1.75rem 0 0;
-        }
-
-        /* 플로팅 애니메이션 */
-        .floating {
-            animation: floating 3s ease-in-out infinite;
-        }
-
-        @keyframes floating {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        /* 페이드인 효과 */
-        .fade-in {
-            animation: fadeIn 0.6s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px) rotateX(-5deg);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) rotateX(0);
-            }
-        }
-
-        /* 입체감 있는 입력창 */
-        .input-3d {
-            background: white;
-            border: 2px solid #e5e7eb;
-            border-radius: 1rem;
-            padding: 1rem 1.5rem;
-            width: 100%;
-            color: #1f2937;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .input-3d:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-            transform: translateY(-2px);
-        }
-
-        /* 펄스 효과 */
-        .pulse-3d {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #10b981;
-            animation: pulse3d 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse3d {
-            0%, 100% {
-                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-            }
-            50% {
-                box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
-            }
-        }
+        * { font-family: 'Noto Sans KR', sans-serif; }
+        body { background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 50%, #e0e7ff 100%); }
+        .info-card { background: white; border-radius: 16px; padding: 28px; box-shadow: 0 4px 20px rgba(30,64,175,0.12); transition: all 0.4s cubic-bezier(0.4,0,0.2,1); transform-style: preserve-3d; position: relative; }
+        .info-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(90deg, #1e40af, #2563eb); border-radius: 16px 16px 0 0; }
+        .info-card:hover { transform: translateY(-8px); box-shadow: 0 12px 40px rgba(30,64,175,0.2); }
+        .metric-3d { background: white; border-radius: 14px; padding: 24px; box-shadow: 0 6px 24px rgba(0,0,0,0.08), inset 0 -2px 8px rgba(30,64,175,0.05); transition: all 0.3s; border-left: 5px solid; }
+        .metric-3d:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 10px 32px rgba(30,64,175,0.15); }
+        .metric-value-3d { font-size: 2.5rem; font-weight: 900; background: linear-gradient(135deg, #1e40af, #2563eb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-shadow: 0 4px 8px rgba(30,64,175,0.1); }
+        .icon-3d { width: 80px; height: 80px; border-radius: 16px; display: flex; align-items: center; justify-center; font-size: 3rem; margin: 0 auto 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); transition: all 0.3s; }
+        .icon-3d:hover { transform: rotateY(15deg) rotateX(5deg) scale(1.1); box-shadow: 0 12px 32px rgba(0,0,0,0.15); }
+        .gov-btn-3d { background: linear-gradient(135deg, #1e40af, #1e3a8a); color: white; padding: 14px 32px; border-radius: 10px; font-weight: 700; border: none; box-shadow: 0 6px 20px rgba(30,64,175,0.3); transition: all 0.3s; }
+        .gov-btn-3d:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 10px 32px rgba(30,64,175,0.4); }
+        .badge-3d { background: linear-gradient(135deg, #dbeafe, #bfdbfe); color: #1e40af; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; border: 2px solid #93c5fd; box-shadow: 0 4px 12px rgba(59,130,246,0.2); }
+        .progress-ring { transform: rotate(-90deg); transition: all 0.5s; }
     </style>
 </head>
-<body>
-
-    <div class="min-h-screen p-6">
-        <div class="max-w-7xl mx-auto">
-
-            <!-- 헤더 -->
-            <div class="card-3d p-6 mb-6 depth-layer">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-4">
-                        <div class="w-16 h-16 rounded-2xl flex items-center justify-center text-4xl floating" style="background: linear-gradient(135deg, #667eea, #764ba2);">
-                            🏥
-                        </div>
-                        <div>
-                            <h1 class="text-3xl font-bold text-gray-800">오송첨단의료산업진흥재단</h1>
-                            <p class="text-gray-600 flex items-center gap-2 mt-1">
-                                <span class="pulse-3d"></span>
-                                3D AI Chatbot System
-                            </p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <div class="tag-3d">
-                            <span class="mr-2">🧠</span>
-                            LLM Active
-                        </div>
-                        <div class="tag-3d">
-                            <span class="mr-2">📊</span>
-                            RAG Ready
-                        </div>
-                    </div>
+<body class="min-h-screen p-6">
+    <div class="info-card mb-6">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div class="icon-3d" style="background: linear-gradient(135deg, #1e40af, #2563eb); color: white; width: 70px; height: 70px; font-size: 2.5rem;">🏥</div>
+                <div>
+                    <h1 class="text-3xl font-black text-gray-900">오송첨단의료산업진흥재단</h1>
+                    <p class="text-gray-600 font-semibold">공공 인포그래픽 AI 시스템</p>
                 </div>
             </div>
-
-            <!-- 메인 환영 섹션 -->
-            <div class="card-3d p-12 mb-6 text-center depth-layer">
-                <div class="max-w-3xl mx-auto">
-                    <div class="text-8xl mb-6 floating">🤖</div>
-                    <h2 class="text-5xl font-bold text-gray-800 mb-4">안녕하세요!</h2>
-                    <p class="text-xl text-gray-600 mb-8">
-                        오송첨단의료산업진흥재단의 3D AI 어시스턴트입니다<br>
-                        무엇을 도와드릴까요?
-                    </p>
-                    <div class="flex justify-center gap-4">
-                        <button class="btn-3d" onclick="openChat('문의 시작')">
-                            문의하기
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 서비스 카드 -->
-            <div class="grid grid-cols-3 gap-6 mb-6">
-
-                <div class="card-rotate p-8 depth-layer" onclick="openChat('입주기업')">
-                    <div class="text-center">
-                        <div class="text-6xl mb-5">🏢</div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-3">입주기업</h3>
-                        <p class="text-gray-600 mb-6">기업 입주 절차 및 혜택 안내</p>
-                        <div class="flex flex-wrap gap-2 justify-center mb-6">
-                            <span class="tag-3d text-xs">입주조건</span>
-                            <span class="tag-3d text-xs">지원혜택</span>
-                            <span class="tag-3d text-xs">신청절차</span>
-                        </div>
-                        <button class="btn-3d w-full">문의하기</button>
-                    </div>
-                </div>
-
-                <div class="card-rotate p-8 depth-layer" onclick="openChat('지원사업')">
-                    <div class="text-center">
-                        <div class="text-6xl mb-5">📋</div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-3">지원사업</h3>
-                        <p class="text-gray-600 mb-6">각종 지원 프로그램 안내</p>
-                        <div class="flex flex-wrap gap-2 justify-center mb-6">
-                            <span class="tag-3d text-xs">R&D</span>
-                            <span class="tag-3d text-xs">자금지원</span>
-                            <span class="tag-3d text-xs">컨설팅</span>
-                        </div>
-                        <button class="btn-3d w-full">문의하기</button>
-                    </div>
-                </div>
-
-                <div class="card-rotate p-8 depth-layer" onclick="openChat('연구시설')">
-                    <div class="text-center">
-                        <div class="text-6xl mb-5">🔬</div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-3">연구시설</h3>
-                        <p class="text-gray-600 mb-6">첨단 연구 인프라 이용</p>
-                        <div class="flex flex-wrap gap-2 justify-center mb-6">
-                            <span class="tag-3d text-xs">장비예약</span>
-                            <span class="tag-3d text-xs">이용요금</span>
-                            <span class="tag-3d text-xs">시설안내</span>
-                        </div>
-                        <button class="btn-3d w-full">문의하기</button>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- 추가 서비스 -->
-            <div class="grid grid-cols-4 gap-6 mb-6">
-
-                <div class="card-rotate p-6 depth-layer text-center" onclick="openChat('임상시험')">
-                    <div class="text-5xl mb-4">🧪</div>
-                    <h4 class="text-lg font-bold text-gray-800 mb-2">임상시험</h4>
-                    <p class="text-sm text-gray-600 mb-4">임상시험 지원</p>
-                    <button class="btn-3d w-full text-sm py-2">문의</button>
-                </div>
-
-                <div class="card-rotate p-6 depth-layer text-center" onclick="openChat('네트워킹')">
-                    <div class="text-5xl mb-4">🤝</div>
-                    <h4 class="text-lg font-bold text-gray-800 mb-2">네트워킹</h4>
-                    <p class="text-sm text-gray-600 mb-4">기업 협력</p>
-                    <button class="btn-3d w-full text-sm py-2">문의</button>
-                </div>
-
-                <div class="card-rotate p-6 depth-layer text-center" onclick="openChat('교육')">
-                    <div class="text-5xl mb-4">📚</div>
-                    <h4 class="text-lg font-bold text-gray-800 mb-2">교육</h4>
-                    <p class="text-sm text-gray-600 mb-4">전문 교육</p>
-                    <button class="btn-3d w-full text-sm py-2">문의</button>
-                </div>
-
-                <div class="card-rotate p-6 depth-layer text-center" onclick="openChat('문의')">
-                    <div class="text-5xl mb-4">💬</div>
-                    <h4 class="text-lg font-bold text-gray-800 mb-2">일반문의</h4>
-                    <p class="text-sm text-gray-600 mb-4">기타 문의</p>
-                    <button class="btn-3d w-full text-sm py-2">문의</button>
-                </div>
-
-            </div>
-
-            <!-- AI 기술 스택 -->
-            <div class="card-3d p-10 depth-layer">
-                <h3 class="text-3xl font-bold text-gray-800 mb-8 text-center">
-                    AI Technology Stack
-                </h3>
-                <div class="grid grid-cols-3 gap-8">
-                    <div class="card-rotate p-8 text-center" style="background: linear-gradient(135deg, #fef3c7, #fde047);">
-                        <div class="text-6xl mb-4">🧠</div>
-                        <h4 class="text-xl font-bold text-gray-800 mb-3">Language Model</h4>
-                        <p class="text-gray-700">고성능 자연어 처리</p>
-                    </div>
-                    <div class="card-rotate p-8 text-center" style="background: linear-gradient(135deg, #dbeafe, #93c5fd);">
-                        <div class="text-6xl mb-4">📊</div>
-                        <h4 class="text-xl font-bold text-gray-800 mb-3">RAG System</h4>
-                        <p class="text-gray-700">학습 데이터 검색</p>
-                    </div>
-                    <div class="card-rotate p-8 text-center" style="background: linear-gradient(135deg, #fce7f3, #fbcfe8);">
-                        <div class="text-6xl mb-4">🎯</div>
-                        <h4 class="text-xl font-bold text-gray-800 mb-3">Intent Analysis</h4>
-                        <p class="text-gray-700">의도 정확 파악</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- 플로팅 챗봇 위젯 -->
-    <div id="chatWidget" class="chat-widget">
-        <div class="widget-header">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-3xl">
-                        🤖
-                    </div>
-                    <div>
-                        <div class="font-bold text-lg">3D AI Assistant</div>
-                        <div class="text-sm text-white/90 flex items-center gap-2">
-                            <span class="pulse-3d" style="width: 8px; height: 8px; background: white;"></span>
-                            온라인
-                        </div>
-                    </div>
-                </div>
-                <button onclick="closeChat()" class="text-white text-3xl hover:bg-white/20 w-10 h-10 rounded-full transition-all">×</button>
-            </div>
-        </div>
-        <div id="chatMessages" class="flex-1 overflow-y-auto p-5 space-y-4" style="max-height: 450px; background: linear-gradient(135deg, #f9fafb, #f3f4f6);">
-            <!-- 메시지가 여기에 추가됩니다 -->
-        </div>
-        <div class="p-4 bg-white" style="border-radius: 0 0 1.75rem 1.75rem;">
             <div class="flex gap-3">
-                <input
-                    type="text"
-                    id="chatInput"
-                    placeholder="메시지를 입력하세요..."
-                    class="input-3d"
-                />
-                <button onclick="sendChatMessage()" class="btn-3d">
-                    📤
-                </button>
+                <div class="badge-3d">LLM 시스템 가동중</div>
+                <div class="badge-3d">RAG 데이터 활성화</div>
             </div>
         </div>
     </div>
 
-    <script>
-        function openChat(topic) {
-            const widget = document.getElementById('chatWidget');
-            widget.classList.add('active');
+    <div class="grid grid-cols-4 gap-6 mb-6">
+        <div class="metric-3d" style="border-left-color: #2563eb;">
+            <div class="text-center">
+                <div class="text-5xl mb-3">📊</div>
+                <div class="text-sm text-gray-600 font-semibold mb-2">일일 상담건수</div>
+                <div class="metric-value-3d">1,528</div>
+                <div class="mt-3 text-xs font-bold text-blue-600">▲ 15.8% 증가</div>
+            </div>
+        </div>
+        <div class="metric-3d" style="border-left-color: #059669;">
+            <div class="text-center">
+                <div class="text-5xl mb-3">✅</div>
+                <div class="text-sm text-gray-600 font-semibold mb-2">처리 완료율</div>
+                <div class="metric-value-3d" style="background: linear-gradient(135deg, #059669, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">98.5%</div>
+                <div class="mt-3 text-xs font-bold text-green-600">우수</div>
+            </div>
+        </div>
+        <div class="metric-3d" style="border-left-color: #0891b2;">
+            <div class="text-center">
+                <div class="text-5xl mb-3">⚡</div>
+                <div class="text-sm text-gray-600 font-semibold mb-2">평균 응답시간</div>
+                <div class="metric-value-3d" style="background: linear-gradient(135deg, #0891b2, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">0.9초</div>
+                <div class="mt-3 text-xs font-bold text-cyan-600">매우 빠름</div>
+            </div>
+        </div>
+        <div class="metric-3d" style="border-left-color: #7c3aed;">
+            <div class="text-center">
+                <div class="text-5xl mb-3">⭐</div>
+                <div class="text-sm text-gray-600 font-semibold mb-2">사용자 만족도</div>
+                <div class="metric-value-3d" style="background: linear-gradient(135deg, #7c3aed, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">97.2%</div>
+                <div class="mt-3 text-xs font-bold text-purple-600">최상급</div>
+            </div>
+        </div>
+    </div>
 
-            if (topic) {
-                setTimeout(() => {
-                    document.getElementById('chatInput').value = topic + '에 대해 알려주세요';
-                    sendChatMessage();
-                }, 300);
-            }
-        }
+    <div class="info-card mb-6 text-center py-12">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-8xl mb-6">🤖</div>
+            <h2 class="text-4xl font-black text-gray-900 mb-4">공공 AI 상담 시스템</h2>
+            <p class="text-lg text-gray-600 font-semibold mb-8">의료산업 발전을 위한 스마트 지원 서비스</p>
+            <div class="flex justify-center gap-4">
+                <button class="gov-btn-3d">💬 상담 시작하기</button>
+                <button class="gov-btn-3d" style="background: white; color: #1e40af; border: 3px solid #1e40af;">📋 서비스 안내</button>
+            </div>
+        </div>
+    </div>
 
-        function closeChat() {
-            const widget = document.getElementById('chatWidget');
-            widget.classList.remove('active');
-        }
+    <div class="grid grid-cols-3 gap-6 mb-6">
+        <div class="info-card text-center">
+            <div class="icon-3d" style="background: linear-gradient(135deg, #dbeafe, #bfdbfe);">🏢</div>
+            <h3 class="text-2xl font-black text-gray-900 mb-3">입주기업 지원</h3>
+            <p class="text-gray-600 font-semibold mb-4">기업 입주 절차 및 지원 혜택</p>
+            <div class="flex flex-wrap gap-2 justify-center mb-5">
+                <span class="badge-3d text-xs">입주조건</span>
+                <span class="badge-3d text-xs">지원혜택</span>
+                <span class="badge-3d text-xs">신청절차</span>
+            </div>
+            <button class="gov-btn-3d w-full text-sm">자세히 보기</button>
+        </div>
+        <div class="info-card text-center">
+            <div class="icon-3d" style="background: linear-gradient(135deg, #d1fae5, #a7f3d0);">📋</div>
+            <h3 class="text-2xl font-black text-gray-900 mb-3">지원사업</h3>
+            <p class="text-gray-600 font-semibold mb-4">R&D 및 사업화 지원 프로그램</p>
+            <div class="flex flex-wrap gap-2 justify-center mb-5">
+                <span class="badge-3d text-xs" style="background: linear-gradient(135deg, #d1fae5, #a7f3d0); color: #065f46; border-color: #6ee7b7;">R&D 지원</span>
+                <span class="badge-3d text-xs" style="background: linear-gradient(135deg, #d1fae5, #a7f3d0); color: #065f46; border-color: #6ee7b7;">자금지원</span>
+                <span class="badge-3d text-xs" style="background: linear-gradient(135deg, #d1fae5, #a7f3d0); color: #065f46; border-color: #6ee7b7;">컨설팅</span>
+            </div>
+            <button class="gov-btn-3d w-full text-sm" style="background: linear-gradient(135deg, #059669, #047857);">자세히 보기</button>
+        </div>
+        <div class="info-card text-center">
+            <div class="icon-3d" style="background: linear-gradient(135deg, #cffafe, #a5f3fc);">🔬</div>
+            <h3 class="text-2xl font-black text-gray-900 mb-3">연구시설</h3>
+            <p class="text-gray-600 font-semibold mb-4">첨단 연구 인프라 이용 안내</p>
+            <div class="flex flex-wrap gap-2 justify-center mb-5">
+                <span class="badge-3d text-xs" style="background: linear-gradient(135deg, #cffafe, #a5f3fc); color: #0e7490; border-color: #67e8f9;">장비예약</span>
+                <span class="badge-3d text-xs" style="background: linear-gradient(135deg, #cffafe, #a5f3fc); color: #0e7490; border-color: #67e8f9;">이용요금</span>
+                <span class="badge-3d text-xs" style="background: linear-gradient(135deg, #cffafe, #a5f3fc); color: #0e7490; border-color: #67e8f9;">시설안내</span>
+            </div>
+            <button class="gov-btn-3d w-full text-sm" style="background: linear-gradient(135deg, #0891b2, #0e7490);">자세히 보기</button>
+        </div>
+    </div>
 
-        function sendChatMessage() {
-            const input = document.getElementById('chatInput');
-            const message = input.value.trim();
-
-            if (message === '') return;
-
-            const chatMessages = document.getElementById('chatMessages');
-
-            // 사용자 메시지
-            const userMsg = document.createElement('div');
-            userMsg.className = 'fade-in';
-            userMsg.innerHTML = `
-                <div class="chat-message-user">
-                    ${message}
+    <div class="info-card">
+        <h3 class="text-2xl font-black text-gray-900 mb-6 text-center">AI 시스템 구성 인포그래픽</h3>
+        <div class="grid grid-cols-3 gap-8">
+            <div class="text-center p-6 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl shadow-lg">
+                <div class="icon-3d mb-4" style="background: linear-gradient(135deg, #2563eb, #1e40af); color: white;">🧠</div>
+                <h4 class="text-xl font-black text-gray-900 mb-3">자연어처리 엔진</h4>
+                <p class="text-sm text-gray-600 font-semibold mb-4">고성능 LLM 기반 대화형 AI</p>
+                <div class="relative w-32 h-32 mx-auto">
+                    <svg class="w-full h-full">
+                        <circle cx="64" cy="64" r="56" fill="none" stroke="#e5e7eb" stroke-width="8"/>
+                        <circle cx="64" cy="64" r="56" fill="none" stroke="url(#grad1)" stroke-width="8" stroke-dasharray="352" stroke-dashoffset="35.2" class="progress-ring"/>
+                        <defs><linearGradient id="grad1"><stop offset="0%" style="stop-color:#2563eb"/><stop offset="100%" style="stop-color:#1e40af"/></linearGradient></defs>
+                    </svg>
+                    <div class="absolute inset-0 flex items-center justify-center"><span class="text-3xl font-black text-blue-700">95%</span></div>
                 </div>
-            `;
-            chatMessages.appendChild(userMsg);
-
-            input.value = '';
-
-            // AI 응답
-            setTimeout(() => {
-                const intents = ['입주기업', '지원사업', '연구시설', '임상시험', '일반문의'];
-                const randomIntent = intents[Math.floor(Math.random() * intents.length)];
-
-                const aiMsg = document.createElement('div');
-                aiMsg.className = 'fade-in';
-                aiMsg.innerHTML = `
-                    <div class="chat-message-ai">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="text-2xl">🤖</span>
-                            <span class="font-bold text-gray-800">3D AI Assistant</span>
-                        </div>
-                        <div class="mb-3 flex gap-2 flex-wrap">
-                            <span class="tag-3d text-xs">의도: ${randomIntent}</span>
-                            <span class="tag-3d text-xs">RAG ✓</span>
-                            <span class="tag-3d text-xs">LLM ✓</span>
-                        </div>
-                        <div class="text-gray-700 leading-relaxed">
-                            "${message}"에 대해 안내해드리겠습니다.<br><br>
-                            오송첨단의료산업진흥재단은 의료산업 발전을 위한 다양한 지원을 제공하고 있습니다.
-                            학습된 데이터베이스에서 정확한 정보를 검색하여 답변드립니다.
-                        </div>
-                        <div class="mt-4 flex gap-2">
-                            <button class="px-4 py-2 bg-gradient-to-r from-purple-100 to-blue-100 text-purple-700 rounded-lg text-sm font-bold hover:shadow-lg transition-all"
-                                    onclick="this.disabled=true; this.textContent='✓ 완료'">
-                                👍 도움됨
-                            </button>
-                            <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-bold hover:shadow-lg transition-all">
-                                👎 재질문
-                            </button>
-                        </div>
-                    </div>
-                `;
-                chatMessages.appendChild(aiMsg);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            }, 1000);
-
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        // Enter 키로 전송
-        document.getElementById('chatInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                sendChatMessage();
-            }
-        });
-    </script>
-
+            </div>
+            <div class="text-center p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-2xl shadow-lg">
+                <div class="icon-3d mb-4" style="background: linear-gradient(135deg, #10b981, #059669); color: white;">📚</div>
+                <h4 class="text-xl font-black text-gray-900 mb-3">RAG 검색 시스템</h4>
+                <p class="text-sm text-gray-600 font-semibold mb-4">학습 데이터 기반 정확한 답변</p>
+                <div class="relative w-32 h-32 mx-auto">
+                    <svg class="w-full h-full">
+                        <circle cx="64" cy="64" r="56" fill="none" stroke="#e5e7eb" stroke-width="8"/>
+                        <circle cx="64" cy="64" r="56" fill="none" stroke="url(#grad2)" stroke-width="8" stroke-dasharray="352" stroke-dashoffset="28.16" class="progress-ring"/>
+                        <defs><linearGradient id="grad2"><stop offset="0%" style="stop-color:#10b981"/><stop offset="100%" style="stop-color:#059669"/></linearGradient></defs>
+                    </svg>
+                    <div class="absolute inset-0 flex items-center justify-center"><span class="text-3xl font-black text-green-700">92%</span></div>
+                </div>
+            </div>
+            <div class="text-center p-6 bg-gradient-to-br from-cyan-50 to-cyan-100 rounded-2xl shadow-lg">
+                <div class="icon-3d mb-4" style="background: linear-gradient(135deg, #06b6d4, #0891b2); color: white;">🎯</div>
+                <h4 class="text-xl font-black text-gray-900 mb-3">의도 분석 엔진</h4>
+                <p class="text-sm text-gray-600 font-semibold mb-4">질문 의도 자동 파악 및 분류</p>
+                <div class="relative w-32 h-32 mx-auto">
+                    <svg class="w-full h-full">
+                        <circle cx="64" cy="64" r="56" fill="none" stroke="#e5e7eb" stroke-width="8"/>
+                        <circle cx="64" cy="64" r="56" fill="none" stroke="url(#grad3)" stroke-width="8" stroke-dasharray="352" stroke-dashoffset="38.72" class="progress-ring"/>
+                        <defs><linearGradient id="grad3"><stop offset="0%" style="stop-color:#06b6d4"/><stop offset="100%" style="stop-color:#0891b2"/></linearGradient></defs>
+                    </svg>
+                    <div class="absolute inset-0 flex items-center justify-center"><span class="text-3xl font-black text-cyan-700">89%</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
