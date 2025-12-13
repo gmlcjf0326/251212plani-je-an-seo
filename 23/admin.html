@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오송첨단의료산업진흥재단 관리자 - 한국 전통</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff');
+
+        * {
+            font-family: 'GmarketSans', sans-serif;
+        }
+
+        :root {
+            --dancheong-teal: #007F7F;
+            --dancheong-red: #C8102E;
+            --dancheong-yellow: #F1B434;
+            --dancheong-beige: #F5F1E8;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dancheong-beige) 0%, #e8dfd2 100%);
+        }
+
+        .pattern-bg {
+            background-image:
+                repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(0,127,127,.03) 35px, rgba(0,127,127,.03) 70px),
+                repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(200,16,46,.03) 35px, rgba(200,16,46,.03) 70px);
+        }
+
+        .dancheong-border {
+            border-top: 4px solid var(--dancheong-red);
+            border-bottom: 2px solid var(--dancheong-yellow);
+            position: relative;
+        }
+
+        .dancheong-border::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--dancheong-teal);
+        }
+
+        .traditional-card {
+            background: white;
+            border: 3px solid var(--dancheong-teal);
+            box-shadow: 8px 8px 0 rgba(0, 127, 127, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .traditional-card:hover {
+            box-shadow: 10px 10px 0 rgba(0, 127, 127, 0.2);
+        }
+
+        .stat-card {
+            background: white;
+            border-left: 6px solid var(--dancheong-teal);
+            box-shadow: 4px 4px 0 rgba(0, 127, 127, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 6px 6px 0 rgba(0, 127, 127, 0.2);
+        }
+
+        .stat-card.red { border-left-color: var(--dancheong-red); }
+        .stat-card.yellow { border-left-color: var(--dancheong-yellow); }
+
+        .tab-button {
+            background: white;
+            color: var(--dancheong-teal);
+            border: 2px solid var(--dancheong-teal);
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, var(--dancheong-teal) 0%, #005f5f 100%);
+            color: white;
+            border-color: var(--dancheong-teal);
+        }
+
+        .tab-button:hover:not(.active) {
+            background: var(--dancheong-beige);
+        }
+
+        .traditional-divider {
+            height: 3px;
+            background: linear-gradient(90deg,
+                var(--dancheong-red) 0%,
+                var(--dancheong-yellow) 33%,
+                var(--dancheong-teal) 66%,
+                var(--dancheong-red) 100%);
+        }
+
+        .seal-stamp {
+            width: 60px;
+            height: 60px;
+            background: var(--dancheong-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+            border: 3px solid var(--dancheong-yellow);
+            box-shadow: 0 4px 10px rgba(200, 16, 46, 0.3);
+        }
+
+        .data-row {
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .data-row:hover {
+            background: var(--dancheong-beige);
+            border-left-color: var(--dancheong-teal);
+        }
+
+        .korean-ornament {
+            color: var(--dancheong-red);
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col pattern-bg">
+
+    <!-- 헤더 -->
+    <div class="dancheong-border bg-white shadow-xl">
+        <div class="max-w-7xl mx-auto py-6 px-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <div class="seal-stamp">
+                        管
+                    </div>
+                    <div>
+                        <h1 class="text-3xl font-bold" style="color: var(--dancheong-red);">관리자 대시보드</h1>
+                        <p class="text-gray-600">AI 챗봇 운영 및 데이터 관리</p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <div class="font-bold text-gray-800">관리자</div>
+                    <div class="text-sm text-gray-600">2025-12-13 10:30</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 탭 메뉴 -->
+    <div class="bg-white/90 shadow-lg">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex gap-3">
+                <button class="tab-button active px-6 py-3 rounded-lg" onclick="showTab('overview')">
+                    🏠 대시보드
+                </button>
+                <button class="tab-button px-6 py-3 rounded-lg" onclick="showTab('llm')">
+                    🧠 LLM 분석
+                </button>
+                <button class="tab-button px-6 py-3 rounded-lg" onclick="showTab('rag')">
+                    📚 RAG 데이터
+                </button>
+                <button class="tab-button px-6 py-3 rounded-lg" onclick="showTab('intent')">
+                    🎯 의도 분석
+                </button>
+                <button class="tab-button px-6 py-3 rounded-lg" onclick="showTab('qa')">
+                    💬 Q&A 관리
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 메인 컨텐츠 -->
+    <div class="flex-1 overflow-y-auto p-6">
+        <div class="max-w-7xl mx-auto">
+
+            <!-- 대시보드 탭 -->
+            <div id="overviewTab" class="space-y-6">
+
+                <!-- 주요 지표 -->
+                <div class="grid grid-cols-4 gap-6">
+                    <div class="stat-card p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-5xl">👥</span>
+                            <div class="text-sm font-bold px-3 py-1 rounded-full" style="background: var(--dancheong-teal); color: white;">
+                                +8.3%
+                            </div>
+                        </div>
+                        <div class="text-gray-600 font-bold mb-2">일일 사용자</div>
+                        <div class="text-4xl font-bold" style="color: var(--dancheong-teal);">1,247</div>
+                        <div class="text-sm text-gray-500 mt-2">오늘</div>
+                    </div>
+
+                    <div class="stat-card red p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-5xl">💬</span>
+                            <div class="text-sm font-bold px-3 py-1 rounded-full" style="background: var(--dancheong-red); color: white;">
+                                +15.2%
+                            </div>
+                        </div>
+                        <div class="text-gray-600 font-bold mb-2">총 대화 수</div>
+                        <div class="text-4xl font-bold" style="color: var(--dancheong-red);">8,542</div>
+                        <div class="text-sm text-gray-500 mt-2">이번 주</div>
+                    </div>
+
+                    <div class="stat-card yellow p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-5xl">⭐</span>
+                            <div class="text-sm font-bold px-3 py-1 rounded-full" style="background: var(--dancheong-yellow); color: #5a3a00;">
+                                +2.1%
+                            </div>
+                        </div>
+                        <div class="text-gray-600 font-bold mb-2">만족도</div>
+                        <div class="text-4xl font-bold" style="color: var(--dancheong-yellow); text-shadow: 1px 1px 0 rgba(0,0,0,0.1);">94.7%</div>
+                        <div class="text-sm text-gray-500 mt-2">평균</div>
+                    </div>
+
+                    <div class="stat-card p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-5xl">🎯</span>
+                            <div class="text-sm font-bold px-3 py-1 rounded-full" style="background: var(--dancheong-teal); color: white;">
+                                +5.7%
+                            </div>
+                        </div>
+                        <div class="text-gray-600 font-bold mb-2">응답 정확도</div>
+                        <div class="text-4xl font-bold" style="color: var(--dancheong-teal);">91.2%</div>
+                        <div class="text-sm text-gray-500 mt-2">RAG 기반</div>
+                    </div>
+                </div>
+
+                <!-- 차트 영역 -->
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="traditional-card p-6">
+                        <h3 class="text-xl font-bold mb-4 flex items-center gap-2" style="color: var(--dancheong-teal);">
+                            <span class="korean-ornament">❀</span>
+                            일별 대화량 추이
+                        </h3>
+                        <div class="traditional-divider mb-4"></div>
+                        <canvas id="dailyChart"></canvas>
+                    </div>
+
+                    <div class="traditional-card p-6">
+                        <h3 class="text-xl font-bold mb-4 flex items-center gap-2" style="color: var(--dancheong-red);">
+                            <span class="korean-ornament">❀</span>
+                            카테고리별 질의 분포
+                        </h3>
+                        <div class="traditional-divider mb-4"></div>
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- 실시간 활동 -->
+                <div class="traditional-card p-6">
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-2" style="color: var(--dancheong-teal);">
+                        <span class="text-2xl">🔴</span>
+                        실시간 활동 로그
+                    </h3>
+                    <div class="traditional-divider mb-4"></div>
+                    <div class="space-y-2">
+                        <div class="data-row p-4 bg-white rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-2xl">💬</span>
+                                    <div>
+                                        <div class="font-bold text-gray-800">입주기업 문의</div>
+                                        <div class="text-sm text-gray-600">사용자 #1247 - "입주 자격 조건이 궁금합니다"</div>
+                                    </div>
+                                </div>
+                                <div class="text-sm text-gray-500">방금 전</div>
+                            </div>
+                        </div>
+
+                        <div class="data-row p-4 bg-white rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-2xl">📋</span>
+                                    <div>
+                                        <div class="font-bold text-gray-800">지원사업 문의</div>
+                                        <div class="text-sm text-gray-600">사용자 #1246 - "R&D 지원 프로그램 안내"</div>
+                                    </div>
+                                </div>
+                                <div class="text-sm text-gray-500">1분 전</div>
+                            </div>
+                        </div>
+
+                        <div class="data-row p-4 bg-white rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-2xl">🔬</span>
+                                    <div>
+                                        <div class="font-bold text-gray-800">연구시설 문의</div>
+                                        <div class="text-sm text-gray-600">사용자 #1245 - "장비 이용 신청 방법"</div>
+                                    </div>
+                                </div>
+                                <div class="text-sm text-gray-500">3분 전</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- LLM 분석 탭 -->
+            <div id="llmTab" class="space-y-6" style="display: none;">
+                <div class="traditional-card p-6">
+                    <h3 class="text-2xl font-bold mb-4 flex items-center gap-3" style="color: var(--dancheong-red);">
+                        <span class="text-4xl">🧠</span>
+                        LLM 성능 분석
+                    </h3>
+                    <div class="traditional-divider mb-6"></div>
+
+                    <div class="grid grid-cols-3 gap-6 mb-6">
+                        <div class="bg-gray-50 p-6 rounded-lg border-l-4" style="border-left-color: var(--dancheong-teal);">
+                            <div class="text-4xl mb-3">⚡</div>
+                            <div class="font-bold text-gray-700 mb-2">평균 응답 시간</div>
+                            <div class="text-3xl font-bold" style="color: var(--dancheong-teal);">1.8초</div>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg border-l-4" style="border-left-color: var(--dancheong-red);">
+                            <div class="text-4xl mb-3">🎯</div>
+                            <div class="font-bold text-gray-700 mb-2">응답 정확도</div>
+                            <div class="text-3xl font-bold" style="color: var(--dancheong-red);">92.5%</div>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg border-l-4" style="border-left-color: var(--dancheong-yellow);">
+                            <div class="text-4xl mb-3">💡</div>
+                            <div class="font-bold text-gray-700 mb-2">토큰 사용량</div>
+                            <div class="text-3xl font-bold" style="color: var(--dancheong-yellow); text-shadow: 1px 1px 0 rgba(0,0,0,0.1);">2.4M</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg border-2" style="border-color: var(--dancheong-teal);">
+                        <h4 class="font-bold text-lg mb-4" style="color: var(--dancheong-teal);">모델 정보</h4>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <div class="text-sm text-gray-600 mb-1">사용 모델</div>
+                                <div class="font-bold">GPT-4 Turbo</div>
+                            </div>
+                            <div>
+                                <div class="text-sm text-gray-600 mb-1">Temperature</div>
+                                <div class="font-bold">0.7</div>
+                            </div>
+                            <div>
+                                <div class="text-sm text-gray-600 mb-1">Max Tokens</div>
+                                <div class="font-bold">2048</div>
+                            </div>
+                            <div>
+                                <div class="text-sm text-gray-600 mb-1">Top P</div>
+                                <div class="font-bold">0.95</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RAG 데이터 탭 -->
+            <div id="ragTab" class="space-y-6" style="display: none;">
+                <div class="traditional-card p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-2xl font-bold flex items-center gap-3" style="color: var(--dancheong-teal);">
+                            <span class="text-4xl">📚</span>
+                            학습 데이터 관리
+                        </h3>
+                        <button class="px-6 py-3 rounded-lg font-bold text-white transition-all hover:opacity-90"
+                                style="background: linear-gradient(135deg, var(--dancheong-red) 0%, #a00d24 100%);">
+                            ➕ 데이터 추가
+                        </button>
+                    </div>
+                    <div class="traditional-divider mb-6"></div>
+
+                    <div class="grid grid-cols-4 gap-4 mb-6">
+                        <div class="text-center p-4 bg-gray-50 rounded-lg">
+                            <div class="text-3xl mb-2">📄</div>
+                            <div class="font-bold text-gray-700 mb-1">총 문서 수</div>
+                            <div class="text-2xl font-bold" style="color: var(--dancheong-teal);">1,247</div>
+                        </div>
+                        <div class="text-center p-4 bg-gray-50 rounded-lg">
+                            <div class="text-3xl mb-2">🔤</div>
+                            <div class="font-bold text-gray-700 mb-1">임베딩 벡터</div>
+                            <div class="text-2xl font-bold" style="color: var(--dancheong-red);">45,892</div>
+                        </div>
+                        <div class="text-center p-4 bg-gray-50 rounded-lg">
+                            <div class="text-3xl mb-2">📊</div>
+                            <div class="font-bold text-gray-700 mb-1">검색 정확도</div>
+                            <div class="text-2xl font-bold" style="color: var(--dancheong-yellow); text-shadow: 1px 1px 0 rgba(0,0,0,0.1);">94.3%</div>
+                        </div>
+                        <div class="text-center p-4 bg-gray-50 rounded-lg">
+                            <div class="text-3xl mb-2">⏱️</div>
+                            <div class="font-bold text-gray-700 mb-1">평균 검색 시간</div>
+                            <div class="text-2xl font-bold" style="color: var(--dancheong-teal);">0.3초</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg border-2 overflow-hidden" style="border-color: var(--dancheong-teal);">
+                        <table class="w-full">
+                            <thead class="text-white" style="background: linear-gradient(135deg, var(--dancheong-teal) 0%, #005f5f 100%);">
+                                <tr>
+                                    <th class="px-4 py-3 text-left">카테고리</th>
+                                    <th class="px-4 py-3 text-left">문서명</th>
+                                    <th class="px-4 py-3 text-center">벡터 수</th>
+                                    <th class="px-4 py-3 text-center">상태</th>
+                                    <th class="px-4 py-3 text-center">마지막 업데이트</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr class="data-row">
+                                    <td class="px-4 py-3"><span class="px-3 py-1 rounded-full text-sm font-bold" style="background: rgba(0,127,127,0.1); color: var(--dancheong-teal);">입주기업</span></td>
+                                    <td class="px-4 py-3 font-bold">입주 기업 안내서 v2.3</td>
+                                    <td class="px-4 py-3 text-center">3,421</td>
+                                    <td class="px-4 py-3 text-center"><span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-bold">활성</span></td>
+                                    <td class="px-4 py-3 text-center text-gray-600">2025-12-10</td>
+                                </tr>
+                                <tr class="data-row">
+                                    <td class="px-4 py-3"><span class="px-3 py-1 rounded-full text-sm font-bold" style="background: rgba(200,16,46,0.1); color: var(--dancheong-red);">지원사업</span></td>
+                                    <td class="px-4 py-3 font-bold">R&D 지원사업 가이드</td>
+                                    <td class="px-4 py-3 text-center">5,678</td>
+                                    <td class="px-4 py-3 text-center"><span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-bold">활성</span></td>
+                                    <td class="px-4 py-3 text-center text-gray-600">2025-12-08</td>
+                                </tr>
+                                <tr class="data-row">
+                                    <td class="px-4 py-3"><span class="px-3 py-1 rounded-full text-sm font-bold" style="background: rgba(241,180,52,0.1); color: #9a6d21;">연구시설</span></td>
+                                    <td class="px-4 py-3 font-bold">연구시설 이용 매뉴얼</td>
+                                    <td class="px-4 py-3 text-center">2,890</td>
+                                    <td class="px-4 py-3 text-center"><span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-bold">활성</span></td>
+                                    <td class="px-4 py-3 text-center text-gray-600">2025-12-12</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 의도 분석 탭 -->
+            <div id="intentTab" class="space-y-6" style="display: none;">
+                <div class="traditional-card p-6">
+                    <h3 class="text-2xl font-bold mb-4 flex items-center gap-3" style="color: var(--dancheong-red);">
+                        <span class="text-4xl">🎯</span>
+                        사용자 의도 분석
+                    </h3>
+                    <div class="traditional-divider mb-6"></div>
+
+                    <div class="grid grid-cols-2 gap-6 mb-6">
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-lg mb-4" style="color: var(--dancheong-teal);">의도 분류 정확도</h4>
+                            <div class="text-5xl font-bold mb-2" style="color: var(--dancheong-red);">89.7%</div>
+                            <div class="text-sm text-gray-600">지난 주 대비 +3.2%</div>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-lg mb-4" style="color: var(--dancheong-teal);">분류된 의도 유형</h4>
+                            <div class="text-5xl font-bold mb-2" style="color: var(--dancheong-red);">12개</div>
+                            <div class="text-sm text-gray-600">주요 카테고리</div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="bg-white p-4 rounded-lg border-l-4" style="border-left-color: var(--dancheong-teal);">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="font-bold text-gray-800">입주기업 정보 문의</div>
+                                <div class="text-sm font-bold" style="color: var(--dancheong-teal);">34.2%</div>
+                            </div>
+                            <div class="bg-gray-200 rounded-full h-3 overflow-hidden">
+                                <div class="h-full rounded-full" style="width: 34.2%; background: var(--dancheong-teal);"></div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-lg border-l-4" style="border-left-color: var(--dancheong-red);">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="font-bold text-gray-800">지원사업 안내</div>
+                                <div class="text-sm font-bold" style="color: var(--dancheong-red);">28.7%</div>
+                            </div>
+                            <div class="bg-gray-200 rounded-full h-3 overflow-hidden">
+                                <div class="h-full rounded-full" style="width: 28.7%; background: var(--dancheong-red);"></div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-lg border-l-4" style="border-left-color: var(--dancheong-yellow);">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="font-bold text-gray-800">연구시설 이용</div>
+                                <div class="text-sm font-bold" style="color: #9a6d21;">18.5%</div>
+                            </div>
+                            <div class="bg-gray-200 rounded-full h-3 overflow-hidden">
+                                <div class="h-full rounded-full" style="width: 18.5%; background: var(--dancheong-yellow);"></div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-lg border-l-4 border-gray-400">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="font-bold text-gray-800">기타</div>
+                                <div class="text-sm font-bold text-gray-600">18.6%</div>
+                            </div>
+                            <div class="bg-gray-200 rounded-full h-3 overflow-hidden">
+                                <div class="h-full rounded-full bg-gray-400" style="width: 18.6%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q&A 관리 탭 -->
+            <div id="qaTab" class="space-y-6" style="display: none;">
+                <div class="traditional-card p-6">
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-2" style="color: var(--dancheong-teal);">
+                        <span class="text-2xl">💬</span>
+                        최근 질의응답
+                    </h3>
+                    <div class="traditional-divider mb-4"></div>
+
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-lg border-l-4" style="border-left-color: var(--dancheong-teal);">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="font-bold text-gray-800">입주 자격 조건 문의</div>
+                                <div class="text-sm text-gray-600">2025-12-13 10:15</div>
+                            </div>
+                            <div class="text-gray-700 mb-3">Q: 바이오 스타트업인데 입주 가능한가요?</div>
+                            <div class="flex gap-2 mb-3">
+                                <span class="px-3 py-1 rounded-full text-sm font-bold" style="background: rgba(0,127,127,0.1); color: var(--dancheong-teal);">입주기업</span>
+                                <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-bold">만족도: ⭐⭐⭐⭐⭐</span>
+                                <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-bold">RAG 검색됨</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-lg border-l-4" style="border-left-color: var(--dancheong-red);">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="font-bold text-gray-800">R&D 지원사업 신청</div>
+                                <div class="text-sm text-gray-600">2025-12-13 10:08</div>
+                            </div>
+                            <div class="text-gray-700 mb-3">Q: R&D 지원사업 신청 기간이 언제인가요?</div>
+                            <div class="flex gap-2 mb-3">
+                                <span class="px-3 py-1 rounded-full text-sm font-bold" style="background: rgba(200,16,46,0.1); color: var(--dancheong-red);">지원사업</span>
+                                <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-bold">만족도: ⭐⭐⭐⭐</span>
+                                <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-bold">RAG 검색됨</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-lg border-l-4" style="border-left-color: var(--dancheong-yellow);">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="font-bold text-gray-800">연구 장비 이용</div>
+                                <div class="text-sm text-gray-600">2025-12-13 09:52</div>
+                            </div>
+                            <div class="text-gray-700 mb-3">Q: 전자현미경 사용 신청은 어떻게 하나요?</div>
+                            <div class="flex gap-2 mb-3">
+                                <span class="px-3 py-1 rounded-full text-sm font-bold" style="background: rgba(241,180,52,0.1); color: #9a6d21;">연구시설</span>
+                                <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-bold">만족도: ⭐⭐⭐⭐⭐</span>
+                                <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-bold">RAG 검색됨</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // 탭 전환 함수
+        function showTab(tabName) {
+            // 모든 탭 숨기기
+            document.getElementById('overviewTab').style.display = 'none';
+            document.getElementById('llmTab').style.display = 'none';
+            document.getElementById('ragTab').style.display = 'none';
+            document.getElementById('intentTab').style.display = 'none';
+            document.getElementById('qaTab').style.display = 'none';
+
+            // 모든 탭 버튼 비활성화
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // 선택된 탭 표시
+            const tabs = { overview: 'overviewTab', llm: 'llmTab', rag: 'ragTab', intent: 'intentTab', qa: 'qaTab' };
+            document.getElementById(tabs[tabName]).style.display = 'block';
+
+            // 클릭된 버튼 활성화
+            event.target.classList.add('active');
+        }
+
+        // 차트 생성
+        window.addEventListener('load', function() {
+            // 일별 대화량 차트
+            const dailyCtx = document.getElementById('dailyChart').getContext('2d');
+            new Chart(dailyCtx, {
+                type: 'line',
+                data: {
+                    labels: ['월', '화', '수', '목', '금', '토', '일'],
+                    datasets: [{
+                        label: '대화 수',
+                        data: [980, 1120, 1050, 1240, 1380, 1450, 1520],
+                        borderColor: '#007F7F',
+                        backgroundColor: 'rgba(0, 127, 127, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: { font: { size: 14, family: 'GmarketSans' } }
+                        }
+                    },
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+
+            // 카테고리별 분포 차트
+            const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+            new Chart(categoryCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['입주기업', '지원사업', '연구시설', '임상시험', '기타'],
+                    datasets: [{
+                        data: [34.2, 28.7, 18.5, 10.8, 7.8],
+                        backgroundColor: [
+                            '#007F7F',
+                            '#C8102E',
+                            '#F1B434',
+                            '#6B8E23',
+                            '#9E9E9E'
+                        ],
+                        borderWidth: 3,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                font: { size: 13, family: 'GmarketSans' },
+                                padding: 15
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
