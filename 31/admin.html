@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>통합관리자 시스템 - 오송첨단의료산업진흥재단</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Square:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Nanum Square', sans-serif; }
+        body { background: #f0f4f8; }
+        .gov-header { background: linear-gradient(135deg, #003d82 0%, #0055b8 100%); color: white; }
+        .data-card { background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-left: 4px solid #0055b8; }
+        .metric-box { background: white; border-radius: 6px; padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); text-align: center; border-top: 3px solid; }
+        .stat-number { font-size: 2rem; font-weight: 800; color: #003d82; }
+        .stat-label { font-size: 0.85rem; color: #666; font-weight: 700; margin-bottom: 8px; }
+        .status-badge { display: inline-block; padding: 4px 12px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; }
+        .badge-active { background: #dcfce7; color: #166534; }
+        .badge-warning { background: #fef3c7; color: #92400e; }
+        .badge-info { background: #dbeafe; color: #1e40af; }
+        .table-compact { width: 100%; font-size: 0.85rem; }
+        .table-compact th { background: #f1f5f9; padding: 10px 8px; text-align: left; font-weight: 800; color: #334155; border-bottom: 2px solid #cbd5e1; }
+        .table-compact td { padding: 10px 8px; border-bottom: 1px solid #e2e8f0; color: #475569; }
+        .section-title { font-size: 1.1rem; font-weight: 800; color: #1e293b; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 3px solid #0055b8; }
+        .mini-chart { height: 120px; }
+        .grid-dense { display: grid; gap: 16px; }
+    </style>
+</head>
+<body>
+    <div class="gov-header px-6 py-4 mb-5 shadow-md">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div style="width: 50px; height: 50px; background: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">🏥</div>
+                <div>
+                    <h1 class="text-2xl font-bold">오송첨단의료산업진흥재단</h1>
+                    <p class="text-sm opacity-90">AI 챗봇 통합관리자 시스템</p>
+                </div>
+            </div>
+            <div class="text-right text-sm">
+                <div class="font-bold">관리자 | 홍길동</div>
+                <div class="opacity-90">2025-12-14 15:23:47</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="px-6 pb-6">
+        <!-- 주요 지표 영역 -->
+        <div class="grid grid-cols-6 gap-4 mb-5">
+            <div class="metric-box" style="border-top-color: #0055b8;">
+                <div class="stat-label">금일 상담</div>
+                <div class="stat-number">1,847</div>
+                <div class="text-xs text-green-600 font-bold mt-1">▲ 12.3%</div>
+            </div>
+            <div class="metric-box" style="border-top-color: #0891b2;">
+                <div class="stat-label">누적 사용자</div>
+                <div class="stat-number" style="color: #0891b2;">28,549</div>
+                <div class="text-xs text-green-600 font-bold mt-1">▲ 8.7%</div>
+            </div>
+            <div class="metric-box" style="border-top-color: #059669;">
+                <div class="stat-label">응답 성공률</div>
+                <div class="stat-number" style="color: #059669;">98.7%</div>
+                <div class="text-xs text-blue-600 font-bold mt-1">우수</div>
+            </div>
+            <div class="metric-box" style="border-top-color: #dc2626;">
+                <div class="stat-label">미응답 건수</div>
+                <div class="stat-number" style="color: #dc2626;">24</div>
+                <div class="text-xs text-orange-600 font-bold mt-1">처리필요</div>
+            </div>
+            <div class="metric-box" style="border-top-color: #7c3aed;">
+                <div class="stat-label">평균 응답시간</div>
+                <div class="stat-number" style="color: #7c3aed;">0.87s</div>
+                <div class="text-xs text-green-600 font-bold mt-1">매우빠름</div>
+            </div>
+            <div class="metric-box" style="border-top-color: #ea580c;">
+                <div class="stat-label">사용자 만족도</div>
+                <div class="stat-number" style="color: #ea580c;">4.8/5.0</div>
+                <div class="text-xs text-green-600 font-bold mt-1">▲ 0.3p</div>
+            </div>
+        </div>
+
+        <!-- 2단 레이아웃 -->
+        <div class="grid grid-cols-3 gap-5 mb-5">
+            <!-- LLM 성능 모니터링 -->
+            <div class="data-card">
+                <div class="section-title">🧠 LLM 성능 모니터링</div>
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                    <div class="bg-blue-50 p-3 rounded">
+                        <div class="text-xs text-gray-600 font-bold mb-1">모델 상태</div>
+                        <div class="text-lg font-bold text-blue-700">정상가동</div>
+                        <div class="status-badge badge-active mt-1">ACTIVE</div>
+                    </div>
+                    <div class="bg-cyan-50 p-3 rounded">
+                        <div class="text-xs text-gray-600 font-bold mb-1">토큰 사용량</div>
+                        <div class="text-lg font-bold text-cyan-700">5.4M</div>
+                        <div class="text-xs text-gray-500 mt-1">오늘 기준</div>
+                    </div>
+                    <div class="bg-green-50 p-3 rounded">
+                        <div class="text-xs text-gray-600 font-bold mb-1">정확도</div>
+                        <div class="text-lg font-bold text-green-700">98.5%</div>
+                        <div class="text-xs text-green-600 font-bold mt-1">▲ 1.2%</div>
+                    </div>
+                    <div class="bg-purple-50 p-3 rounded">
+                        <div class="text-xs text-gray-600 font-bold mb-1">API 지연시간</div>
+                        <div class="text-lg font-bold text-purple-700">127ms</div>
+                        <div class="text-xs text-gray-500 mt-1">평균</div>
+                    </div>
+                </div>
+                <div class="mini-chart">
+                    <canvas id="llmChart"></canvas>
+                </div>
+            </div>
+
+            <!-- RAG 검색 시스템 -->
+            <div class="data-card">
+                <div class="section-title">📚 RAG 검색 시스템</div>
+                <div class="space-y-2 mb-4">
+                    <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                        <span class="text-xs font-bold text-gray-700">인덱싱된 문서</span>
+                        <span class="text-sm font-bold text-blue-700">4,247건</span>
+                    </div>
+                    <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                        <span class="text-xs font-bold text-gray-700">벡터 임베딩</span>
+                        <span class="text-sm font-bold text-cyan-700">86,834개</span>
+                    </div>
+                    <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                        <span class="text-xs font-bold text-gray-700">검색 정확도</span>
+                        <span class="text-sm font-bold text-green-700">99.2%</span>
+                    </div>
+                    <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                        <span class="text-xs font-bold text-gray-700">평균 검색시간</span>
+                        <span class="text-sm font-bold text-purple-700">0.09초</span>
+                    </div>
+                </div>
+                <div class="bg-blue-50 border-l-4 border-blue-600 p-3 rounded">
+                    <div class="text-xs font-bold text-gray-700 mb-2">최근 업데이트</div>
+                    <div class="text-xs text-gray-600">의료기기 지원사업 공고문 (47건)</div>
+                    <div class="text-xs text-gray-500 mt-1">2025-12-14 14:30 | 자동반영완료</div>
+                </div>
+                <div class="mini-chart mt-4">
+                    <canvas id="ragChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 의도 분석 통계 -->
+            <div class="data-card">
+                <div class="section-title">🎯 의도 분석 통계</div>
+                <table class="table-compact mb-3">
+                    <thead>
+                        <tr>
+                            <th>의도 유형</th>
+                            <th>건수</th>
+                            <th>비율</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="status-badge badge-info">입주문의</span></td>
+                            <td class="font-bold">847</td>
+                            <td class="font-bold text-blue-600">45.9%</td>
+                        </tr>
+                        <tr>
+                            <td><span class="status-badge badge-active">지원사업</span></td>
+                            <td class="font-bold">623</td>
+                            <td class="font-bold text-green-600">33.7%</td>
+                        </tr>
+                        <tr>
+                            <td><span class="status-badge" style="background: #e0e7ff; color: #3730a3;">시설이용</span></td>
+                            <td class="font-bold">254</td>
+                            <td class="font-bold text-purple-600">13.8%</td>
+                        </tr>
+                        <tr>
+                            <td><span class="status-badge" style="background: #fce7f3; color: #9f1239;">임상시험</span></td>
+                            <td class="font-bold">89</td>
+                            <td class="font-bold text-pink-600">4.8%</td>
+                        </tr>
+                        <tr>
+                            <td><span class="status-badge" style="background: #f1f5f9; color: #475569;">기타</span></td>
+                            <td class="font-bold">34</td>
+                            <td class="font-bold text-gray-600">1.8%</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="mini-chart">
+                    <canvas id="intentChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3단 레이아웃 -->
+        <div class="grid grid-cols-2 gap-5 mb-5">
+            <!-- 실시간 대화 이력 -->
+            <div class="data-card">
+                <div class="section-title">💬 실시간 대화 이력 (최근 10건)</div>
+                <table class="table-compact">
+                    <thead>
+                        <tr>
+                            <th>시간</th>
+                            <th>사용자ID</th>
+                            <th>질문 내용</th>
+                            <th>의도</th>
+                            <th>상태</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-xs">15:23</td>
+                            <td class="text-xs">user_8472</td>
+                            <td class="text-xs">바이오 기업 입주 자격은?</td>
+                            <td><span class="status-badge badge-info">입주</span></td>
+                            <td><span class="status-badge badge-active">완료</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-xs">15:22</td>
+                            <td class="text-xs">user_7239</td>
+                            <td class="text-xs">R&D 지원금 신청 방법</td>
+                            <td><span class="status-badge badge-active">지원</span></td>
+                            <td><span class="status-badge badge-active">완료</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-xs">15:21</td>
+                            <td class="text-xs">user_5847</td>
+                            <td class="text-xs">연구장비 예약 가능 여부</td>
+                            <td><span class="status-badge" style="background: #e0e7ff; color: #3730a3;">시설</span></td>
+                            <td><span class="status-badge badge-active">완료</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-xs">15:20</td>
+                            <td class="text-xs">user_9234</td>
+                            <td class="text-xs">임상시험 승인 절차 문의</td>
+                            <td><span class="status-badge" style="background: #fce7f3; color: #9f1239;">임상</span></td>
+                            <td><span class="status-badge badge-active">완료</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-xs">15:19</td>
+                            <td class="text-xs">user_3421</td>
+                            <td class="text-xs">의료기기 인증 지원</td>
+                            <td><span class="status-badge badge-active">지원</span></td>
+                            <td><span class="status-badge badge-active">완료</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-xs">15:18</td>
+                            <td class="text-xs">user_6782</td>
+                            <td class="text-xs">입주기업 혜택 안내</td>
+                            <td><span class="status-badge badge-info">입주</span></td>
+                            <td><span class="status-badge badge-active">완료</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-xs">15:17</td>
+                            <td class="text-xs">user_2938</td>
+                            <td class="text-xs">컨설팅 신청 방법</td>
+                            <td><span class="status-badge badge-active">지원</span></td>
+                            <td><span class="status-badge badge-warning">처리중</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-xs">15:16</td>
+                            <td class="text-xs">user_5123</td>
+                            <td class="text-xs">사업화 자금 지원 조건</td>
+                            <td><span class="status-badge badge-active">지원</span></td>
+                            <td><span class="status-badge badge-active">완료</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 통계 차트 -->
+            <div class="data-card">
+                <div class="section-title">📊 시간대별 상담 추이</div>
+                <canvas id="timelineChart" style="height: 280px;"></canvas>
+            </div>
+        </div>
+
+        <!-- 하단 영역 -->
+        <div class="grid grid-cols-4 gap-5">
+            <!-- 시스템 상태 -->
+            <div class="data-card">
+                <div class="section-title">⚙️ 시스템 상태</div>
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold">웹서버</span>
+                        <span class="status-badge badge-active">정상</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold">DB서버</span>
+                        <span class="status-badge badge-active">정상</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold">LLM API</span>
+                        <span class="status-badge badge-active">정상</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold">RAG 엔진</span>
+                        <span class="status-badge badge-active">정상</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold">벡터DB</span>
+                        <span class="status-badge badge-active">정상</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 미응답 처리 -->
+            <div class="data-card">
+                <div class="section-title">⚠️ 미응답 처리</div>
+                <div class="space-y-2">
+                    <div class="bg-red-50 p-2 rounded border-l-3 border-red-500">
+                        <div class="text-xs font-bold text-gray-700">불명확한 질의</div>
+                        <div class="text-xs text-gray-600">12건 | 재학습 필요</div>
+                    </div>
+                    <div class="bg-orange-50 p-2 rounded border-l-3 border-orange-500">
+                        <div class="text-xs font-bold text-gray-700">범위 외 질문</div>
+                        <div class="text-xs text-gray-600">8건 | FAQ 추가</div>
+                    </div>
+                    <div class="bg-yellow-50 p-2 rounded border-l-3 border-yellow-500">
+                        <div class="text-xs font-bold text-gray-700">시스템 오류</div>
+                        <div class="text-xs text-gray-600">4건 | 점검 필요</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 사용자 피드백 -->
+            <div class="data-card">
+                <div class="section-title">⭐ 사용자 피드백</div>
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs">매우 만족</span>
+                        <span class="text-sm font-bold text-green-600">1,247 (67.5%)</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs">만족</span>
+                        <span class="text-sm font-bold text-blue-600">423 (22.9%)</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs">보통</span>
+                        <span class="text-sm font-bold text-gray-600">134 (7.3%)</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs">불만족</span>
+                        <span class="text-sm font-bold text-orange-600">32 (1.7%)</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs">매우 불만족</span>
+                        <span class="text-sm font-bold text-red-600">11 (0.6%)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 학습 데이터 현황 -->
+            <div class="data-card">
+                <div class="section-title">📖 학습 데이터</div>
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold">총 데이터셋</span>
+                        <span class="text-sm font-bold text-blue-700">152,847건</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold">QA Pair</span>
+                        <span class="text-sm font-bold text-cyan-700">48,239쌍</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold">의도 태그</span>
+                        <span class="text-sm font-bold text-green-700">26종</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold">최종 학습</span>
+                        <span class="text-xs text-gray-600">2025-12-13</span>
+                    </div>
+                    <div class="mt-3 pt-3 border-t">
+                        <button class="w-full bg-blue-600 text-white py-2 px-3 rounded text-xs font-bold hover:bg-blue-700">재학습 실행</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const chartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true, grid: { display: false } } }
+        };
+
+        new Chart(document.getElementById('llmChart'), {
+            type: 'line',
+            data: {
+                labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'],
+                datasets: [{
+                    label: 'API 지연시간',
+                    data: [95, 102, 118, 134, 127, 115],
+                    borderColor: '#0055b8',
+                    backgroundColor: 'rgba(0,85,184,0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: chartOptions
+        });
+
+        new Chart(document.getElementById('ragChart'), {
+            type: 'bar',
+            data: {
+                labels: ['월', '화', '수', '목', '금'],
+                datasets: [{
+                    label: '검색 정확도',
+                    data: [98.8, 99.1, 99.3, 99.0, 99.2],
+                    backgroundColor: '#0891b2'
+                }]
+            },
+            options: chartOptions
+        });
+
+        new Chart(document.getElementById('intentChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['입주', '지원', '시설', '임상', '기타'],
+                datasets: [{
+                    data: [45.9, 33.7, 13.8, 4.8, 1.8],
+                    backgroundColor: ['#0055b8', '#059669', '#7c3aed', '#ec4899', '#64748b']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'right', labels: { font: { size: 10 } } } }
+            }
+        });
+
+        new Chart(document.getElementById('timelineChart'), {
+            type: 'line',
+            data: {
+                labels: ['06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00'],
+                datasets: [{
+                    label: '상담건수',
+                    data: [45, 127, 234, 189, 267, 312, 189, 98],
+                    borderColor: '#0055b8',
+                    backgroundColor: 'rgba(0,85,184,0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: true } },
+                scales: { y: { beginAtZero: true } }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오송첨단의료산업진흥재단</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css" rel="stylesheet">
+    <style>
+        * { font-family: 'Nanum Gothic', 'NanumSquareRound', sans-serif; }
+        body { background: linear-gradient(to bottom, #f0fdfa, #ccfbf1); }
+        .main-card { background: white; border-radius: 20px; padding: 32px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
+        .feature-box { background: white; border-radius: 16px; padding: 28px; box-shadow: 0 2px 16px rgba(0,0,0,0.06); text-align: center; transition: transform 0.3s; border: 2px solid transparent; }
+        .feature-box:hover { transform: translateY(-8px); border-color: #14b8a6; }
+        .stat-display { background: linear-gradient(135deg, #14b8a6, #0f766e); color: white; border-radius: 16px; padding: 28px; text-align: center; }
+        .stat-num { font-size: 3rem; font-weight: 800; }
+        .btn-main { background: linear-gradient(135deg, #14b8a6, #0f766e); color: white; padding: 18px 40px; border-radius: 12px; font-weight: 700; font-size: 1.1rem; border: none; cursor: pointer; box-shadow: 0 6px 20px rgba(20,184,166,0.4); }
+        .btn-main:hover { box-shadow: 0 8px 28px rgba(20,184,166,0.5); transform: translateY(-2px); }
+    </style>
+</head>
+<body class="p-6">
+    <div class="max-w-7xl mx-auto">
+        <div class="bg-white rounded-2xl px-8 py-6 mb-6 shadow-lg">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #14b8a6, #0f766e); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; box-shadow: 0 6px 20px rgba(20,184,166,0.3);">🏥</div>
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-900">오송첨단의료산업진흥재단</h1>
+                        <p class="text-gray-600 font-bold">바이오·의료산업 혁신 허브</p>
+                    </div>
+                </div>
+                <div class="flex gap-3">
+                    <button class="bg-teal-600 text-white px-7 py-3 rounded-xl font-bold">로그인</button>
+                    <button class="border-2 border-teal-600 text-teal-600 px-7 py-3 rounded-xl font-bold">회원가입</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-card mb-6 text-center">
+            <div style="width: 120px; height: 120px; background: linear-gradient(135deg, #14b8a6, #0f766e); border-radius: 24px; display: flex; align-items: center; justify-content: center; font-size: 5rem; margin: 0 auto 28px; box-shadow: 0 10px 32px rgba(20,184,166,0.3);">🤖</div>
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">AI 챗봇 상담 서비스</h2>
+            <p class="text-xl text-gray-600 font-bold mb-8">24시간 실시간 전문 상담으로 여러분을 지원합니다</p>
+            <button class="btn-main">💬 상담 시작하기</button>
+        </div>
+
+        <div class="grid grid-cols-4 gap-6 mb-6">
+            <div class="stat-display">
+                <div class="text-5xl mb-3">🏢</div>
+                <div class="stat-num">847</div>
+                <div class="mt-2 opacity-90">입주기업</div>
+            </div>
+            <div class="stat-display" style="background: linear-gradient(135deg, #059669, #047857);">
+                <div class="text-5xl mb-3">📋</div>
+                <div class="stat-num">2,439</div>
+                <div class="mt-2 opacity-90">지원사업</div>
+            </div>
+            <div class="stat-display" style="background: linear-gradient(135deg, #0891b2, #0e7490);">
+                <div class="text-5xl mb-3">⭐</div>
+                <div class="stat-num">98.7%</div>
+                <div class="mt-2 opacity-90">만족도</div>
+            </div>
+            <div class="stat-display" style="background: linear-gradient(135deg, #7c3aed, #6d28d9);">
+                <div class="text-5xl mb-3">👥</div>
+                <div class="stat-num">28,549</div>
+                <div class="mt-2 opacity-90">이용자</div>
+            </div>
+        </div>
+
+        <div class="main-card mb-6">
+            <h3 class="text-2xl font-bold text-gray-900 mb-6">🎯 주요 서비스</h3>
+            <div class="grid grid-cols-4 gap-6">
+                <div class="feature-box">
+                    <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #dbeafe, #bfdbfe); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 3rem; margin: 0 auto 20px;">🏢</div>
+                    <h4 class="text-lg font-bold text-gray-900 mb-2">입주기업 지원</h4>
+                    <p class="text-sm text-gray-600">기업 입주 조건 및 지원 혜택</p>
+                </div>
+                <div class="feature-box">
+                    <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #d1fae5, #a7f3d0); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 3rem; margin: 0 auto 20px;">📋</div>
+                    <h4 class="text-lg font-bold text-gray-900 mb-2">R&D 지원사업</h4>
+                    <p class="text-sm text-gray-600">연구개발 자금 지원</p>
+                </div>
+                <div class="feature-box">
+                    <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #cffafe, #a5f3fc); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 3rem; margin: 0 auto 20px;">🔬</div>
+                    <h4 class="text-lg font-bold text-gray-900 mb-2">연구시설 이용</h4>
+                    <p class="text-sm text-gray-600">첨단 장비 예약 및 이용</p>
+                </div>
+                <div class="feature-box">
+                    <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #e9d5ff, #d8b4fe); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 3rem; margin: 0 auto 20px;">🧬</div>
+                    <h4 class="text-lg font-bold text-gray-900 mb-2">임상시험 지원</h4>
+                    <p class="text-sm text-gray-600">임상시험 승인 절차</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-card">
+            <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">🧠 AI 시스템 기술</h3>
+            <div class="grid grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div style="width: 90px; height: 90px; background: linear-gradient(135deg, #14b8a6, #0f766e); border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; margin: 0 auto 20px; color: white; box-shadow: 0 8px 24px rgba(20,184,166,0.3);">🧠</div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3">고성능 LLM</h4>
+                    <p class="text-gray-600 mb-4">최신 언어모델 기반 정확한 답변</p>
+                    <div class="bg-teal-50 rounded-xl p-4">
+                        <div class="text-3xl font-bold text-teal-700">98.5%</div>
+                        <div class="text-sm text-gray-600 font-bold">정확도</div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <div style="width: 90px; height: 90px; background: linear-gradient(135deg, #059669, #047857); border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; margin: 0 auto 20px; color: white; box-shadow: 0 8px 24px rgba(5,150,105,0.3);">📚</div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3">RAG 검색</h4>
+                    <p class="text-gray-600 mb-4">대규모 학습 데이터 실시간 검색</p>
+                    <div class="bg-green-50 rounded-xl p-4">
+                        <div class="text-3xl font-bold text-green-700">152,847</div>
+                        <div class="text-sm text-gray-600 font-bold">데이터</div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <div style="width: 90px; height: 90px; background: linear-gradient(135deg, #0891b2, #0e7490); border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; margin: 0 auto 20px; color: white; box-shadow: 0 8px 24px rgba(8,145,178,0.3);">⚡</div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3">빠른 응답</h4>
+                    <p class="text-gray-600 mb-4">1초 이내 실시간 답변 제공</p>
+                    <div class="bg-cyan-50 rounded-xl p-4">
+                        <div class="text-3xl font-bold text-cyan-700">0.87s</div>
+                        <div class="text-sm text-gray-600 font-bold">평균</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
