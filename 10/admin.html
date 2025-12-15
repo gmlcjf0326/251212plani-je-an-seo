@@ -36,7 +36,7 @@
         .badge-warning { background: #fef3c7; color: #d97706; }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="h-screen overflow-hidden bg-gray-50">
     <!-- 헤더 -->
     <header class="admin-header shadow-lg">
         <div class="bg-blue-950 text-blue-100 text-xs">
@@ -79,7 +79,7 @@
     </div>
 
     <!-- 메인 컨텐츠 -->
-    <div class="max-w-7xl mx-auto px-6 py-8">
+    <div class="max-w-7xl mx-auto px-6 py-8 overflow-y-auto" style="max-height: calc(100vh - 180px);">
         <!-- 주요 지표 -->
         <div class="grid grid-cols-4 gap-6 mb-8">
             <div class="card metric-card p-6">
@@ -150,7 +150,9 @@
                         <button class="px-3 py-2 text-xs bg-gray-100 text-gray-700 rounded hover:bg-gray-200">연간</button>
                     </div>
                 </div>
-                <canvas id="analyticsChart" height="100"></canvas>
+                <div class="h-64">
+                    <canvas id="analyticsChart"></canvas>
+                </div>
             </div>
 
             <div class="card p-6">
