@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>오송첨단의료산업진흥재단 - 무인민원기 관리시스템</title>
+    <title>KBIOHEALTH - AI 키오스크 관리시스템</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,7 +50,7 @@
                         </svg>
                     </div>
                     <div>
-                        <h1 class="text-xl font-bold text-gray-900">무인민원기 관리시스템</h1>
+                        <h1 class="text-xl font-bold text-gray-900">KBIOHEALTH AI 키오스크 관리시스템</h1>
                         <p class="text-sm text-gray-600">오송첨단의료산업진흥재단</p>
                     </div>
                 </div>
@@ -194,19 +194,19 @@
                 </h3>
                 <div class="space-y-3">
                     <div class="border-l-4 border-blue-500 pl-3 py-2">
-                        <div class="text-sm font-medium text-gray-900">입주기업 안내 완료</div>
+                        <div class="text-sm font-medium text-gray-900">신약개발지원센터 문의 완료</div>
                         <div class="text-xs text-gray-500">키오스크 #1 · 2분 전</div>
                     </div>
                     <div class="border-l-4 border-emerald-500 pl-3 py-2">
-                        <div class="text-sm font-medium text-gray-900">지원사업 문의 완료</div>
+                        <div class="text-sm font-medium text-gray-900">첨단의료기기개발 문의 완료</div>
                         <div class="text-xs text-gray-500">키오스크 #2 · 5분 전</div>
                     </div>
                     <div class="border-l-4 border-indigo-500 pl-3 py-2">
-                        <div class="text-sm font-medium text-gray-900">연구시설 예약 완료</div>
+                        <div class="text-sm font-medium text-gray-900">실험동물센터 문의 완료</div>
                         <div class="text-xs text-gray-500">키오스크 #1 · 8분 전</div>
                     </div>
                     <div class="border-l-4 border-purple-500 pl-3 py-2">
-                        <div class="text-sm font-medium text-gray-900">FAQ 조회</div>
+                        <div class="text-sm font-medium text-gray-900">규제과학 지원 문의</div>
                         <div class="text-xs text-gray-500">키오스크 #2 · 12분 전</div>
                     </div>
                 </div>
@@ -282,61 +282,61 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
-                        <tr onclick="showRowDetail({id: 1, terminal: '키오스크 #1', question: '입주 자격요건 문의'})" class="hover:bg-gray-50 cursor-pointer">
+                        <tr onclick="showRowDetail({id: 1, terminal: '키오스크 #1', question: '신약개발 R&D 지원 문의'})" class="hover:bg-gray-50 cursor-pointer">
                             <td class="px-4 py-3 text-sm text-gray-600">15:28</td>
                             <td class="px-4 py-3 text-sm font-medium text-gray-900">키오스크 #1</td>
                             <td class="px-4 py-3">
-                                <span class="inline-flex px-2 py-1 text-xs font-medium bg-blue-50 text-blue-700 rounded">입주기업</span>
+                                <span class="inline-flex px-2 py-1 text-xs font-medium bg-blue-50 text-blue-700 rounded">신약개발</span>
                             </td>
-                            <td class="px-4 py-3 text-sm text-gray-600">입주 자격요건 문의</td>
+                            <td class="px-4 py-3 text-sm text-gray-600">신약개발 R&D 지원 문의</td>
                             <td class="px-4 py-3 text-sm text-gray-600">1분 45초</td>
                             <td class="px-4 py-3">
                                 <span class="inline-flex px-2 py-1 text-xs font-medium bg-emerald-50 text-emerald-700 rounded">완료</span>
                             </td>
                         </tr>
-                        <tr onclick="showRowDetail({id: 2, terminal: '키오스크 #2', question: 'R&D 지원 프로그램 안내'})" class="hover:bg-gray-50 cursor-pointer">
+                        <tr onclick="showRowDetail({id: 2, terminal: '키오스크 #2', question: '의료기기 시제품 제작 문의'})" class="hover:bg-gray-50 cursor-pointer">
                             <td class="px-4 py-3 text-sm text-gray-600">15:25</td>
                             <td class="px-4 py-3 text-sm font-medium text-gray-900">키오스크 #2</td>
                             <td class="px-4 py-3">
-                                <span class="inline-flex px-2 py-1 text-xs font-medium bg-emerald-50 text-emerald-700 rounded">지원사업</span>
+                                <span class="inline-flex px-2 py-1 text-xs font-medium bg-emerald-50 text-emerald-700 rounded">의료기기</span>
                             </td>
-                            <td class="px-4 py-3 text-sm text-gray-600">R&D 지원 프로그램 안내</td>
+                            <td class="px-4 py-3 text-sm text-gray-600">의료기기 시제품 제작 문의</td>
                             <td class="px-4 py-3 text-sm text-gray-600">2분 12초</td>
                             <td class="px-4 py-3">
                                 <span class="inline-flex px-2 py-1 text-xs font-medium bg-emerald-50 text-emerald-700 rounded">완료</span>
                             </td>
                         </tr>
-                        <tr onclick="showRowDetail({id: 3, terminal: '키오스크 #1', question: '장비 예약 신청'})" class="hover:bg-gray-50 cursor-pointer">
+                        <tr onclick="showRowDetail({id: 3, terminal: '키오스크 #1', question: '실험동물 모델평가 문의'})" class="hover:bg-gray-50 cursor-pointer">
                             <td class="px-4 py-3 text-sm text-gray-600">15:22</td>
                             <td class="px-4 py-3 text-sm font-medium text-gray-900">키오스크 #1</td>
                             <td class="px-4 py-3">
-                                <span class="inline-flex px-2 py-1 text-xs font-medium bg-indigo-50 text-indigo-700 rounded">연구시설</span>
+                                <span class="inline-flex px-2 py-1 text-xs font-medium bg-indigo-50 text-indigo-700 rounded">실험동물</span>
                             </td>
-                            <td class="px-4 py-3 text-sm text-gray-600">장비 예약 신청</td>
+                            <td class="px-4 py-3 text-sm text-gray-600">실험동물 모델평가 문의</td>
                             <td class="px-4 py-3 text-sm text-gray-600">3분 05초</td>
                             <td class="px-4 py-3">
                                 <span class="inline-flex px-2 py-1 text-xs font-medium bg-emerald-50 text-emerald-700 rounded">완료</span>
                             </td>
                         </tr>
-                        <tr onclick="showRowDetail({id: 4, terminal: '키오스크 #2', question: '자주 묻는 질문 조회'})" class="hover:bg-gray-50 cursor-pointer">
+                        <tr onclick="showRowDetail({id: 4, terminal: '키오스크 #2', question: 'GMP 생산시설 이용 문의'})" class="hover:bg-gray-50 cursor-pointer">
                             <td class="px-4 py-3 text-sm text-gray-600">15:18</td>
                             <td class="px-4 py-3 text-sm font-medium text-gray-900">키오스크 #2</td>
                             <td class="px-4 py-3">
-                                <span class="inline-flex px-2 py-1 text-xs font-medium bg-purple-50 text-purple-700 rounded">FAQ</span>
+                                <span class="inline-flex px-2 py-1 text-xs font-medium bg-purple-50 text-purple-700 rounded">바이오생산</span>
                             </td>
-                            <td class="px-4 py-3 text-sm text-gray-600">자주 묻는 질문 조회</td>
+                            <td class="px-4 py-3 text-sm text-gray-600">GMP 생산시설 이용 문의</td>
                             <td class="px-4 py-3 text-sm text-gray-600">1분 20초</td>
                             <td class="px-4 py-3">
                                 <span class="inline-flex px-2 py-1 text-xs font-medium bg-emerald-50 text-emerald-700 rounded">완료</span>
                             </td>
                         </tr>
-                        <tr onclick="showRowDetail({id: 5, terminal: '키오스크 #1', question: '이전 문의사항 조회'})" class="hover:bg-gray-50 cursor-pointer">
+                        <tr onclick="showRowDetail({id: 5, terminal: '키오스크 #1', question: '규제과학 인허가 지원 문의'})" class="hover:bg-gray-50 cursor-pointer">
                             <td class="px-4 py-3 text-sm text-gray-600">15:15</td>
                             <td class="px-4 py-3 text-sm font-medium text-gray-900">키오스크 #1</td>
                             <td class="px-4 py-3">
-                                <span class="inline-flex px-2 py-1 text-xs font-medium bg-amber-50 text-amber-700 rounded">문의내역</span>
+                                <span class="inline-flex px-2 py-1 text-xs font-medium bg-amber-50 text-amber-700 rounded">규제과학</span>
                             </td>
-                            <td class="px-4 py-3 text-sm text-gray-600">이전 문의사항 조회</td>
+                            <td class="px-4 py-3 text-sm text-gray-600">규제과학 인허가 지원 문의</td>
                             <td class="px-4 py-3 text-sm text-gray-600">0분 55초</td>
                             <td class="px-4 py-3">
                                 <span class="inline-flex px-2 py-1 text-xs font-medium bg-emerald-50 text-emerald-700 rounded">완료</span>
@@ -393,15 +393,16 @@
         new Chart(serviceCtx, {
             type: 'doughnut',
             data: {
-                labels: ['입주기업 안내', '지원사업 문의', '연구시설 예약', 'FAQ', '문의내역'],
+                labels: ['신약개발지원', '첨단의료기기개발', '실험동물센터', '바이오생산', '규제과학', '인재양성'],
                 datasets: [{
-                    data: [35, 28, 22, 10, 5],
+                    data: [28, 24, 18, 15, 10, 5],
                     backgroundColor: [
                         'rgba(29, 78, 216, 0.8)',
                         'rgba(5, 150, 105, 0.8)',
                         'rgba(67, 56, 202, 0.8)',
+                        'rgba(217, 119, 6, 0.8)',
                         'rgba(124, 58, 237, 0.8)',
-                        'rgba(217, 119, 6, 0.8)'
+                        'rgba(37, 99, 235, 0.8)'
                     ],
                     borderWidth: 2,
                     borderColor: '#fff'

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>관리자 대시보드 - 오송첨단의료산업진흥재단</title>
+    <title>오송첨단의료산업진흥재단 AI 상담 - 관리자 대시보드</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Spoqa+Han+Sans+Neo:wght@400;500;700&display=swap" rel="stylesheet">
@@ -66,7 +66,7 @@
             <header class="bg-white border-b-4 border-lavender-200 px-8 py-6 flex-shrink-0">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h1 class="text-2xl font-bold text-deep">대시보드</h1>
+                        <h1 class="text-2xl font-bold text-deep">오송첨단의료산업진흥재단 AI 상담</h1>
                         <p class="text-gray-500 text-sm">AI 챗봇 운영 현황을 한눈에 확인하세요</p>
                     </div>
                     <div class="flex items-center space-x-4">
@@ -163,14 +163,14 @@
                         </div>
                     </div>
                     <div class="space-y-4">
-                        <div onclick="showRowDetail({id: 1, user: '김', question: '연구시설 예약 문의 - NMR 장비 예약 가능 일정 확인'})" class="flex items-center justify-between p-4 bg-lavender-100 rounded-2xl cursor-pointer hover:bg-lavender-200 transition-colors">
+                        <div onclick="showRowDetail({id: 1, user: '김', question: '신약개발지원센터 문의 - 비임상시험 GLP 인증 여부 확인'})" class="flex items-center justify-between p-4 bg-lavender-100 rounded-2xl cursor-pointer hover:bg-lavender-200 transition-colors">
                             <div class="flex items-center space-x-4">
                                 <div class="w-12 h-12 gradient-purple rounded-xl flex items-center justify-center">
                                     <span class="text-white font-bold">김</span>
                                 </div>
                                 <div>
-                                    <p class="font-medium text-deep">연구시설 예약 문의</p>
-                                    <p class="text-sm text-gray-500">NMR 장비 예약 가능 일정 확인</p>
+                                    <p class="font-medium text-deep">신약개발지원센터 문의</p>
+                                    <p class="text-sm text-gray-500">비임상시험 GLP 인증 여부 확인</p>
                                 </div>
                             </div>
                             <div class="text-right">
@@ -178,14 +178,14 @@
                                 <p class="text-xs text-gray-400 mt-1">5분 전</p>
                             </div>
                         </div>
-                        <div onclick="showRowDetail({id: 2, user: '이', question: '입주기업 신청 방법 - 스타트업 입주 조건 안내 요청'})" class="flex items-center justify-between p-4 bg-lavender-100 rounded-2xl cursor-pointer hover:bg-lavender-200 transition-colors">
+                        <div onclick="showRowDetail({id: 2, user: '이', question: '첨단의료기기개발지원센터 - 시제품 제작 지원 절차 안내 요청'})" class="flex items-center justify-between p-4 bg-lavender-100 rounded-2xl cursor-pointer hover:bg-lavender-200 transition-colors">
                             <div class="flex items-center space-x-4">
                                 <div class="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center">
                                     <span class="text-white font-bold">이</span>
                                 </div>
                                 <div>
-                                    <p class="font-medium text-deep">입주기업 신청 방법</p>
-                                    <p class="text-sm text-gray-500">스타트업 입주 조건 안내 요청</p>
+                                    <p class="font-medium text-deep">의료기기개발지원센터</p>
+                                    <p class="text-sm text-gray-500">시제품 제작 지원 절차 안내 요청</p>
                                 </div>
                             </div>
                             <div class="text-right">
@@ -193,14 +193,14 @@
                                 <p class="text-xs text-gray-400 mt-1">12분 전</p>
                             </div>
                         </div>
-                        <div onclick="showRowDetail({id: 3, user: '박', question: '지원사업 일정 문의 - R&D 지원사업 신청 마감일 확인'})" class="flex items-center justify-between p-4 bg-lavender-100 rounded-2xl cursor-pointer hover:bg-lavender-200 transition-colors">
+                        <div onclick="showRowDetail({id: 3, user: '박', question: '바이오의약생산센터 - GMP 기준 생산 가능 시설 확인'})" class="flex items-center justify-between p-4 bg-lavender-100 rounded-2xl cursor-pointer hover:bg-lavender-200 transition-colors">
                             <div class="flex items-center space-x-4">
                                 <div class="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center">
                                     <span class="text-white font-bold">박</span>
                                 </div>
                                 <div>
-                                    <p class="font-medium text-deep">지원사업 일정 문의</p>
-                                    <p class="text-sm text-gray-500">R&D 지원사업 신청 마감일 확인</p>
+                                    <p class="font-medium text-deep">바이오의약생산센터</p>
+                                    <p class="text-sm text-gray-500">GMP 기준 생산 가능 시설 확인</p>
                                 </div>
                             </div>
                             <div class="text-right">
@@ -247,9 +247,9 @@
         new Chart(categoryCtx, {
             type: 'doughnut',
             data: {
-                labels: ['입주문의', '시설예약', '지원사업', '일반문의'],
+                labels: ['신약개발지원', '의료기기개발', '실험동물', '바이오생산'],
                 datasets: [{
-                    data: [35, 30, 25, 10],
+                    data: [30, 28, 22, 20],
                     backgroundColor: ['#7c3aed', '#a78bfa', '#c4b5fd', '#e9d5ff'],
                     borderWidth: 0
                 }]

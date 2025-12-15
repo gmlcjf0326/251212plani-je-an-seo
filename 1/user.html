@@ -71,21 +71,21 @@
                     </svg>
                 </div>
                 <div class="message-bubble bg-navy text-white p-4 rounded-2xl rounded-tl-none">
-                    <p class="font-bold mb-2">안녕하세요! 오송첨단의료산업진흥재단 AI 상담사입니다.</p>
-                    <p class="text-cream text-sm">의료산업 지원, 입주기업 안내, 시설 예약 등 다양한 문의사항을 도와드립니다. 무엇을 도와드릴까요?</p>
+                    <p class="font-bold mb-2">안녕하세요! 오송첨단의료산업진흥재단(KBIOHEALTH) AI 상담사입니다.</p>
+                    <p class="text-cream text-sm">K-의료산업 생태계를 선도하는 글로벌 리더로서 신약개발, 첨단의료기기, 바이오생산 등 다양한 지원 서비스를 제공합니다. 무엇을 도와드릴까요?</p>
                 </div>
             </div>
 
             <!-- Quick Actions -->
             <div class="flex flex-wrap gap-2 ml-13">
-                <button onclick="handleQuickAction('tenant')" class="px-4 py-2 bg-gold/10 text-navy border border-gold rounded-full text-sm hover:bg-gold hover:text-white transition-all">
-                    🏢 입주기업 안내
+                <button onclick="handleQuickAction('drug')" class="px-4 py-2 bg-gold/10 text-navy border border-gold rounded-full text-sm hover:bg-gold hover:text-white transition-all">
+                    🧬 신약개발 지원
                 </button>
-                <button onclick="handleQuickAction('support')" class="px-4 py-2 bg-gold/10 text-navy border border-gold rounded-full text-sm hover:bg-gold hover:text-white transition-all">
-                    📋 지원사업 문의
+                <button onclick="handleQuickAction('device')" class="px-4 py-2 bg-gold/10 text-navy border border-gold rounded-full text-sm hover:bg-gold hover:text-white transition-all">
+                    🔬 의료기기 지원
                 </button>
-                <button onclick="handleQuickAction('facility')" class="px-4 py-2 bg-gold/10 text-navy border border-gold rounded-full text-sm hover:bg-gold hover:text-white transition-all">
-                    🔬 연구시설 예약
+                <button onclick="handleQuickAction('production')" class="px-4 py-2 bg-gold/10 text-navy border border-gold rounded-full text-sm hover:bg-gold hover:text-white transition-all">
+                    🏭 바이오생산 문의
                 </button>
                 <button onclick="handleQuickAction('counselor')" class="px-4 py-2 bg-gold/10 text-navy border border-gold rounded-full text-sm hover:bg-gold hover:text-white transition-all">
                     📞 담당자 연결
@@ -95,7 +95,7 @@
             <!-- User Message -->
             <div class="flex items-start justify-end space-x-3">
                 <div class="message-bubble bg-gold text-navy p-4 rounded-2xl rounded-tr-none">
-                    <p>입주기업 신청 방법이 궁금합니다.</p>
+                    <p>GMP 시설을 이용한 바이오의약품 생산이 가능한가요?</p>
                 </div>
                 <div class="w-10 h-10 bg-navy-light rounded-full flex items-center justify-center flex-shrink-0">
                     <svg class="w-6 h-6 text-cream" fill="currentColor" viewBox="0 0 24 24">
@@ -112,18 +112,17 @@
                     </svg>
                 </div>
                 <div class="message-bubble bg-navy text-white p-4 rounded-2xl rounded-tl-none">
-                    <p class="font-bold mb-3">입주기업 신청 안내</p>
+                    <p class="font-bold mb-3">바이오의약생산센터 안내</p>
                     <div class="space-y-2 text-sm text-cream">
-                        <p>📌 <strong class="text-gold">신청 자격:</strong> 의료·바이오 관련 기업 및 연구소</p>
-                        <p>📌 <strong class="text-gold">신청 방법:</strong></p>
+                        <p>📌 <strong class="text-gold">주요 서비스:</strong> GMP 기준 시료 및 완제의약품 생산</p>
+                        <p>📌 <strong class="text-gold">생산 가능 품목:</strong></p>
                         <ol class="list-decimal list-inside ml-4 space-y-1">
-                            <li>홈페이지 입주신청서 다운로드</li>
-                            <li>사업계획서 및 구비서류 준비</li>
-                            <li>온라인 또는 방문 접수</li>
-                            <li>입주심사위원회 심의</li>
-                            <li>입주 승인 및 계약 체결</li>
+                            <li>바이오의약품 임상시험용 시료</li>
+                            <li>완제의약품 생산</li>
+                            <li>공정개발 지원</li>
+                            <li>품질관리 및 시험</li>
                         </ol>
-                        <p class="mt-3">📞 담당부서: 기업지원팀 (043-200-9550)</p>
+                        <p class="mt-3">📞 문의: 바이오의약생산센터 (www.kbiohealth.kr)</p>
                     </div>
                 </div>
             </div>
@@ -222,10 +221,10 @@
 
         function handleQuickAction(type) {
             const responses = {
-                'tenant': '🏢 <strong>입주기업 안내</strong><br><br>오송첨단의료산업진흥재단은 바이오·의료 분야 기업을 위한 다양한 입주 공간을 제공하고 있습니다.<br><br>• 연구동: 연구개발 전용 공간<br>• 생산동: GMP 시설 포함<br>• 오피스: 사무 공간<br><br>📞 기업지원팀: 043-200-9550',
-                'support': '📋 <strong>지원사업 안내</strong><br><br>현재 진행 중인 주요 지원사업입니다:<br><br>• R&D 지원: 연구개발비 최대 2억원<br>• 시제품 제작: 제작비 최대 5천만원<br>• 마케팅 지원: 홍보비 최대 3천만원<br>• 인력 양성: 교육비 전액 지원<br><br>📞 사업지원팀: 043-200-9560',
-                'facility': '🔬 <strong>연구시설 예약</strong><br><br>이용 가능한 연구시설입니다:<br><br>• GMP 생산시설<br>• 분석장비실 (HPLC, GC-MS 등)<br>• 클린룸 (Class 100~10,000)<br>• 공용연구실<br><br>📞 시설관리팀: 043-200-9570<br>🌐 온라인 예약: www.kbio.re.kr',
-                'counselor': '📞 <strong>담당자 연결</strong><br><br>상담원 연결을 요청하셨습니다.<br><br>현재 상담 가능 시간: 평일 09:00~18:00<br><br>잠시 후 담당자가 연결됩니다. 대기해 주세요.<br><br>또는 직접 연락하실 수 있습니다:<br>• 대표전화: 043-200-9500<br>• 이메일: help@kbio.re.kr'
+                'drug': '🧬 <strong>신약개발지원센터</strong><br><br>신약 R&D의 전 과정을 지원합니다:<br><br>• 수요자 맞춤 R&D 지원<br>• 신약 후보물질 최적화 지원<br>• 약효평가 지원 (In vitro/In vivo)<br>• AI 기반 약물 스크리닝<br><br>📍 충청북도 청주시 흥덕구 오송읍 오송생명로 123<br>🌐 www.kbiohealth.kr',
+                'device': '🔬 <strong>첨단의료기기개발지원센터</strong><br><br>의료기기 개발의 모든 단계를 지원합니다:<br><br>• 시제품 제작 지원<br>• 성능평가 지원<br>• 전자파 적합성 평가<br>• 생체적합성 시험<br>• 인허가 컨설팅<br><br>📞 문의: www.kbiohealth.kr',
+                'production': '🏭 <strong>바이오의약생산센터</strong><br><br>GMP 기준 바이오의약품 생산을 지원합니다:<br><br>• GMP 기준 시료 생산<br>• 완제의약품 생산<br>• 공정개발 지원<br>• 품질관리 및 분석<br>• 임상시험용 시료 제조<br><br>🌐 문의: www.kbiohealth.kr',
+                'counselor': '📞 <strong>담당자 연결</strong><br><br>상담원 연결을 요청하셨습니다.<br><br>현재 상담 가능 시간: 평일 09:00~18:00<br><br>잠시 후 담당자가 연결됩니다. 대기해 주세요.<br><br>또는 직접 연락하실 수 있습니다:<br>• 웹사이트: www.kbiohealth.kr<br>• 주소: 충북 청주시 흥덕구 오송읍 오송생명로 123'
             };
             addBotMessage(responses[type]);
         }

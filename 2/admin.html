@@ -24,6 +24,12 @@
         @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
         body { font-family: 'Pretendard', sans-serif; }
         .gradient-bg { background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%); }
+        .modal-backdrop { background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); }
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body class="h-screen overflow-hidden bg-gray-50">
@@ -44,27 +50,28 @@
                 </div>
             </div>
             <nav class="flex-1 px-4 space-y-1 overflow-y-auto">
-                <a href="#" class="flex items-center space-x-3 px-4 py-3 bg-teal/10 text-teal rounded-xl font-medium">
+                <a href="#" onclick="switchPage('dashboard')" id="nav-dashboard" class="nav-item flex items-center space-x-3 px-4 py-3 bg-teal/10 text-teal rounded-xl font-medium">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
                     <span>대시보드</span>
                 </a>
-                <a href="#" class="flex items-center space-x-3 px-4 py-3 text-slate-light hover:bg-gray-50 rounded-xl transition-colors">
+                <a href="#" onclick="switchPage('conversations')" id="nav-conversations" class="nav-item flex items-center space-x-3 px-4 py-3 text-slate-light hover:bg-gray-50 rounded-xl transition-colors">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
                     <span>대화 관리</span>
+                    <span class="ml-auto bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">5</span>
                 </a>
-                <a href="#" class="flex items-center space-x-3 px-4 py-3 text-slate-light hover:bg-gray-50 rounded-xl transition-colors">
+                <a href="#" onclick="switchPage('faq')" id="nav-faq" class="nav-item flex items-center space-x-3 px-4 py-3 text-slate-light hover:bg-gray-50 rounded-xl transition-colors">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
                     <span>FAQ 관리</span>
                 </a>
-                <a href="#" class="flex items-center space-x-3 px-4 py-3 text-slate-light hover:bg-gray-50 rounded-xl transition-colors">
+                <a href="#" onclick="switchPage('statistics')" id="nav-statistics" class="nav-item flex items-center space-x-3 px-4 py-3 text-slate-light hover:bg-gray-50 rounded-xl transition-colors">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
                     <span>통계</span>
                 </a>
-                <a href="#" class="flex items-center space-x-3 px-4 py-3 text-slate-light hover:bg-gray-50 rounded-xl transition-colors">
+                <a href="#" onclick="switchPage('users')" id="nav-users" class="nav-item flex items-center space-x-3 px-4 py-3 text-slate-light hover:bg-gray-50 rounded-xl transition-colors">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
                     <span>사용자</span>
                 </a>
-                <a href="#" class="flex items-center space-x-3 px-4 py-3 text-slate-light hover:bg-gray-50 rounded-xl transition-colors">
+                <a href="#" onclick="switchPage('settings')" id="nav-settings" class="nav-item flex items-center space-x-3 px-4 py-3 text-slate-light hover:bg-gray-50 rounded-xl transition-colors">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
                     <span>설정</span>
                 </a>
@@ -88,17 +95,17 @@
             <header class="bg-white border-b border-gray-100 px-8 py-4 flex-shrink-0">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h2 class="text-2xl font-bold text-slate">대시보드</h2>
-                        <p class="text-slate-light text-sm">AI 챗봇 운영 현황</p>
+                        <h2 id="pageTitle" class="text-2xl font-bold text-slate">대시보드</h2>
+                        <p id="pageSubtitle" class="text-slate-light text-sm">AI 챗봇 운영 현황</p>
                     </div>
                     <div class="flex items-center space-x-4">
                         <div class="relative">
-                            <input type="text" placeholder="검색..." class="pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal/20 focus:border-teal">
+                            <input type="text" id="globalSearch" placeholder="검색..." class="pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal/20 focus:border-teal" onkeypress="if(event.key === 'Enter') handleGlobalSearch()">
                             <svg class="w-5 h-5 text-slate-light absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                             </svg>
                         </div>
-                        <button class="p-2 text-slate-light hover:text-teal hover:bg-teal/10 rounded-xl transition-all relative">
+                        <button onclick="showNotifications()" class="p-2 text-slate-light hover:text-teal hover:bg-teal/10 rounded-xl transition-all relative">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
                             <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
                         </button>
@@ -106,131 +113,586 @@
                 </div>
             </header>
 
-            <!-- Dashboard Content -->
+            <!-- Page Content Container -->
             <main class="flex-1 overflow-y-auto p-8">
-                <!-- Stats Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 cursor-pointer hover:shadow-lg transition-shadow" onclick="showCardDetail('total_chats')">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="w-12 h-12 bg-teal/10 rounded-xl flex items-center justify-center">
-                                <svg class="w-6 h-6 text-teal" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                <!-- Dashboard Page -->
+                <div id="page-dashboard" class="page-content">
+                    <!-- Stats Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 cursor-pointer hover:shadow-lg transition-shadow" onclick="showCardDetail('total_chats')">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 bg-teal/10 rounded-xl flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-teal" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                                </div>
+                                <span class="text-green-500 text-sm font-medium">+15%</span>
                             </div>
-                            <span class="text-green-500 text-sm font-medium">+15%</span>
+                            <p class="text-3xl font-bold text-slate">2,847</p>
+                            <p class="text-slate-light text-sm mt-1">총 대화 수</p>
                         </div>
-                        <p class="text-3xl font-bold text-slate">2,847</p>
-                        <p class="text-slate-light text-sm mt-1">총 대화 수</p>
-                    </div>
-                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 cursor-pointer hover:shadow-lg transition-shadow" onclick="showCardDetail('active_users')">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                                <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 cursor-pointer hover:shadow-lg transition-shadow" onclick="showCardDetail('active_users')">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                                </div>
+                                <span class="text-teal text-sm font-medium">접속 중</span>
                             </div>
-                            <span class="text-teal text-sm font-medium">접속 중</span>
+                            <p class="text-3xl font-bold text-slate">156</p>
+                            <p class="text-slate-light text-sm mt-1">활성 사용자</p>
                         </div>
-                        <p class="text-3xl font-bold text-slate">156</p>
-                        <p class="text-slate-light text-sm mt-1">활성 사용자</p>
-                    </div>
-                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 cursor-pointer hover:shadow-lg transition-shadow" onclick="showCardDetail('accuracy')">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                                <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 cursor-pointer hover:shadow-lg transition-shadow" onclick="showCardDetail('accuracy')">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                                </div>
+                                <span class="text-green-500 text-sm font-medium">+3.2%</span>
                             </div>
-                            <span class="text-green-500 text-sm font-medium">+3.2%</span>
+                            <p class="text-3xl font-bold text-slate">96.8%</p>
+                            <p class="text-slate-light text-sm mt-1">응답 정확도</p>
                         </div>
-                        <p class="text-3xl font-bold text-slate">96.8%</p>
-                        <p class="text-slate-light text-sm mt-1">응답 정확도</p>
-                    </div>
-                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 cursor-pointer hover:shadow-lg transition-shadow" onclick="showCardDetail('response_time')">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-                                <svg class="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 cursor-pointer hover:shadow-lg transition-shadow" onclick="showCardDetail('response_time')">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                                </div>
+                                <span class="text-green-500 text-sm font-medium">-0.4s</span>
                             </div>
-                            <span class="text-green-500 text-sm font-medium">-0.4s</span>
+                            <p class="text-3xl font-bold text-slate">0.8초</p>
+                            <p class="text-slate-light text-sm mt-1">평균 응답시간</p>
                         </div>
-                        <p class="text-3xl font-bold text-slate">0.8초</p>
-                        <p class="text-slate-light text-sm mt-1">평균 응답시간</p>
                     </div>
-                </div>
 
-                <!-- Charts -->
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-                    <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                        <div class="flex items-center justify-between mb-6">
-                            <h3 class="font-bold text-slate">대화 추이</h3>
-                            <div class="flex items-center space-x-2">
-                                <button onclick="changeChartPeriod('today')" class="px-3 py-1 text-sm text-slate-light hover:bg-teal/10 hover:text-teal rounded-lg transition-colors">오늘</button>
-                                <button onclick="changeChartPeriod('week')" class="px-3 py-1 text-sm text-teal bg-teal/10 rounded-lg">주간</button>
-                                <button onclick="changeChartPeriod('month')" class="px-3 py-1 text-sm text-slate-light hover:bg-teal/10 hover:text-teal rounded-lg transition-colors">월간</button>
+                    <!-- Charts -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                        <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                            <div class="flex items-center justify-between mb-6">
+                                <h3 class="font-bold text-slate">대화 추이</h3>
+                                <div class="flex items-center space-x-2">
+                                    <button onclick="changeChartPeriod('today')" class="chart-period-btn px-3 py-1 text-sm text-slate-light hover:bg-teal/10 hover:text-teal rounded-lg transition-colors">오늘</button>
+                                    <button onclick="changeChartPeriod('week')" class="chart-period-btn px-3 py-1 text-sm text-teal bg-teal/10 rounded-lg">주간</button>
+                                    <button onclick="changeChartPeriod('month')" class="chart-period-btn px-3 py-1 text-sm text-slate-light hover:bg-teal/10 hover:text-teal rounded-lg transition-colors">월간</button>
+                                </div>
+                            </div>
+                            <div class="h-64">
+                                <canvas id="trendChart"></canvas>
                             </div>
                         </div>
-                        <div class="h-64">
-                            <canvas id="trendChart"></canvas>
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-slate mb-6">카테고리별 문의</h3>
+                            <div class="h-64">
+                                <canvas id="categoryChart"></canvas>
+                            </div>
                         </div>
                     </div>
+
+                    <!-- Recent Activity -->
                     <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                        <h3 class="font-bold text-slate mb-6">카테고리별 문의</h3>
-                        <div class="h-64">
-                            <canvas id="categoryChart"></canvas>
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="font-bold text-slate">최근 대화</h3>
+                            <button onclick="switchPage('conversations')" class="text-teal text-sm hover:underline">전체 보기 →</button>
+                        </div>
+                        <div class="space-y-4" id="recentConversations">
+                            <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl cursor-pointer hover:shadow-md transition-shadow" onclick="showConversationDetail(1)">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-10 h-10 bg-teal rounded-full flex items-center justify-center">
+                                        <span class="text-white text-sm font-medium">김</span>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-slate">신약개발 지원 문의</p>
+                                        <p class="text-sm text-slate-light">약효평가 서비스 이용 절차 문의</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs">완료</span>
+                                    <p class="text-xs text-slate-light mt-1">3분 전</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl cursor-pointer hover:shadow-md transition-shadow" onclick="showConversationDetail(2)">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
+                                        <span class="text-white text-sm font-medium">이</span>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-slate">의료기기 성능평가</p>
+                                        <p class="text-sm text-slate-light">전자파 적합성 평가 신청</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <span class="px-2 py-1 bg-yellow-100 text-yellow-600 rounded-full text-xs">상담 연결</span>
+                                    <p class="text-xs text-slate-light mt-1">8분 전</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl cursor-pointer hover:shadow-md transition-shadow" onclick="showConversationDetail(3)">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center">
+                                        <span class="text-white text-sm font-medium">박</span>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-slate">바이오생산 문의</p>
+                                        <p class="text-sm text-slate-light">GMP 기준 생산 일정 안내</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs">완료</span>
+                                    <p class="text-xs text-slate-light mt-1">15분 전</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Recent Activity -->
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                    <div class="flex items-center justify-between mb-6">
-                        <h3 class="font-bold text-slate">최근 대화</h3>
-                        <div class="flex items-center space-x-2">
-                            <input type="text" id="searchInput" placeholder="검색..." class="px-3 py-1 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal/50">
-                            <button onclick="searchTable()" class="px-4 py-1 bg-teal text-white rounded-lg text-sm hover:bg-teal-dark transition-colors">검색</button>
-                            <button onclick="refreshData()" class="p-1 text-gray-500 hover:text-teal transition-colors" title="새로고침">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-                            </button>
+                <!-- Conversations Page -->
+                <div id="page-conversations" class="page-content hidden">
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 mb-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="flex items-center space-x-4">
+                                <select id="conversationFilter" class="px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal/20" onchange="filterConversations()">
+                                    <option value="all">전체 상태</option>
+                                    <option value="completed">완료</option>
+                                    <option value="pending">대기중</option>
+                                    <option value="counselor">상담 연결</option>
+                                </select>
+                                <select class="px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal/20">
+                                    <option value="all">전체 카테고리</option>
+                                    <option value="newdrug">신약개발</option>
+                                    <option value="device">의료기기</option>
+                                    <option value="production">바이오생산</option>
+                                    <option value="regulation">규제과학</option>
+                                </select>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <input type="text" placeholder="대화 검색..." class="px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal/20">
+                                <button class="px-4 py-2 gradient-bg text-white rounded-xl text-sm hover:opacity-90 transition-all">검색</button>
+                            </div>
+                        </div>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="border-b border-gray-100">
+                                        <th class="text-left py-3 px-4 text-sm font-medium text-slate-light">사용자</th>
+                                        <th class="text-left py-3 px-4 text-sm font-medium text-slate-light">질문</th>
+                                        <th class="text-left py-3 px-4 text-sm font-medium text-slate-light">카테고리</th>
+                                        <th class="text-left py-3 px-4 text-sm font-medium text-slate-light">상태</th>
+                                        <th class="text-left py-3 px-4 text-sm font-medium text-slate-light">시간</th>
+                                        <th class="text-left py-3 px-4 text-sm font-medium text-slate-light">작업</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="conversationsTableBody">
+                                    <tr class="border-b border-gray-50 hover:bg-gray-50 cursor-pointer" onclick="showConversationDetail(1)">
+                                        <td class="py-4 px-4"><div class="flex items-center space-x-3"><div class="w-8 h-8 bg-teal rounded-full flex items-center justify-center"><span class="text-white text-xs">김</span></div><span class="text-slate">김연구원</span></div></td>
+                                        <td class="py-4 px-4 text-slate">신약개발 지원 문의</td>
+                                        <td class="py-4 px-4"><span class="px-2 py-1 bg-teal/10 text-teal rounded-full text-xs">신약개발</span></td>
+                                        <td class="py-4 px-4"><span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs">완료</span></td>
+                                        <td class="py-4 px-4 text-slate-light text-sm">3분 전</td>
+                                        <td class="py-4 px-4"><button onclick="event.stopPropagation(); showConversationDetail(1)" class="text-teal hover:underline text-sm">상세보기</button></td>
+                                    </tr>
+                                    <tr class="border-b border-gray-50 hover:bg-gray-50 cursor-pointer" onclick="showConversationDetail(2)">
+                                        <td class="py-4 px-4"><div class="flex items-center space-x-3"><div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center"><span class="text-white text-xs">이</span></div><span class="text-slate">이기업인</span></div></td>
+                                        <td class="py-4 px-4 text-slate">의료기기 성능평가</td>
+                                        <td class="py-4 px-4"><span class="px-2 py-1 bg-blue-100 text-blue-600 rounded-full text-xs">의료기기</span></td>
+                                        <td class="py-4 px-4"><span class="px-2 py-1 bg-yellow-100 text-yellow-600 rounded-full text-xs">상담 연결</span></td>
+                                        <td class="py-4 px-4 text-slate-light text-sm">8분 전</td>
+                                        <td class="py-4 px-4"><button onclick="event.stopPropagation(); showConversationDetail(2)" class="text-teal hover:underline text-sm">상세보기</button></td>
+                                    </tr>
+                                    <tr class="border-b border-gray-50 hover:bg-gray-50 cursor-pointer" onclick="showConversationDetail(3)">
+                                        <td class="py-4 px-4"><div class="flex items-center space-x-3"><div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center"><span class="text-white text-xs">박</span></div><span class="text-slate">박연구자</span></div></td>
+                                        <td class="py-4 px-4 text-slate">바이오생산 문의</td>
+                                        <td class="py-4 px-4"><span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs">바이오생산</span></td>
+                                        <td class="py-4 px-4"><span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs">완료</span></td>
+                                        <td class="py-4 px-4 text-slate-light text-sm">15분 전</td>
+                                        <td class="py-4 px-4"><button onclick="event.stopPropagation(); showConversationDetail(3)" class="text-teal hover:underline text-sm">상세보기</button></td>
+                                    </tr>
+                                    <tr class="border-b border-gray-50 hover:bg-gray-50 cursor-pointer" onclick="showConversationDetail(4)">
+                                        <td class="py-4 px-4"><div class="flex items-center space-x-3"><div class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center"><span class="text-white text-xs">최</span></div><span class="text-slate">최담당자</span></div></td>
+                                        <td class="py-4 px-4 text-slate">규제과학 컨설팅 문의</td>
+                                        <td class="py-4 px-4"><span class="px-2 py-1 bg-purple-100 text-purple-600 rounded-full text-xs">규제과학</span></td>
+                                        <td class="py-4 px-4"><span class="px-2 py-1 bg-gray-100 text-gray-600 rounded-full text-xs">대기중</span></td>
+                                        <td class="py-4 px-4 text-slate-light text-sm">23분 전</td>
+                                        <td class="py-4 px-4"><button onclick="event.stopPropagation(); showConversationDetail(4)" class="text-teal hover:underline text-sm">상세보기</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="flex items-center justify-between mt-6">
+                            <p class="text-sm text-slate-light">전체 2,847건 중 1-10 표시</p>
+                            <div class="flex items-center space-x-2">
+                                <button class="px-3 py-1 bg-gray-100 text-slate-light rounded-lg text-sm hover:bg-gray-200">이전</button>
+                                <button class="px-3 py-1 bg-teal text-white rounded-lg text-sm">1</button>
+                                <button class="px-3 py-1 bg-gray-100 text-slate-light rounded-lg text-sm hover:bg-gray-200">2</button>
+                                <button class="px-3 py-1 bg-gray-100 text-slate-light rounded-lg text-sm hover:bg-gray-200">3</button>
+                                <button class="px-3 py-1 bg-gray-100 text-slate-light rounded-lg text-sm hover:bg-gray-200">다음</button>
+                            </div>
                         </div>
                     </div>
-                    <div class="space-y-4" id="conversationTable">
-                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl cursor-pointer hover:shadow-md transition-shadow" onclick="showRowDetail(1)">
-                            <div class="flex items-center space-x-4">
-                                <div class="w-10 h-10 bg-teal rounded-full flex items-center justify-center">
-                                    <span class="text-white text-sm font-medium">김</span>
-                                </div>
-                                <div>
-                                    <p class="font-medium text-slate">연구장비 예약 문의</p>
-                                    <p class="text-sm text-slate-light">NMR 장비 사용 가능 시간 문의</p>
+                </div>
+
+                <!-- FAQ Management Page -->
+                <div id="page-faq" class="page-content hidden">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center space-x-4">
+                            <select class="px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal/20">
+                                <option value="all">전체 카테고리</option>
+                                <option value="newdrug">신약개발</option>
+                                <option value="device">의료기기</option>
+                                <option value="production">바이오생산</option>
+                                <option value="regulation">규제과학</option>
+                            </select>
+                        </div>
+                        <button onclick="openFaqModal()" class="px-4 py-2 gradient-bg text-white rounded-xl text-sm hover:opacity-90 transition-all flex items-center space-x-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                            <span>FAQ 추가</span>
+                        </button>
+                    </div>
+
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100">
+                        <div class="divide-y divide-gray-100">
+                            <div class="p-6 hover:bg-gray-50 transition-colors">
+                                <div class="flex items-start justify-between">
+                                    <div class="flex-1">
+                                        <div class="flex items-center space-x-2 mb-2">
+                                            <span class="px-2 py-1 bg-teal/10 text-teal rounded-full text-xs">신약개발</span>
+                                            <span class="text-slate-light text-xs">조회 1,234회</span>
+                                        </div>
+                                        <h4 class="font-medium text-slate mb-2">신약개발지원센터 서비스 이용 방법은?</h4>
+                                        <p class="text-sm text-slate-light line-clamp-2">신약개발지원센터는 수요자 맞춤 R&D 지원, 약효평가 지원, 전임상시험 지원 등을 제공합니다...</p>
+                                    </div>
+                                    <div class="flex items-center space-x-2 ml-4">
+                                        <button onclick="editFaq(1)" class="p-2 text-slate-light hover:text-teal hover:bg-teal/10 rounded-lg transition-all">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                                        </button>
+                                        <button onclick="deleteFaq(1)" class="p-2 text-slate-light hover:text-red-500 hover:bg-red-50 rounded-lg transition-all">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="text-right">
-                                <span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs">완료</span>
-                                <p class="text-xs text-slate-light mt-1">3분 전</p>
+                            <div class="p-6 hover:bg-gray-50 transition-colors">
+                                <div class="flex items-start justify-between">
+                                    <div class="flex-1">
+                                        <div class="flex items-center space-x-2 mb-2">
+                                            <span class="px-2 py-1 bg-blue-100 text-blue-600 rounded-full text-xs">의료기기</span>
+                                            <span class="text-slate-light text-xs">조회 987회</span>
+                                        </div>
+                                        <h4 class="font-medium text-slate mb-2">의료기기 성능평가 비용과 기간은?</h4>
+                                        <p class="text-sm text-slate-light line-clamp-2">첨단의료기기개발지원센터에서 다양한 성능평가 서비스를 제공합니다...</p>
+                                    </div>
+                                    <div class="flex items-center space-x-2 ml-4">
+                                        <button onclick="editFaq(2)" class="p-2 text-slate-light hover:text-teal hover:bg-teal/10 rounded-lg transition-all">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                                        </button>
+                                        <button onclick="deleteFaq(2)" class="p-2 text-slate-light hover:text-red-500 hover:bg-red-50 rounded-lg transition-all">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-6 hover:bg-gray-50 transition-colors">
+                                <div class="flex items-start justify-between">
+                                    <div class="flex-1">
+                                        <div class="flex items-center space-x-2 mb-2">
+                                            <span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs">바이오생산</span>
+                                            <span class="text-slate-light text-xs">조회 756회</span>
+                                        </div>
+                                        <h4 class="font-medium text-slate mb-2">바이오의약품 GMP 생산 지원은 어떻게 받나요?</h4>
+                                        <p class="text-sm text-slate-light line-clamp-2">바이오의약생산센터에서 GMP 기준의 시료 및 완제의약품 생산 서비스를 제공합니다...</p>
+                                    </div>
+                                    <div class="flex items-center space-x-2 ml-4">
+                                        <button onclick="editFaq(3)" class="p-2 text-slate-light hover:text-teal hover:bg-teal/10 rounded-lg transition-all">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                                        </button>
+                                        <button onclick="deleteFaq(3)" class="p-2 text-slate-light hover:text-red-500 hover:bg-red-50 rounded-lg transition-all">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-6 hover:bg-gray-50 transition-colors">
+                                <div class="flex items-start justify-between">
+                                    <div class="flex-1">
+                                        <div class="flex items-center space-x-2 mb-2">
+                                            <span class="px-2 py-1 bg-purple-100 text-purple-600 rounded-full text-xs">규제과학</span>
+                                            <span class="text-slate-light text-xs">조회 543회</span>
+                                        </div>
+                                        <h4 class="font-medium text-slate mb-2">규제과학 지원 서비스란?</h4>
+                                        <p class="text-sm text-slate-light line-clamp-2">규제과학 지원을 통해 신약 및 의료기기의 인허가를 돕습니다...</p>
+                                    </div>
+                                    <div class="flex items-center space-x-2 ml-4">
+                                        <button onclick="editFaq(4)" class="p-2 text-slate-light hover:text-teal hover:bg-teal/10 rounded-lg transition-all">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                                        </button>
+                                        <button onclick="deleteFaq(4)" class="p-2 text-slate-light hover:text-red-500 hover:bg-red-50 rounded-lg transition-all">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl cursor-pointer hover:shadow-md transition-shadow" onclick="showRowDetail(2)">
-                            <div class="flex items-center space-x-4">
-                                <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
-                                    <span class="text-white text-sm font-medium">이</span>
-                                </div>
-                                <div>
-                                    <p class="font-medium text-slate">입주기업 신청 절차</p>
-                                    <p class="text-sm text-slate-light">신규 입주 희망 기업 문의</p>
-                                </div>
-                            </div>
-                            <div class="text-right">
-                                <span class="px-2 py-1 bg-yellow-100 text-yellow-600 rounded-full text-xs">상담 연결</span>
-                                <p class="text-xs text-slate-light mt-1">8분 전</p>
+                    </div>
+                </div>
+
+                <!-- Statistics Page -->
+                <div id="page-statistics" class="page-content hidden">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-slate mb-6">일별 대화량 추이</h3>
+                            <div class="h-72">
+                                <canvas id="dailyChart"></canvas>
                             </div>
                         </div>
-                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl cursor-pointer hover:shadow-md transition-shadow" onclick="showRowDetail(3)">
-                            <div class="flex items-center space-x-4">
-                                <div class="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center">
-                                    <span class="text-white text-sm font-medium">박</span>
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-slate mb-6">만족도 분포</h3>
+                            <div class="h-72">
+                                <canvas id="satisfactionChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-slate mb-4">인기 질문 TOP 5</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+                                    <span class="text-sm text-slate">신약개발 지원 절차</span>
+                                    <span class="text-xs text-teal font-medium">324회</span>
                                 </div>
-                                <div>
-                                    <p class="font-medium text-slate">지원사업 일정 안내</p>
-                                    <p class="text-sm text-slate-light">2024년 R&D 지원사업 신청 기간</p>
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+                                    <span class="text-sm text-slate">의료기기 인증 비용</span>
+                                    <span class="text-xs text-teal font-medium">287회</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+                                    <span class="text-sm text-slate">GMP 생산 일정</span>
+                                    <span class="text-xs text-teal font-medium">245회</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+                                    <span class="text-sm text-slate">규제 컨설팅 문의</span>
+                                    <span class="text-xs text-teal font-medium">198회</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+                                    <span class="text-sm text-slate">재단 방문 안내</span>
+                                    <span class="text-xs text-teal font-medium">176회</span>
                                 </div>
                             </div>
-                            <div class="text-right">
-                                <span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs">완료</span>
-                                <p class="text-xs text-slate-light mt-1">15분 전</p>
+                        </div>
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-slate mb-4">시간대별 이용 현황</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center">
+                                    <span class="text-sm text-slate-light w-20">오전</span>
+                                    <div class="flex-1 bg-gray-100 rounded-full h-4 overflow-hidden">
+                                        <div class="bg-teal h-full rounded-full" style="width: 65%"></div>
+                                    </div>
+                                    <span class="text-sm text-slate ml-3">65%</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="text-sm text-slate-light w-20">오후</span>
+                                    <div class="flex-1 bg-gray-100 rounded-full h-4 overflow-hidden">
+                                        <div class="bg-blue-500 h-full rounded-full" style="width: 85%"></div>
+                                    </div>
+                                    <span class="text-sm text-slate ml-3">85%</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="text-sm text-slate-light w-20">저녁</span>
+                                    <div class="flex-1 bg-gray-100 rounded-full h-4 overflow-hidden">
+                                        <div class="bg-purple-500 h-full rounded-full" style="width: 45%"></div>
+                                    </div>
+                                    <span class="text-sm text-slate ml-3">45%</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="text-sm text-slate-light w-20">야간</span>
+                                    <div class="flex-1 bg-gray-100 rounded-full h-4 overflow-hidden">
+                                        <div class="bg-gray-400 h-full rounded-full" style="width: 15%"></div>
+                                    </div>
+                                    <span class="text-sm text-slate ml-3">15%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-slate mb-4">응답 품질 지표</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="text-sm text-slate-light">정확도</span>
+                                        <span class="text-sm text-teal font-medium">96.8%</span>
+                                    </div>
+                                    <div class="bg-gray-100 rounded-full h-2">
+                                        <div class="bg-teal h-full rounded-full" style="width: 96.8%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="text-sm text-slate-light">응답률</span>
+                                        <span class="text-sm text-blue-500 font-medium">98.5%</span>
+                                    </div>
+                                    <div class="bg-gray-100 rounded-full h-2">
+                                        <div class="bg-blue-500 h-full rounded-full" style="width: 98.5%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="text-sm text-slate-light">만족도</span>
+                                        <span class="text-sm text-green-500 font-medium">94.2%</span>
+                                    </div>
+                                    <div class="bg-gray-100 rounded-full h-2">
+                                        <div class="bg-green-500 h-full rounded-full" style="width: 94.2%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="text-sm text-slate-light">해결률</span>
+                                        <span class="text-sm text-purple-500 font-medium">89.7%</span>
+                                    </div>
+                                    <div class="bg-gray-100 rounded-full h-2">
+                                        <div class="bg-purple-500 h-full rounded-full" style="width: 89.7%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Users Page -->
+                <div id="page-users" class="page-content hidden">
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="flex items-center space-x-4">
+                                <input type="text" placeholder="사용자 검색..." class="px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal/20">
+                                <select class="px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal/20">
+                                    <option value="all">전체 사용자</option>
+                                    <option value="active">활성</option>
+                                    <option value="inactive">비활성</option>
+                                </select>
+                            </div>
+                            <button class="px-4 py-2 gradient-bg text-white rounded-xl text-sm hover:opacity-90 transition-all">사용자 내보내기</button>
+                        </div>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="border-b border-gray-100">
+                                        <th class="text-left py-3 px-4 text-sm font-medium text-slate-light">사용자</th>
+                                        <th class="text-left py-3 px-4 text-sm font-medium text-slate-light">이메일</th>
+                                        <th class="text-left py-3 px-4 text-sm font-medium text-slate-light">대화 수</th>
+                                        <th class="text-left py-3 px-4 text-sm font-medium text-slate-light">마지막 접속</th>
+                                        <th class="text-left py-3 px-4 text-sm font-medium text-slate-light">상태</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b border-gray-50 hover:bg-gray-50">
+                                        <td class="py-4 px-4"><div class="flex items-center space-x-3"><div class="w-8 h-8 bg-teal rounded-full flex items-center justify-center"><span class="text-white text-xs">김</span></div><span class="text-slate">김연구원</span></div></td>
+                                        <td class="py-4 px-4 text-slate-light">kim@company.co.kr</td>
+                                        <td class="py-4 px-4 text-slate">24회</td>
+                                        <td class="py-4 px-4 text-slate-light text-sm">3분 전</td>
+                                        <td class="py-4 px-4"><span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs">활성</span></td>
+                                    </tr>
+                                    <tr class="border-b border-gray-50 hover:bg-gray-50">
+                                        <td class="py-4 px-4"><div class="flex items-center space-x-3"><div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center"><span class="text-white text-xs">이</span></div><span class="text-slate">이기업인</span></div></td>
+                                        <td class="py-4 px-4 text-slate-light">lee@biotech.com</td>
+                                        <td class="py-4 px-4 text-slate">18회</td>
+                                        <td class="py-4 px-4 text-slate-light text-sm">8분 전</td>
+                                        <td class="py-4 px-4"><span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs">활성</span></td>
+                                    </tr>
+                                    <tr class="border-b border-gray-50 hover:bg-gray-50">
+                                        <td class="py-4 px-4"><div class="flex items-center space-x-3"><div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center"><span class="text-white text-xs">박</span></div><span class="text-slate">박연구자</span></div></td>
+                                        <td class="py-4 px-4 text-slate-light">park@research.kr</td>
+                                        <td class="py-4 px-4 text-slate">12회</td>
+                                        <td class="py-4 px-4 text-slate-light text-sm">1시간 전</td>
+                                        <td class="py-4 px-4"><span class="px-2 py-1 bg-gray-100 text-gray-600 rounded-full text-xs">비활성</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Page -->
+                <div id="page-settings" class="page-content hidden">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-slate mb-6">챗봇 설정</h3>
+                            <div class="space-y-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-slate mb-2">챗봇 이름</label>
+                                    <input type="text" value="KBIO Health AI" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal/50 focus:border-teal">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-slate mb-2">환영 메시지</label>
+                                    <textarea rows="3" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal/50 focus:border-teal resize-none">안녕하세요! 오송첨단의료산업진흥재단 AI 어시스턴트입니다. 무엇을 도와드릴까요?</textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-slate mb-2">응답 지연 시간 (초)</label>
+                                    <input type="number" value="1" min="0" max="5" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal/50 focus:border-teal">
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="font-medium text-slate">타이핑 인디케이터</p>
+                                        <p class="text-sm text-slate-light">응답 전 타이핑 애니메이션 표시</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" checked class="sr-only peer">
+                                        <div class="w-11 h-6 bg-gray-200 peer-focus:ring-4 peer-focus:ring-teal/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-teal"></div>
+                                    </label>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="font-medium text-slate">피드백 버튼</p>
+                                        <p class="text-sm text-slate-light">응답 후 좋아요/싫어요 버튼 표시</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" checked class="sr-only peer">
+                                        <div class="w-11 h-6 bg-gray-200 peer-focus:ring-4 peer-focus:ring-teal/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-teal"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-slate mb-6">알림 설정</h3>
+                            <div class="space-y-6">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="font-medium text-slate">상담원 연결 요청</p>
+                                        <p class="text-sm text-slate-light">사용자가 상담원 연결 요청 시 알림</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" checked class="sr-only peer">
+                                        <div class="w-11 h-6 bg-gray-200 peer-focus:ring-4 peer-focus:ring-teal/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-teal"></div>
+                                    </label>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="font-medium text-slate">부정적 피드백</p>
+                                        <p class="text-sm text-slate-light">사용자가 싫어요 피드백 시 알림</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" checked class="sr-only peer">
+                                        <div class="w-11 h-6 bg-gray-200 peer-focus:ring-4 peer-focus:ring-teal/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-teal"></div>
+                                    </label>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="font-medium text-slate">일일 리포트</p>
+                                        <p class="text-sm text-slate-light">매일 운영 현황 리포트 발송</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" class="sr-only peer">
+                                        <div class="w-11 h-6 bg-gray-200 peer-focus:ring-4 peer-focus:ring-teal/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-teal"></div>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-slate mb-2">알림 수신 이메일</label>
+                                    <input type="email" value="admin@kbiohealth.kr" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal/50 focus:border-teal">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h3 class="font-bold text-slate">설정 저장</h3>
+                                    <p class="text-sm text-slate-light">변경된 설정을 저장합니다.</p>
+                                </div>
+                                <button onclick="saveSettings()" class="px-6 py-3 gradient-bg text-white rounded-xl font-medium hover:opacity-90 transition-all">설정 저장</button>
                             </div>
                         </div>
                     </div>
@@ -239,82 +701,205 @@
         </div>
     </div>
 
+    <!-- Conversation Detail Modal -->
+    <div id="conversationModal" class="fixed inset-0 modal-backdrop hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto shadow-2xl">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="font-bold text-slate text-lg">대화 상세</h3>
+                <button onclick="closeConversationModal()" class="p-2 text-slate-light hover:text-slate hover:bg-gray-100 rounded-xl transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div id="conversationModalContent"></div>
+        </div>
+    </div>
+
+    <!-- FAQ Modal -->
+    <div id="faqModal" class="fixed inset-0 modal-backdrop hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-lg w-full shadow-2xl">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="font-bold text-slate text-lg">FAQ 추가</h3>
+                <button onclick="closeFaqModal()" class="p-2 text-slate-light hover:text-slate hover:bg-gray-100 rounded-xl transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <form onsubmit="saveFaq(event)" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-slate mb-2">카테고리</label>
+                    <select class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal/50 focus:border-teal">
+                        <option value="newdrug">신약개발</option>
+                        <option value="device">의료기기</option>
+                        <option value="production">바이오생산</option>
+                        <option value="regulation">규제과학</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate mb-2">질문</label>
+                    <input type="text" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal/50 focus:border-teal" placeholder="자주 묻는 질문을 입력하세요">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate mb-2">답변</label>
+                    <textarea rows="4" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal/50 focus:border-teal resize-none" placeholder="답변 내용을 입력하세요"></textarea>
+                </div>
+                <button type="submit" class="w-full py-3 gradient-bg text-white rounded-xl font-medium hover:opacity-90 transition-all">저장</button>
+            </form>
+        </div>
+    </div>
+
     <script>
-        // Chart instance
-        let trendChartInstance;
+        // Chart instances
+        let trendChartInstance, categoryChartInstance, dailyChartInstance, satisfactionChartInstance;
 
-        // Trend Chart
-        const trendCtx = document.getElementById('trendChart').getContext('2d');
-        trendChartInstance = new Chart(trendCtx, {
-            type: 'line',
-            data: {
-                labels: ['월', '화', '수', '목', '금', '토', '일'],
-                datasets: [{
-                    label: '대화 수',
-                    data: [320, 450, 380, 520, 480, 280, 190],
-                    borderColor: '#0d9488',
-                    backgroundColor: 'rgba(13, 148, 136, 0.1)',
-                    fill: true,
-                    tension: 0.4,
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: {
-                    y: { beginAtZero: true, grid: { color: '#f1f5f9' } },
-                    x: { grid: { display: false } }
-                }
+        // Page titles
+        const pageTitles = {
+            'dashboard': { title: '대시보드', subtitle: 'AI 챗봇 운영 현황' },
+            'conversations': { title: '대화 관리', subtitle: '모든 대화 내역을 관리합니다' },
+            'faq': { title: 'FAQ 관리', subtitle: '자주 묻는 질문을 관리합니다' },
+            'statistics': { title: '통계', subtitle: '상세 분석 데이터를 확인합니다' },
+            'users': { title: '사용자', subtitle: '사용자 정보를 관리합니다' },
+            'settings': { title: '설정', subtitle: '챗봇 설정을 변경합니다' }
+        };
+
+        // Initialize Charts
+        function initCharts() {
+            // Trend Chart (Dashboard)
+            const trendCtx = document.getElementById('trendChart');
+            if (trendCtx) {
+                trendChartInstance = new Chart(trendCtx.getContext('2d'), {
+                    type: 'line',
+                    data: {
+                        labels: ['월', '화', '수', '목', '금', '토', '일'],
+                        datasets: [{
+                            label: '대화 수',
+                            data: [320, 450, 380, 520, 480, 280, 190],
+                            borderColor: '#0d9488',
+                            backgroundColor: 'rgba(13, 148, 136, 0.1)',
+                            fill: true,
+                            tension: 0.4,
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { beginAtZero: true, grid: { color: '#f1f5f9' } },
+                            x: { grid: { display: false } }
+                        }
+                    }
+                });
             }
-        });
 
-        // Category Chart
-        const categoryCtx = document.getElementById('categoryChart').getContext('2d');
-        new Chart(categoryCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['입주문의', '시설예약', '지원사업', '일반문의'],
-                datasets: [{
-                    data: [35, 28, 22, 15],
-                    backgroundColor: ['#0d9488', '#14b8a6', '#5eead4', '#99f6e4'],
-                    borderWidth: 0
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { position: 'bottom', labels: { padding: 20 } } },
-                cutout: '65%'
+            // Category Chart (Dashboard)
+            const categoryCtx = document.getElementById('categoryChart');
+            if (categoryCtx) {
+                categoryChartInstance = new Chart(categoryCtx.getContext('2d'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['신약개발', '의료기기', '바이오생산', '규제과학'],
+                        datasets: [{
+                            data: [35, 28, 22, 15],
+                            backgroundColor: ['#0d9488', '#14b8a6', '#5eead4', '#99f6e4'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { position: 'bottom', labels: { padding: 20 } } },
+                        cutout: '65%'
+                    }
+                });
             }
-        });
-
-        // JavaScript Functions
-        function showCardDetail(type) {
-            const details = {
-                'total_chats': {
-                    title: '총 대화 수',
-                    content: '총 2,847건의 대화가 진행되었습니다.\n전주 대비 15% 증가\n\n주요 시간대:\n- 오전 (09-12시): 892건\n- 오후 (12-18시): 1,245건\n- 저녁 (18-21시): 710건'
-                },
-                'active_users': {
-                    title: '활성 사용자',
-                    content: '현재 156명의 사용자가 접속 중입니다.\n\n플랫폼별 분포:\n- 웹: 94명\n- 모바일: 62명'
-                },
-                'accuracy': {
-                    title: '응답 정확도',
-                    content: '현재 응답 정확도: 96.8%\n전월 대비 3.2% 향상\n\n카테고리별 정확도:\n- 입주문의: 98.2%\n- 시설예약: 96.5%\n- 지원사업: 95.8%'
-                },
-                'response_time': {
-                    title: '평균 응답시간',
-                    content: '현재 평균 응답시간: 0.8초\n전월 대비 0.4초 단축\n\n응답시간 분포:\n- 0.5초 이하: 82%\n- 0.5-1.5초: 15%\n- 1.5초 이상: 3%'
-                }
-            };
-
-            const detail = details[type];
-            alert(detail.title + '\n\n' + detail.content);
         }
 
+        // Initialize Statistics Charts
+        function initStatisticsCharts() {
+            // Daily Chart
+            const dailyCtx = document.getElementById('dailyChart');
+            if (dailyCtx && !dailyChartInstance) {
+                dailyChartInstance = new Chart(dailyCtx.getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['1일', '5일', '10일', '15일', '20일', '25일', '30일'],
+                        datasets: [{
+                            label: '대화 수',
+                            data: [420, 380, 510, 490, 620, 550, 480],
+                            backgroundColor: '#0d9488',
+                            borderRadius: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { beginAtZero: true, grid: { color: '#f1f5f9' } },
+                            x: { grid: { display: false } }
+                        }
+                    }
+                });
+            }
+
+            // Satisfaction Chart
+            const satisfactionCtx = document.getElementById('satisfactionChart');
+            if (satisfactionCtx && !satisfactionChartInstance) {
+                satisfactionChartInstance = new Chart(satisfactionCtx.getContext('2d'), {
+                    type: 'pie',
+                    data: {
+                        labels: ['매우 만족', '만족', '보통', '불만족', '매우 불만족'],
+                        datasets: [{
+                            data: [45, 32, 15, 5, 3],
+                            backgroundColor: ['#10b981', '#34d399', '#fbbf24', '#f97316', '#ef4444'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { position: 'bottom', labels: { padding: 15 } } }
+                    }
+                });
+            }
+        }
+
+        // Page Switching
+        function switchPage(pageName) {
+            // Hide all pages
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.add('hidden');
+            });
+
+            // Remove active state from nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('bg-teal/10', 'text-teal', 'font-medium');
+                item.classList.add('text-slate-light');
+            });
+
+            // Show selected page
+            document.getElementById('page-' + pageName).classList.remove('hidden');
+
+            // Set active nav item
+            const activeNav = document.getElementById('nav-' + pageName);
+            activeNav.classList.add('bg-teal/10', 'text-teal', 'font-medium');
+            activeNav.classList.remove('text-slate-light');
+
+            // Update title
+            document.getElementById('pageTitle').textContent = pageTitles[pageName].title;
+            document.getElementById('pageSubtitle').textContent = pageTitles[pageName].subtitle;
+
+            // Initialize statistics charts if needed
+            if (pageName === 'statistics') {
+                setTimeout(initStatisticsCharts, 100);
+            }
+        }
+
+        // Chart Period Change
         function changeChartPeriod(period) {
             const periods = {
                 'today': {
@@ -337,77 +922,154 @@
             trendChartInstance.update();
 
             // Update button styles
-            document.querySelectorAll('.flex.items-center.space-x-2 button').forEach(btn => {
-                if (btn.textContent.includes('검색') || btn.title === '새로고침') return;
-                btn.className = 'px-3 py-1 text-sm text-slate-light hover:bg-teal/10 hover:text-teal rounded-lg transition-colors';
+            document.querySelectorAll('.chart-period-btn').forEach(btn => {
+                btn.classList.remove('text-teal', 'bg-teal/10');
+                btn.classList.add('text-slate-light');
             });
-            event.target.className = 'px-3 py-1 text-sm text-teal bg-teal/10 rounded-lg';
-
-            alert((period === 'today' ? '오늘' : period === 'week' ? '주간' : '월간') + ' 데이터로 변경되었습니다.');
+            event.target.classList.add('text-teal', 'bg-teal/10');
+            event.target.classList.remove('text-slate-light');
         }
 
-        function showRowDetail(id) {
+        // Show Card Detail
+        function showCardDetail(type) {
             const details = {
+                'total_chats': { title: '총 대화 수', content: '이번 주 총 2,847건의 대화가 진행되었습니다.\n전주 대비 15% 증가했습니다.' },
+                'active_users': { title: '활성 사용자', content: '현재 156명의 사용자가 접속 중입니다.' },
+                'accuracy': { title: '응답 정확도', content: '현재 응답 정확도: 96.8%\n전월 대비 3.2% 향상되었습니다.' },
+                'response_time': { title: '평균 응답시간', content: '현재 평균 응답시간: 0.8초\n전월 대비 0.4초 단축되었습니다.' }
+            };
+            alert(details[type].title + '\n\n' + details[type].content);
+        }
+
+        // Conversation Detail Modal
+        function showConversationDetail(id) {
+            const conversations = {
                 1: {
                     user: '김연구원',
-                    question: '연구장비 예약 문의',
-                    answer: 'NMR 장비는 온라인 예약 시스템을 통해 예약하실 수 있습니다. 사용 가능 시간은 평일 09:00-18:00입니다.',
+                    email: 'kim@company.co.kr',
+                    category: '신약개발',
+                    status: '완료',
                     time: '3분 전',
-                    category: '시설예약'
+                    messages: [
+                        { type: 'user', text: '신약개발 지원 절차에 대해 알고 싶습니다.' },
+                        { type: 'bot', text: '신약개발지원센터에서는 수요자 맞춤 R&D 지원, 약효평가 지원, 전임상시험 지원 등을 제공합니다.' },
+                        { type: 'user', text: '약효평가 서비스 신청은 어떻게 하나요?' },
+                        { type: 'bot', text: '홈페이지(www.kbiohealth.kr)에서 서비스 신청서를 작성하시면 담당자가 상담 일정을 안내해 드립니다.' }
+                    ]
                 },
                 2: {
                     user: '이기업인',
-                    question: '입주기업 신청 절차',
-                    answer: '입주 신청은 온라인으로 진행되며, 서류 심사 후 면접을 거쳐 최종 선정됩니다. 상담원이 곧 연결됩니다.',
+                    email: 'lee@biotech.com',
+                    category: '의료기기',
+                    status: '상담 연결',
                     time: '8분 전',
-                    category: '입주문의'
+                    messages: [
+                        { type: 'user', text: '의료기기 성능평가 신청 방법을 알려주세요.' },
+                        { type: 'bot', text: '첨단의료기기개발지원센터에서 다양한 성능평가 서비스를 제공합니다.' },
+                        { type: 'user', text: '상담원과 직접 통화하고 싶습니다.' },
+                        { type: 'bot', text: '상담원 연결을 요청하셨습니다. 담당자가 곧 연결됩니다.' }
+                    ]
                 },
                 3: {
                     user: '박연구자',
-                    question: '지원사업 일정 안내',
-                    answer: '2024년 R&D 지원사업 신청은 3월 1일부터 3월 31일까지입니다. 자세한 사항은 공고문을 참고해주세요.',
+                    email: 'park@research.kr',
+                    category: '바이오생산',
+                    status: '완료',
                     time: '15분 전',
-                    category: '지원사업'
+                    messages: [
+                        { type: 'user', text: 'GMP 기준 생산 일정이 어떻게 되나요?' },
+                        { type: 'bot', text: '바이오의약생산센터에서 GMP 기준의 시료 및 완제의약품 생산을 지원합니다. 생산 일정은 규모에 따라 상이합니다.' }
+                    ]
+                },
+                4: {
+                    user: '최담당자',
+                    email: 'choi@pharma.com',
+                    category: '규제과학',
+                    status: '대기중',
+                    time: '23분 전',
+                    messages: [
+                        { type: 'user', text: '규제과학 컨설팅 서비스에 대해 문의드립니다.' }
+                    ]
                 }
             };
 
-            const detail = details[id];
-            alert('대화 상세 정보\n\n' +
-                  '사용자: ' + detail.user + '\n' +
-                  '질문: ' + detail.question + '\n' +
-                  '답변: ' + detail.answer + '\n' +
-                  '카테고리: ' + detail.category + '\n' +
-                  '시간: ' + detail.time);
-        }
-
-        function searchTable() {
-            const input = document.getElementById('searchInput').value.toLowerCase();
-            const container = document.getElementById('conversationTable');
-            const items = container.getElementsByTagName('div');
-
-            let found = 0;
-            for (let i = 0; i < items.length; i++) {
-                const item = items[i];
-                if (item.className.includes('flex items-center justify-between')) {
-                    const text = item.textContent.toLowerCase();
-                    if (text.includes(input) || input === '') {
-                        item.style.display = '';
-                        found++;
-                    } else {
-                        item.style.display = 'none';
-                    }
+            const conv = conversations[id];
+            let messagesHtml = conv.messages.map(msg => {
+                if (msg.type === 'user') {
+                    return `<div class="flex justify-end mb-3"><div class="bg-teal text-white px-4 py-2 rounded-2xl rounded-tr-sm max-w-[80%]">${msg.text}</div></div>`;
+                } else {
+                    return `<div class="flex justify-start mb-3"><div class="bg-gray-100 text-slate px-4 py-2 rounded-2xl rounded-tl-sm max-w-[80%]">${msg.text}</div></div>`;
                 }
-            }
+            }).join('');
 
-            if (input) {
-                alert(found + '건의 검색 결과를 찾았습니다.');
+            document.getElementById('conversationModalContent').innerHTML = `
+                <div class="mb-6 p-4 bg-gray-50 rounded-xl">
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div><span class="text-slate-light">사용자:</span> <span class="text-slate font-medium">${conv.user}</span></div>
+                        <div><span class="text-slate-light">이메일:</span> <span class="text-slate">${conv.email}</span></div>
+                        <div><span class="text-slate-light">카테고리:</span> <span class="text-slate">${conv.category}</span></div>
+                        <div><span class="text-slate-light">상태:</span> <span class="text-slate">${conv.status}</span></div>
+                    </div>
+                </div>
+                <div class="border border-gray-100 rounded-xl p-4 max-h-64 overflow-y-auto">
+                    ${messagesHtml}
+                </div>
+            `;
+            document.getElementById('conversationModal').classList.remove('hidden');
+        }
+
+        function closeConversationModal() {
+            document.getElementById('conversationModal').classList.add('hidden');
+        }
+
+        // FAQ Functions
+        function openFaqModal() {
+            document.getElementById('faqModal').classList.remove('hidden');
+        }
+
+        function closeFaqModal() {
+            document.getElementById('faqModal').classList.add('hidden');
+        }
+
+        function saveFaq(event) {
+            event.preventDefault();
+            alert('FAQ가 저장되었습니다.');
+            closeFaqModal();
+        }
+
+        function editFaq(id) {
+            alert('FAQ #' + id + ' 수정 모드');
+        }
+
+        function deleteFaq(id) {
+            if (confirm('정말 삭제하시겠습니까?')) {
+                alert('FAQ #' + id + '가 삭제되었습니다.');
             }
         }
 
-        function refreshData() {
-            alert('데이터를 새로고침합니다.\n최신 정보로 업데이트됩니다.');
-            location.reload();
+        // Other Functions
+        function handleGlobalSearch() {
+            const query = document.getElementById('globalSearch').value;
+            alert('검색어: ' + query);
         }
+
+        function showNotifications() {
+            alert('알림 목록\n\n• 새로운 상담 연결 요청 (5건)\n• 부정적 피드백 접수 (2건)\n• 시스템 업데이트 완료');
+        }
+
+        function filterConversations() {
+            const filter = document.getElementById('conversationFilter').value;
+            alert(filter + ' 상태로 필터링합니다.');
+        }
+
+        function saveSettings() {
+            alert('설정이 저장되었습니다.');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            initCharts();
+        });
     </script>
 </body>
 </html>

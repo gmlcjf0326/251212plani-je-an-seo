@@ -189,7 +189,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr onclick="showRowDetail({id: 1, user: '김연구원', question: '연구장비 이용 신청 방법'})" class="border-b border-gray-50 hover:bg-surface transition-colors cursor-pointer">
+                                <tr onclick="showRowDetail({id: 1, user: '김연구원', question: 'GMP 시설 이용 문의'})" class="border-b border-gray-50 hover:bg-surface transition-colors cursor-pointer">
                                     <td class="py-3 px-4">
                                         <div class="flex items-center space-x-2">
                                             <div class="w-8 h-8 bg-navy rounded-full flex items-center justify-center">
@@ -198,26 +198,26 @@
                                             <span class="text-gray-700">김연구원</span>
                                         </div>
                                     </td>
-                                    <td class="py-3 px-4 text-gray-600">연구장비 이용 신청 방법</td>
-                                    <td class="py-3 px-4"><span class="px-2 py-1 bg-blue-100 text-blue-600 rounded-full text-xs">시설이용</span></td>
+                                    <td class="py-3 px-4 text-gray-600">GMP 시설 이용 문의</td>
+                                    <td class="py-3 px-4"><span class="px-2 py-1 bg-blue-100 text-blue-600 rounded-full text-xs">바이오생산</span></td>
                                     <td class="py-3 px-4 text-gray-500 text-sm">2분 전</td>
                                     <td class="py-3 px-4"><span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs">완료</span></td>
                                 </tr>
-                                <tr onclick="showRowDetail({id: 2, user: '이대표', question: '입주기업 지원사업 문의'})" class="border-b border-gray-50 hover:bg-surface transition-colors cursor-pointer">
+                                <tr onclick="showRowDetail({id: 2, user: '이박사', question: '약효평가 서비스 문의'})" class="border-b border-gray-50 hover:bg-surface transition-colors cursor-pointer">
                                     <td class="py-3 px-4">
                                         <div class="flex items-center space-x-2">
                                             <div class="w-8 h-8 bg-accent rounded-full flex items-center justify-center">
                                                 <span class="text-white text-xs">이</span>
                                             </div>
-                                            <span class="text-gray-700">이대표</span>
+                                            <span class="text-gray-700">이박사</span>
                                         </div>
                                     </td>
-                                    <td class="py-3 px-4 text-gray-600">입주기업 지원사업 문의</td>
-                                    <td class="py-3 px-4"><span class="px-2 py-1 bg-accent/20 text-accent rounded-full text-xs">지원사업</span></td>
+                                    <td class="py-3 px-4 text-gray-600">약효평가 서비스 문의</td>
+                                    <td class="py-3 px-4"><span class="px-2 py-1 bg-accent/20 text-accent rounded-full text-xs">신약개발</span></td>
                                     <td class="py-3 px-4 text-gray-500 text-sm">8분 전</td>
                                     <td class="py-3 px-4"><span class="px-2 py-1 bg-yellow-100 text-yellow-600 rounded-full text-xs">상담 연결</span></td>
                                 </tr>
-                                <tr onclick="showRowDetail({id: 3, user: '박팀장', question: '회의실 예약 현황 확인'})" class="hover:bg-surface transition-colors cursor-pointer">
+                                <tr onclick="showRowDetail({id: 3, user: '박팀장', question: '의료기기 시제품 제작 지원'})" class="hover:bg-surface transition-colors cursor-pointer">
                                     <td class="py-3 px-4">
                                         <div class="flex items-center space-x-2">
                                             <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
@@ -226,8 +226,8 @@
                                             <span class="text-gray-700">박팀장</span>
                                         </div>
                                     </td>
-                                    <td class="py-3 px-4 text-gray-600">회의실 예약 현황 확인</td>
-                                    <td class="py-3 px-4"><span class="px-2 py-1 bg-blue-100 text-blue-600 rounded-full text-xs">시설이용</span></td>
+                                    <td class="py-3 px-4 text-gray-600">의료기기 시제품 제작 지원</td>
+                                    <td class="py-3 px-4"><span class="px-2 py-1 bg-blue-100 text-blue-600 rounded-full text-xs">의료기기</span></td>
                                     <td class="py-3 px-4 text-gray-500 text-sm">15분 전</td>
                                     <td class="py-3 px-4"><span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs">완료</span></td>
                                 </tr>
@@ -271,7 +271,7 @@
         new Chart(categoryCtx, {
             type: 'doughnut',
             data: {
-                labels: ['입주문의', '지원사업', '시설예약', '일반문의', '기타'],
+                labels: ['신약개발', '의료기기', '바이오생산', '규제과학', '인재양성'],
                 datasets: [{
                     data: [32, 28, 22, 13, 5],
                     backgroundColor: ['#1a365d', '#3182ce', '#63b3ed', '#90cdf4', '#bee3f8'],

@@ -194,8 +194,8 @@
                                             <span class="text-navy">김연구원</span>
                                         </div>
                                     </td>
-                                    <td class="py-3 px-4 text-gray-600">연구장비 예약 방법 문의</td>
-                                    <td class="py-3 px-4"><span class="px-2 py-1 bg-blue-100 text-blue-600 rounded-full text-xs">시설예약</span></td>
+                                    <td class="py-3 px-4 text-gray-600">GMP 시설 이용 문의</td>
+                                    <td class="py-3 px-4"><span class="px-2 py-1 bg-blue-100 text-blue-600 rounded-full text-xs">바이오생산</span></td>
                                     <td class="py-3 px-4 text-gray-500 text-sm">5분 전</td>
                                     <td class="py-3 px-4"><span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs">완료</span></td>
                                 </tr>
@@ -208,8 +208,8 @@
                                             <span class="text-navy">이대리</span>
                                         </div>
                                     </td>
-                                    <td class="py-3 px-4 text-gray-600">입주기업 지원사업 안내</td>
-                                    <td class="py-3 px-4"><span class="px-2 py-1 bg-gold/20 text-gold rounded-full text-xs">지원사업</span></td>
+                                    <td class="py-3 px-4 text-gray-600">AI 기반 약효평가 문의</td>
+                                    <td class="py-3 px-4"><span class="px-2 py-1 bg-gold/20 text-gold rounded-full text-xs">신약개발</span></td>
                                     <td class="py-3 px-4 text-gray-500 text-sm">12분 전</td>
                                     <td class="py-3 px-4"><span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs">완료</span></td>
                                 </tr>
@@ -222,8 +222,8 @@
                                             <span class="text-navy">박팀장</span>
                                         </div>
                                     </td>
-                                    <td class="py-3 px-4 text-gray-600">세미나실 이용 가능 여부</td>
-                                    <td class="py-3 px-4"><span class="px-2 py-1 bg-blue-100 text-blue-600 rounded-full text-xs">시설예약</span></td>
+                                    <td class="py-3 px-4 text-gray-600">의료기기 시제품 제작 지원</td>
+                                    <td class="py-3 px-4"><span class="px-2 py-1 bg-blue-100 text-blue-600 rounded-full text-xs">의료기기</span></td>
                                     <td class="py-3 px-4 text-gray-500 text-sm">18분 전</td>
                                     <td class="py-3 px-4"><span class="px-2 py-1 bg-yellow-100 text-yellow-600 rounded-full text-xs">상담 연결</span></td>
                                 </tr>
@@ -270,9 +270,9 @@
         new Chart(categoryCtx, {
             type: 'doughnut',
             data: {
-                labels: ['입주기업', '지원사업', '시설예약', '일반문의', '기타'],
+                labels: ['신약개발', '의료기기', '바이오생산', '규제과학', '인재양성'],
                 datasets: [{
-                    data: [35, 25, 20, 15, 5],
+                    data: [30, 28, 22, 12, 8],
                     backgroundColor: ['#1e3a5f', '#c9a227', '#2d4a6f', '#d4b84a', '#f8f6f0'],
                     borderWidth: 0
                 }]
@@ -299,7 +299,7 @@
                 },
                 'accuracy': {
                     title: '응답 정확도',
-                    content: '현재 응답 정확도: 94.2%\n전주 대비 2.1% 향상\n\n카테고리별 정확도:\n- 입주기업: 96.5%\n- 지원사업: 93.8%\n- 시설예약: 92.1%'
+                    content: '현재 응답 정확도: 94.2%\n전주 대비 2.1% 향상\n\n카테고리별 정확도:\n- 신약개발: 96.5%\n- 의료기기: 93.8%\n- 바이오생산: 92.1%\n- 규제과학: 91.3%\n- 인재양성: 89.7%'
                 },
                 'response_time': {
                     title: '평균 응답시간',
@@ -345,24 +345,24 @@
             const details = {
                 1: {
                     user: '김연구원',
-                    question: '연구장비 예약 방법 문의',
-                    answer: 'NMR 장비는 온라인 예약 시스템을 통해 예약하실 수 있습니다. 예약 시 연구과제번호가 필요합니다.',
+                    question: 'GMP 시설 이용 문의',
+                    answer: 'GMP 기준 바이오의약품 생산이 가능하며, 시료 생산부터 완제의약품까지 지원합니다. 공정개발 및 품질관리 서비스도 제공합니다.',
                     time: '5분 전',
-                    category: '시설예약'
+                    category: '바이오생산'
                 },
                 2: {
                     user: '이대리',
-                    question: '입주기업 지원사업 안내',
-                    answer: '2024년 입주기업 지원사업은 R&D 지원, 마케팅 지원, 인력 지원 등이 있습니다. 자세한 내용은 홈페이지를 참고해주세요.',
+                    question: 'AI 기반 약효평가 문의',
+                    answer: '신약개발지원센터에서 AI 기반 약물 스크리닝과 약효평가 서비스를 제공합니다. In vitro 및 In vivo 시험 지원이 가능합니다.',
                     time: '12분 전',
-                    category: '지원사업'
+                    category: '신약개발'
                 },
                 3: {
                     user: '박팀장',
-                    question: '세미나실 이용 가능 여부',
-                    answer: '현재 상담원 연결 중입니다. 잠시만 기다려주세요.',
+                    question: '의료기기 시제품 제작 지원',
+                    answer: '현재 상담원 연결 중입니다. 첨단의료기기개발지원센터에서 시제품 제작부터 성능평가까지 종합 지원합니다.',
                     time: '18분 전',
-                    category: '시설예약'
+                    category: '의료기기'
                 }
             };
 
