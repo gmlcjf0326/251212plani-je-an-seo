@@ -78,16 +78,16 @@
 
             <!-- Quick Actions -->
             <div class="flex flex-wrap gap-2 ml-13">
-                <button class="px-4 py-2 bg-gold/10 text-navy border border-gold rounded-full text-sm hover:bg-gold hover:text-white transition-all">
+                <button onclick="handleQuickAction('tenant')" class="px-4 py-2 bg-gold/10 text-navy border border-gold rounded-full text-sm hover:bg-gold hover:text-white transition-all">
                     🏢 입주기업 안내
                 </button>
-                <button class="px-4 py-2 bg-gold/10 text-navy border border-gold rounded-full text-sm hover:bg-gold hover:text-white transition-all">
+                <button onclick="handleQuickAction('support')" class="px-4 py-2 bg-gold/10 text-navy border border-gold rounded-full text-sm hover:bg-gold hover:text-white transition-all">
                     📋 지원사업 문의
                 </button>
-                <button class="px-4 py-2 bg-gold/10 text-navy border border-gold rounded-full text-sm hover:bg-gold hover:text-white transition-all">
+                <button onclick="handleQuickAction('facility')" class="px-4 py-2 bg-gold/10 text-navy border border-gold rounded-full text-sm hover:bg-gold hover:text-white transition-all">
                     🔬 연구시설 예약
                 </button>
-                <button class="px-4 py-2 bg-gold/10 text-navy border border-gold rounded-full text-sm hover:bg-gold hover:text-white transition-all">
+                <button onclick="handleQuickAction('counselor')" class="px-4 py-2 bg-gold/10 text-navy border border-gold rounded-full text-sm hover:bg-gold hover:text-white transition-all">
                     📞 담당자 연결
                 </button>
             </div>
@@ -132,13 +132,13 @@
         <!-- Input Area -->
         <div class="border-t border-gray-200 p-4 bg-cream">
             <div class="flex items-center space-x-3">
-                <button class="p-2 text-navy hover:text-gold transition-colors">
+                <button onclick="handleAttachment()" class="p-2 text-navy hover:text-gold transition-colors">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/>
                     </svg>
                 </button>
-                <input type="text" placeholder="메시지를 입력하세요..." class="flex-1 px-4 py-3 bg-white border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent">
-                <button class="p-3 bg-navy text-gold rounded-full hover:bg-navy-dark transition-colors">
+                <input type="text" id="chatInput" placeholder="메시지를 입력하세요..." class="flex-1 px-4 py-3 bg-white border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent" onkeypress="if(event.key==='Enter') sendMessage()">
+                <button onclick="sendMessage()" class="p-3 bg-navy text-gold rounded-full hover:bg-navy-dark transition-colors">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
                     </svg>
@@ -147,5 +147,92 @@
             <p class="text-xs text-gray-500 mt-2 text-center">AI 챗봇의 답변은 참고용이며, 정확한 정보는 담당부서에 문의해 주세요.</p>
         </div>
     </div>
+
+    <script>
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+
+        function addUserMessage(text) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'flex items-start justify-end space-x-3';
+            messageDiv.innerHTML = `
+                <div class="message-bubble bg-gold text-navy p-4 rounded-2xl rounded-tr-none">
+                    <p>${text}</p>
+                </div>
+                <div class="w-10 h-10 bg-navy-light rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg class="w-6 h-6 text-cream" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </div>
+            `;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function addBotMessage(text) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'flex items-start space-x-3';
+            messageDiv.innerHTML = `
+                <div class="w-10 h-10 bg-navy rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg class="w-6 h-6 text-gold" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                </div>
+                <div class="message-bubble bg-navy text-white p-4 rounded-2xl rounded-tl-none">
+                    <p>${text}</p>
+                </div>
+            `;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+
+            addUserMessage(message);
+            chatInput.value = '';
+
+            // 타이핑 인디케이터 표시
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typing';
+            typingDiv.className = 'flex items-start space-x-3';
+            typingDiv.innerHTML = `
+                <div class="w-10 h-10 bg-navy rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg class="w-6 h-6 text-gold" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                </div>
+                <div class="message-bubble bg-navy/80 text-white p-4 rounded-2xl rounded-tl-none">
+                    <div class="typing-indicator flex space-x-1">
+                        <span class="w-2 h-2 bg-gold rounded-full"></span>
+                        <span class="w-2 h-2 bg-gold rounded-full"></span>
+                        <span class="w-2 h-2 bg-gold rounded-full"></span>
+                    </div>
+                </div>
+            `;
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            setTimeout(() => {
+                document.getElementById('typing')?.remove();
+                addBotMessage('문의해 주신 내용을 확인하고 있습니다. 담당 부서에서 빠른 시일 내에 답변 드리겠습니다. 추가 문의사항이 있으시면 말씀해 주세요.');
+            }, 1500);
+        }
+
+        function handleQuickAction(type) {
+            const responses = {
+                'tenant': '🏢 <strong>입주기업 안내</strong><br><br>오송첨단의료산업진흥재단은 바이오·의료 분야 기업을 위한 다양한 입주 공간을 제공하고 있습니다.<br><br>• 연구동: 연구개발 전용 공간<br>• 생산동: GMP 시설 포함<br>• 오피스: 사무 공간<br><br>📞 기업지원팀: 043-200-9550',
+                'support': '📋 <strong>지원사업 안내</strong><br><br>현재 진행 중인 주요 지원사업입니다:<br><br>• R&D 지원: 연구개발비 최대 2억원<br>• 시제품 제작: 제작비 최대 5천만원<br>• 마케팅 지원: 홍보비 최대 3천만원<br>• 인력 양성: 교육비 전액 지원<br><br>📞 사업지원팀: 043-200-9560',
+                'facility': '🔬 <strong>연구시설 예약</strong><br><br>이용 가능한 연구시설입니다:<br><br>• GMP 생산시설<br>• 분석장비실 (HPLC, GC-MS 등)<br>• 클린룸 (Class 100~10,000)<br>• 공용연구실<br><br>📞 시설관리팀: 043-200-9570<br>🌐 온라인 예약: www.kbio.re.kr',
+                'counselor': '📞 <strong>담당자 연결</strong><br><br>상담원 연결을 요청하셨습니다.<br><br>현재 상담 가능 시간: 평일 09:00~18:00<br><br>잠시 후 담당자가 연결됩니다. 대기해 주세요.<br><br>또는 직접 연락하실 수 있습니다:<br>• 대표전화: 043-200-9500<br>• 이메일: help@kbio.re.kr'
+            };
+            addBotMessage(responses[type]);
+        }
+
+        function handleAttachment() {
+            alert('파일 첨부 기능입니다.\n\n지원 형식: PDF, DOC, HWP, JPG, PNG\n최대 용량: 10MB\n\n(데모에서는 실제 업로드가 지원되지 않습니다)');
+        }
+    </script>
 </body>
 </html>

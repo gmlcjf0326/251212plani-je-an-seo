@@ -23,11 +23,16 @@
         body { font-family: 'Pretendard', sans-serif; }
         .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
         .gradient-header { background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%); }
+        .preview-btn:hover { transform: scale(1.02); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .preview-active { ring: 2px; ring-color: #3182ce; }
     </style>
 </head>
-<body class="bg-gray-50 min-h-screen">
-    <!-- Header -->
-    <header class="gradient-header text-white py-8 shadow-xl">
+<body class="bg-gray-50">
+    <div class="flex">
+        <!-- 좌측: 콘텐츠 영역 -->
+        <div class="flex-1 overflow-y-auto h-screen">
+            <!-- Header -->
+            <header class="gradient-header text-white py-8 shadow-xl">
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex items-center justify-between">
                 <div>
@@ -40,10 +45,10 @@
                 </div>
             </div>
         </div>
-    </header>
+            </header>
 
-    <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-6 py-12">
+            <!-- Main Content -->
+            <main class="max-w-6xl mx-auto px-6 py-12">
         <!-- Section 1: Mockups 1-5 -->
         <section class="mb-16">
             <div class="flex items-center justify-between mb-8">
@@ -357,14 +362,76 @@
                 </div>
             </div>
         </section>
+
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-8 mt-16">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <p class="text-gray-400 text-sm">오송첨단의료산업진흥재단 AI 챗봇 서비스 UI 디자인 시안</p>
-            <p class="text-gray-500 text-xs mt-2">© 2024 KBIO Health. All rights reserved.</p>
+            <!-- Footer -->
+            <footer class="bg-gray-800 text-white py-8 mt-16">
+                <div class="max-w-7xl mx-auto px-6 text-center">
+                    <p class="text-gray-400 text-sm">오송첨단의료산업진흥재단 AI 챗봇 서비스 UI 디자인 시안</p>
+                    <p class="text-gray-500 text-xs mt-2">© 2024 KBIO Health. All rights reserved.</p>
+                </div>
+            </footer>
         </div>
-    </footer>
+
+        <!-- 우측: 미리보기 패널 -->
+        <aside id="preview-panel" class="w-1/2 h-screen sticky top-0 bg-gray-100 border-l border-gray-200 hidden xl:flex flex-col">
+            <div class="p-4 h-full flex flex-col">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-bold text-gray-700 flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                        </svg>
+                        미리보기
+                    </h3>
+                    <span id="preview-title" class="text-sm text-gray-500 font-medium"></span>
+                </div>
+                <div id="preview-placeholder" class="flex-1 flex flex-col items-center justify-center text-gray-400 bg-white rounded-lg border-2 border-dashed border-gray-300">
+                    <svg class="w-16 h-16 mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                    <p class="text-sm">버튼에 마우스를 올려주세요</p>
+                    <p class="text-xs text-gray-300 mt-1">사용자/관리자 화면 미리보기</p>
+                </div>
+                <iframe id="preview-frame" class="flex-1 rounded-lg border shadow-lg hidden bg-white" sandbox="allow-same-origin allow-scripts"></iframe>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        const previewFrame = document.getElementById('preview-frame');
+        const previewPlaceholder = document.getElementById('preview-placeholder');
+        const previewTitle = document.getElementById('preview-title');
+        let activeButton = null;
+
+        // 모든 시안 링크 버튼에 이벤트 추가
+        document.querySelectorAll('a[href$=".html"]').forEach(link => {
+            link.addEventListener('mouseenter', (e) => {
+                const url = e.target.getAttribute('href');
+                const text = e.target.textContent.trim();
+
+                // 시안 번호 추출
+                const match = url.match(/(\d+)\/(user|admin)\.html/);
+                if (match) {
+                    const screenType = text.includes('사용자') ? '사용자 화면' : '관리자 화면';
+                    previewTitle.textContent = `시안 ${match[1]} - ${screenType}`;
+                }
+
+                // 이전 활성 버튼 스타일 제거
+                if (activeButton) {
+                    activeButton.classList.remove('ring-2', 'ring-blue-500', 'ring-offset-2');
+                }
+
+                // 현재 버튼 활성화 스타일
+                e.target.classList.add('ring-2', 'ring-blue-500', 'ring-offset-2');
+                activeButton = e.target;
+
+                previewFrame.src = url;
+                previewFrame.classList.remove('hidden');
+                previewPlaceholder.classList.add('hidden');
+            });
+        });
+    </script>
 </body>
 </html>

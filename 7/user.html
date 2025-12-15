@@ -115,23 +115,23 @@
                     <button class="text-xs text-rose-500 font-semibold">전체보기 →</button>
                 </div>
                 <div class="flex gap-3 overflow-x-auto quick-menu-scroll pb-2">
-                    <button class="flex-shrink-0 bg-white rounded-2xl p-4 w-24 text-center border border-gray-200 touch-effect">
+                    <button onclick="handleQuickMenu('입주안내')" class="flex-shrink-0 bg-white rounded-2xl p-4 w-24 text-center border border-gray-200 touch-effect">
                         <div class="text-3xl mb-2">🏢</div>
                         <p class="text-xs font-semibold text-slate-800">입주안내</p>
                     </button>
-                    <button class="flex-shrink-0 bg-white rounded-2xl p-4 w-24 text-center border border-gray-200 touch-effect">
+                    <button onclick="handleQuickMenu('지원사업')" class="flex-shrink-0 bg-white rounded-2xl p-4 w-24 text-center border border-gray-200 touch-effect">
                         <div class="text-3xl mb-2">💰</div>
                         <p class="text-xs font-semibold text-slate-800">지원사업</p>
                     </button>
-                    <button class="flex-shrink-0 bg-white rounded-2xl p-4 w-24 text-center border border-gray-200 touch-effect">
+                    <button onclick="handleQuickMenu('연구시설')" class="flex-shrink-0 bg-white rounded-2xl p-4 w-24 text-center border border-gray-200 touch-effect">
                         <div class="text-3xl mb-2">🔬</div>
                         <p class="text-xs font-semibold text-slate-800">연구시설</p>
                     </button>
-                    <button class="flex-shrink-0 bg-white rounded-2xl p-4 w-24 text-center border border-gray-200 touch-effect">
+                    <button onclick="handleQuickMenu('FAQ')" class="flex-shrink-0 bg-white rounded-2xl p-4 w-24 text-center border border-gray-200 touch-effect">
                         <div class="text-3xl mb-2">❓</div>
                         <p class="text-xs font-semibold text-slate-800">FAQ</p>
                     </button>
-                    <button class="flex-shrink-0 bg-white rounded-2xl p-4 w-24 text-center border border-gray-200 touch-effect">
+                    <button onclick="handleQuickMenu('문의하기')" class="flex-shrink-0 bg-white rounded-2xl p-4 w-24 text-center border border-gray-200 touch-effect">
                         <div class="text-3xl mb-2">📞</div>
                         <p class="text-xs font-semibold text-slate-800">문의하기</p>
                     </button>
@@ -194,15 +194,15 @@
                     </button>
                 </div>
                 <div class="space-y-2">
-                    <button class="w-full bg-white rounded-xl p-3 border border-gray-200 text-left flex items-center gap-2 text-sm text-slate-700 touch-effect">
+                    <button onclick="askSuggestedQuestion(this.textContent.trim())" class="w-full bg-white rounded-xl p-3 border border-gray-200 text-left flex items-center gap-2 text-sm text-slate-700 touch-effect">
                         <span class="text-amber-500">💡</span>
                         바이오 벤처 지원 프로그램은 어떤 것이 있나요?
                     </button>
-                    <button class="w-full bg-white rounded-xl p-3 border border-gray-200 text-left flex items-center gap-2 text-sm text-slate-700 touch-effect">
+                    <button onclick="askSuggestedQuestion(this.textContent.trim())" class="w-full bg-white rounded-xl p-3 border border-gray-200 text-left flex items-center gap-2 text-sm text-slate-700 touch-effect">
                         <span class="text-amber-500">💡</span>
                         공동연구실 이용 비용이 궁금합니다
                     </button>
-                    <button class="w-full bg-white rounded-xl p-3 border border-gray-200 text-left flex items-center gap-2 text-sm text-slate-700 touch-effect">
+                    <button onclick="askSuggestedQuestion(this.textContent.trim())" class="w-full bg-white rounded-xl p-3 border border-gray-200 text-left flex items-center gap-2 text-sm text-slate-700 touch-effect">
                         <span class="text-amber-500">💡</span>
                         입주기업 혜택은 무엇인가요?
                     </button>
@@ -219,13 +219,13 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                     </svg>
                 </button>
-                <input type="text" placeholder="메시지를 입력하세요..." class="flex-1 bg-gray-100 rounded-xl px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-rose-500">
-                <button class="flex-shrink-0 w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center text-gray-600 touch-effect">
+                <input type="text" id="chatInput" placeholder="메시지를 입력하세요..." class="flex-1 bg-gray-100 rounded-xl px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-rose-500" onkeypress="if(event.key === 'Enter') sendMessage()">
+                <button onclick="handleAttachment()" class="flex-shrink-0 w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center text-gray-600 touch-effect">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
                     </svg>
                 </button>
-                <button class="flex-shrink-0 w-10 h-10 bg-rose-500 rounded-xl flex items-center justify-center text-white touch-effect">
+                <button onclick="sendMessage()" class="flex-shrink-0 w-10 h-10 bg-rose-500 rounded-xl flex items-center justify-center text-white touch-effect">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                     </svg>
@@ -293,6 +293,132 @@
         input.addEventListener('blur', function() {
             this.parentElement.style.borderColor = 'transparent';
         });
+
+        // Chat container (for message display in a real chat interface)
+        let chatContainer = null;
+
+        function createChatInterface() {
+            const mainContent = document.querySelector('.flex-1.overflow-y-auto');
+
+            // Hide welcome card and other elements
+            mainContent.querySelectorAll('.mb-6').forEach(el => el.style.display = 'none');
+
+            // Create chat container
+            chatContainer = document.createElement('div');
+            chatContainer.id = 'chatMessages';
+            chatContainer.className = 'space-y-4 pb-20';
+            mainContent.appendChild(chatContainer);
+
+            // Add initial AI message
+            addBotMessage('안녕하세요! 무엇을 도와드릴까요?');
+        }
+
+        function addUserMessage(text) {
+            if (!chatContainer) createChatInterface();
+
+            const msg = document.createElement('div');
+            msg.className = 'flex justify-end animate-slide-up';
+            msg.innerHTML = `
+                <div class="bg-gradient-to-br from-rose-500 to-pink-600 text-white rounded-2xl px-4 py-3 max-w-xs">
+                    <p class="text-sm">${text}</p>
+                </div>
+            `;
+            chatContainer.appendChild(msg);
+            scrollToBottom();
+        }
+
+        function addBotMessage(text) {
+            if (!chatContainer) createChatInterface();
+
+            const msg = document.createElement('div');
+            msg.className = 'flex items-start gap-3 animate-slide-up';
+            msg.innerHTML = `
+                <div class="w-10 h-10 bg-rose-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+                    </svg>
+                </div>
+                <div class="bg-white rounded-2xl px-4 py-3 border border-gray-200 max-w-xs">
+                    <p class="text-sm text-slate-800">${text}</p>
+                </div>
+            `;
+            chatContainer.appendChild(msg);
+            scrollToBottom();
+        }
+
+        function showTypingIndicator() {
+            if (!chatContainer) createChatInterface();
+
+            const typing = document.createElement('div');
+            typing.id = 'typingIndicator';
+            typing.className = 'flex items-start gap-3';
+            typing.innerHTML = `
+                <div class="w-10 h-10 bg-rose-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+                    </svg>
+                </div>
+                <div class="bg-white rounded-2xl px-4 py-3 border border-gray-200">
+                    <p class="text-sm text-slate-500">답변 작성 중...</p>
+                </div>
+            `;
+            chatContainer.appendChild(typing);
+            scrollToBottom();
+        }
+
+        function removeTypingIndicator() {
+            const typing = document.getElementById('typingIndicator');
+            if (typing) typing.remove();
+        }
+
+        function scrollToBottom() {
+            const mainContent = document.querySelector('.flex-1.overflow-y-auto');
+            setTimeout(() => {
+                mainContent.scrollTop = mainContent.scrollHeight;
+            }, 100);
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+
+            if (message) {
+                addUserMessage(message);
+                input.value = '';
+
+                showTypingIndicator();
+                setTimeout(() => {
+                    removeTypingIndicator();
+                    addBotMessage(`${message}에 대해 안내해드리겠습니다. 오송첨단의료산업진흥재단은 다양한 지원 프로그램을 운영하고 있습니다. 자세한 상담이 필요하시면 고객센터로 문의해주세요.`);
+                }, 1000);
+            }
+        }
+
+        function handleQuickMenu(type) {
+            const questions = {
+                '입주안내': '입주 신청 절차에 대해 알려주세요.',
+                '지원사업': '지원사업 종류와 신청방법을 알려주세요.',
+                '연구시설': '연구시설 이용 방법을 안내해주세요.',
+                'FAQ': '자주 묻는 질문을 보여주세요.',
+                '문의하기': '담당자 연결을 원합니다.'
+            };
+
+            if (questions[type]) {
+                document.getElementById('chatInput').value = questions[type];
+                sendMessage();
+            }
+        }
+
+        function askSuggestedQuestion(text) {
+            // Remove emoji from text
+            text = text.replace(/💡\s*/, '');
+            document.getElementById('chatInput').value = text;
+            sendMessage();
+        }
+
+        function handleAttachment() {
+            alert('파일 첨부 기능은 준비 중입니다.');
+        }
     </script>
 
 </body>

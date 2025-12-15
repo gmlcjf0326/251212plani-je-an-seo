@@ -88,7 +88,7 @@
             <main class="flex-1 overflow-y-auto p-6">
                 <!-- Stats Cards -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 cursor-pointer hover:shadow-lg transition-shadow" onclick="showCardDetail('today_chats')">
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-gray-500 text-sm">오늘 대화 수</p>
@@ -100,7 +100,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 cursor-pointer hover:shadow-lg transition-shadow" onclick="showCardDetail('active_users')">
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-gray-500 text-sm">활성 사용자</p>
@@ -112,7 +112,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 cursor-pointer hover:shadow-lg transition-shadow" onclick="showCardDetail('accuracy')">
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-gray-500 text-sm">응답 정확도</p>
@@ -124,7 +124,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 cursor-pointer hover:shadow-lg transition-shadow" onclick="showCardDetail('response_time')">
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-gray-500 text-sm">평균 응답시간</p>
@@ -141,7 +141,14 @@
                 <!-- Charts -->
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
                     <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                        <h3 class="font-bold text-navy mb-4">주간 대화 추이</h3>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-bold text-navy">주간 대화 추이</h3>
+                            <div class="flex space-x-2">
+                                <button onclick="changeChartPeriod('today')" class="px-3 py-1 text-sm text-gray-600 hover:bg-gold/20 hover:text-gold rounded transition-colors">오늘</button>
+                                <button onclick="changeChartPeriod('week')" class="px-3 py-1 text-sm bg-gold/20 text-gold rounded">주간</button>
+                                <button onclick="changeChartPeriod('month')" class="px-3 py-1 text-sm text-gray-600 hover:bg-gold/20 hover:text-gold rounded transition-colors">월간</button>
+                            </div>
+                        </div>
                         <div class="h-64">
                             <canvas id="weeklyChart"></canvas>
                         </div>
@@ -158,10 +165,16 @@
                 <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="font-bold text-navy">최근 대화</h3>
-                        <a href="#" class="text-gold hover:text-gold-light text-sm">전체 보기 →</a>
+                        <div class="flex items-center space-x-2">
+                            <input type="text" id="searchInput" placeholder="검색..." class="px-3 py-1 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-gold/50">
+                            <button onclick="searchTable()" class="px-4 py-1 bg-gold text-white rounded text-sm hover:bg-gold-light transition-colors">검색</button>
+                            <button onclick="refreshData()" class="p-1 text-gray-500 hover:text-gold transition-colors" title="새로고침">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                            </button>
+                        </div>
                     </div>
                     <div class="max-h-96 overflow-y-auto overflow-x-auto">
-                        <table class="w-full">
+                        <table class="w-full" id="conversationTable">
                             <thead>
                                 <tr class="border-b border-gray-200">
                                     <th class="text-left py-3 px-4 text-gray-500 font-medium text-sm">사용자</th>
@@ -172,7 +185,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="border-b border-gray-100 hover:bg-cream transition-colors">
+                                <tr class="border-b border-gray-100 hover:bg-cream transition-colors cursor-pointer" onclick="showRowDetail(1)">
                                     <td class="py-3 px-4">
                                         <div class="flex items-center space-x-2">
                                             <div class="w-8 h-8 bg-navy rounded-full flex items-center justify-center">
@@ -186,7 +199,7 @@
                                     <td class="py-3 px-4 text-gray-500 text-sm">5분 전</td>
                                     <td class="py-3 px-4"><span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs">완료</span></td>
                                 </tr>
-                                <tr class="border-b border-gray-100 hover:bg-cream transition-colors">
+                                <tr class="border-b border-gray-100 hover:bg-cream transition-colors cursor-pointer" onclick="showRowDetail(2)">
                                     <td class="py-3 px-4">
                                         <div class="flex items-center space-x-2">
                                             <div class="w-8 h-8 bg-navy rounded-full flex items-center justify-center">
@@ -200,7 +213,7 @@
                                     <td class="py-3 px-4 text-gray-500 text-sm">12분 전</td>
                                     <td class="py-3 px-4"><span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs">완료</span></td>
                                 </tr>
-                                <tr class="hover:bg-cream transition-colors">
+                                <tr class="hover:bg-cream transition-colors cursor-pointer" onclick="showRowDetail(3)">
                                     <td class="py-3 px-4">
                                         <div class="flex items-center space-x-2">
                                             <div class="w-8 h-8 bg-navy rounded-full flex items-center justify-center">
@@ -223,9 +236,12 @@
     </div>
 
     <script>
+        // Chart instance
+        let weeklyChartInstance;
+
         // Weekly Chart
         const weeklyCtx = document.getElementById('weeklyChart').getContext('2d');
-        new Chart(weeklyCtx, {
+        weeklyChartInstance = new Chart(weeklyCtx, {
             type: 'line',
             data: {
                 labels: ['월', '화', '수', '목', '금', '토', '일'],
@@ -269,6 +285,123 @@
                 }
             }
         });
+
+        // JavaScript Functions
+        function showCardDetail(type) {
+            const details = {
+                'today_chats': {
+                    title: '오늘 대화 수',
+                    content: '총 1,247건의 대화가 진행되었습니다.\n전일 대비 12% 증가\n\n시간대별 분포:\n- 09:00-12:00: 487건\n- 12:00-15:00: 392건\n- 15:00-18:00: 368건'
+                },
+                'active_users': {
+                    title: '활성 사용자',
+                    content: '현재 89명의 사용자가 접속 중입니다.\n\n접속 위치:\n- 웹사이트: 52명\n- 모바일 앱: 37명'
+                },
+                'accuracy': {
+                    title: '응답 정확도',
+                    content: '현재 응답 정확도: 94.2%\n전주 대비 2.1% 향상\n\n카테고리별 정확도:\n- 입주기업: 96.5%\n- 지원사업: 93.8%\n- 시설예약: 92.1%'
+                },
+                'response_time': {
+                    title: '평균 응답시간',
+                    content: '현재 평균 응답시간: 1.2초\n전주 대비 0.3초 단축\n\n응답시간 분포:\n- 1초 이하: 78%\n- 1-2초: 18%\n- 2초 이상: 4%'
+                }
+            };
+
+            const detail = details[type];
+            alert(detail.title + '\n\n' + detail.content);
+        }
+
+        function changeChartPeriod(period) {
+            const periods = {
+                'today': {
+                    labels: ['00시', '03시', '06시', '09시', '12시', '15시', '18시', '21시'],
+                    data: [45, 23, 67, 189, 245, 198, 156, 89]
+                },
+                'week': {
+                    labels: ['월', '화', '수', '목', '금', '토', '일'],
+                    data: [1120, 1350, 1280, 1420, 1380, 890, 720]
+                },
+                'month': {
+                    labels: ['1주', '2주', '3주', '4주'],
+                    data: [4850, 5120, 4980, 5240]
+                }
+            };
+
+            const selected = periods[period];
+            weeklyChartInstance.data.labels = selected.labels;
+            weeklyChartInstance.data.datasets[0].data = selected.data;
+            weeklyChartInstance.update();
+
+            // Update button styles
+            document.querySelectorAll('.flex.space-x-2 button').forEach(btn => {
+                btn.className = 'px-3 py-1 text-sm text-gray-600 hover:bg-gold/20 hover:text-gold rounded transition-colors';
+            });
+            event.target.className = 'px-3 py-1 text-sm bg-gold/20 text-gold rounded';
+
+            alert(period === 'today' ? '오늘' : period === 'week' ? '주간' : '월간' + ' 데이터로 변경되었습니다.');
+        }
+
+        function showRowDetail(id) {
+            const details = {
+                1: {
+                    user: '김연구원',
+                    question: '연구장비 예약 방법 문의',
+                    answer: 'NMR 장비는 온라인 예약 시스템을 통해 예약하실 수 있습니다. 예약 시 연구과제번호가 필요합니다.',
+                    time: '5분 전',
+                    category: '시설예약'
+                },
+                2: {
+                    user: '이대리',
+                    question: '입주기업 지원사업 안내',
+                    answer: '2024년 입주기업 지원사업은 R&D 지원, 마케팅 지원, 인력 지원 등이 있습니다. 자세한 내용은 홈페이지를 참고해주세요.',
+                    time: '12분 전',
+                    category: '지원사업'
+                },
+                3: {
+                    user: '박팀장',
+                    question: '세미나실 이용 가능 여부',
+                    answer: '현재 상담원 연결 중입니다. 잠시만 기다려주세요.',
+                    time: '18분 전',
+                    category: '시설예약'
+                }
+            };
+
+            const detail = details[id];
+            alert('대화 상세 정보\n\n' +
+                  '사용자: ' + detail.user + '\n' +
+                  '질문: ' + detail.question + '\n' +
+                  '답변: ' + detail.answer + '\n' +
+                  '카테고리: ' + detail.category + '\n' +
+                  '시간: ' + detail.time);
+        }
+
+        function searchTable() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const table = document.getElementById('conversationTable');
+            const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+            let found = 0;
+            for (let i = 0; i < rows.length; i++) {
+                const row = rows[i];
+                const text = row.textContent.toLowerCase();
+                if (text.includes(input)) {
+                    row.style.display = '';
+                    found++;
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+
+            if (input) {
+                alert(found + '건의 검색 결과를 찾았습니다.');
+            }
+        }
+
+        function refreshData() {
+            alert('데이터를 새로고침합니다.\n최신 정보로 업데이트됩니다.');
+            // 실제로는 여기서 서버에서 데이터를 다시 가져옵니다
+            location.reload();
+        }
     </script>
 </body>
 </html>

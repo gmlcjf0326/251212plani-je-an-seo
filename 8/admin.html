@@ -273,7 +273,7 @@
 
                 <!-- 통계 카드 -->
                 <div class="grid grid-cols-4 gap-4">
-                    <div class="stat-card rounded-lg p-5">
+                    <div onclick="showCardDetail('today')" class="stat-card rounded-lg p-5 cursor-pointer">
                         <div class="flex items-center justify-between mb-3">
                             <div class="w-12 h-12 rounded-lg bg-emerald-500/20 flex items-center justify-center">
                                 <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -288,7 +288,7 @@
                         <div class="text-sm text-gray-400">총 대화 세션</div>
                     </div>
 
-                    <div class="stat-card rounded-lg p-5">
+                    <div onclick="showCardDetail('total')" class="stat-card rounded-lg p-5 cursor-pointer">
                         <div class="flex items-center justify-between mb-3">
                             <div class="w-12 h-12 rounded-lg bg-sky-500/20 flex items-center justify-center">
                                 <svg class="w-6 h-6 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -303,7 +303,7 @@
                         <div class="text-sm text-gray-400">활성 사용자</div>
                     </div>
 
-                    <div class="stat-card rounded-lg p-5">
+                    <div onclick="showCardDetail('response')" class="stat-card rounded-lg p-5 cursor-pointer">
                         <div class="flex items-center justify-between mb-3">
                             <div class="w-12 h-12 rounded-lg bg-purple-500/20 flex items-center justify-center">
                                 <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -318,7 +318,7 @@
                         <div class="text-sm text-gray-400">정상 응답</div>
                     </div>
 
-                    <div class="stat-card rounded-lg p-5">
+                    <div onclick="showCardDetail('satisfaction')" class="stat-card rounded-lg p-5 cursor-pointer">
                         <div class="flex items-center justify-between mb-3">
                             <div class="w-12 h-12 rounded-lg bg-amber-500/20 flex items-center justify-center">
                                 <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -356,7 +356,7 @@
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="text-sm font-bold text-white font-mono">실시간 대화 모니터</h3>
                         <div class="flex items-center space-x-2">
-                            <input type="text" placeholder="검색..." class="bg-gray-800 text-gray-300 text-xs rounded px-3 py-1.5 border border-gray-700 focus:border-emerald-500 focus:outline-none font-mono w-48">
+                            <input id="searchInput" onkeyup="searchTable()" type="text" placeholder="검색..." class="bg-gray-800 text-gray-300 text-xs rounded px-3 py-1.5 border border-gray-700 focus:border-emerald-500 focus:outline-none font-mono w-48">
                             <button class="px-3 py-1.5 bg-gray-800 hover:bg-gray-700 rounded border border-gray-700 text-xs text-gray-300 font-mono">
                                 필터
                             </button>
@@ -378,7 +378,7 @@
                                 </tr>
                             </thead>
                             <tbody class="text-gray-300">
-                                <tr class="border-b border-gray-800">
+                                <tr onclick="showRowDetail({id: '#20251212-0145', user: '김바이오', category: '입주', status: '완료'})" class="border-b border-gray-800 cursor-pointer hover:bg-gray-50">
                                     <td class="py-3 px-3 font-mono text-xs text-gray-500">#20251212-0145</td>
                                     <td class="py-3 px-3 font-mono text-xs">14:35:12</td>
                                     <td class="py-3 px-3">
@@ -834,6 +834,41 @@
                 }
             }
         });
+
+        // Interactive Functions
+        function showCardDetail(type) {
+            const details = {
+                'today': '오늘 상담: 1,247건\n시간대별: 오전 534건, 오후 713건',
+                'total': '활성 사용자: 342명\n금주 신규: 28명',
+                'response': '정상 응답: 1,175건\n응답률: 94.2%',
+                'satisfaction': '평균 응답시간: 2.3초\n목표: 3초 이내'
+            };
+            alert(details[type] || '상세 정보');
+        }
+
+        function changeChartPeriod(period) {
+            alert(period + ' 데이터로 변경됨');
+        }
+
+        function showRowDetail(data) {
+            alert('상담 상세\n\n' + JSON.stringify(data, null, 2));
+        }
+
+        function searchTable() {
+            const filter = document.getElementById('searchInput')?.value.toUpperCase() || '';
+            document.querySelectorAll('tbody tr').forEach(row => {
+                row.style.display = row.textContent.toUpperCase().includes(filter) ? '' : 'none';
+            });
+        }
+
+        function exportData(format) {
+            alert(format + ' 형식으로 데이터를 내보냅니다. (시뮬레이션)');
+        }
+
+        function refreshData() {
+            alert('데이터를 새로고침합니다.');
+            location.reload();
+        }
     </script>
 
 </body>

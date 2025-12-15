@@ -112,7 +112,7 @@
                     </div>
 
                     <div class="space-y-1">
-                        <div class="channel-item px-3 py-2 rounded cursor-pointer bg-gray-800 border-l-3 border-emerald-500">
+                        <div onclick="selectChannel('입주-문의')" class="channel-item px-3 py-2 rounded cursor-pointer bg-gray-800 border-l-3 border-emerald-500" data-channel="입주-문의">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center space-x-2">
                                     <span class="text-emerald-400 font-mono text-sm">#</span>
@@ -122,7 +122,7 @@
                             </div>
                         </div>
 
-                        <div class="channel-item px-3 py-2 rounded cursor-pointer">
+                        <div onclick="selectChannel('지원-사업')" class="channel-item px-3 py-2 rounded cursor-pointer" data-channel="지원-사업">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center space-x-2">
                                     <span class="text-gray-500 font-mono text-sm">#</span>
@@ -132,42 +132,42 @@
                             </div>
                         </div>
 
-                        <div class="channel-item px-3 py-2 rounded cursor-pointer">
+                        <div onclick="selectChannel('연구개발-지원')" class="channel-item px-3 py-2 rounded cursor-pointer" data-channel="연구개발-지원">
                             <div class="flex items-center space-x-2">
                                 <span class="text-gray-500 font-mono text-sm">#</span>
                                 <span class="text-sm">연구개발-지원</span>
                             </div>
                         </div>
 
-                        <div class="channel-item px-3 py-2 rounded cursor-pointer">
+                        <div onclick="selectChannel('시설-이용')" class="channel-item px-3 py-2 rounded cursor-pointer" data-channel="시설-이용">
                             <div class="flex items-center space-x-2">
                                 <span class="text-gray-500 font-mono text-sm">#</span>
                                 <span class="text-sm">시설-이용</span>
                             </div>
                         </div>
 
-                        <div class="channel-item px-3 py-2 rounded cursor-pointer">
+                        <div onclick="selectChannel('교육-프로그램')" class="channel-item px-3 py-2 rounded cursor-pointer" data-channel="교육-프로그램">
                             <div class="flex items-center space-x-2">
                                 <span class="text-gray-500 font-mono text-sm">#</span>
                                 <span class="text-sm">교육-프로그램</span>
                             </div>
                         </div>
 
-                        <div class="channel-item px-3 py-2 rounded cursor-pointer">
+                        <div onclick="selectChannel('민원-처리')" class="channel-item px-3 py-2 rounded cursor-pointer" data-channel="민원-처리">
                             <div class="flex items-center space-x-2">
                                 <span class="text-gray-500 font-mono text-sm">#</span>
                                 <span class="text-sm">민원-처리</span>
                             </div>
                         </div>
 
-                        <div class="channel-item px-3 py-2 rounded cursor-pointer">
+                        <div onclick="selectChannel('규정-정책')" class="channel-item px-3 py-2 rounded cursor-pointer" data-channel="규정-정책">
                             <div class="flex items-center space-x-2">
                                 <span class="text-gray-500 font-mono text-sm">#</span>
                                 <span class="text-sm">규정-정책</span>
                             </div>
                         </div>
 
-                        <div class="channel-item px-3 py-2 rounded cursor-pointer">
+                        <div onclick="selectChannel('일반-질문')" class="channel-item px-3 py-2 rounded cursor-pointer" data-channel="일반-질문">
                             <div class="flex items-center space-x-2">
                                 <span class="text-gray-500 font-mono text-sm">#</span>
                                 <span class="text-sm">일반-질문</span>
@@ -467,19 +467,19 @@
 
                                 <!-- 액션 버튼 -->
                                 <div class="flex items-center space-x-2 mt-3">
-                                    <button class="text-xs px-3 py-1.5 bg-gray-800 hover:bg-gray-700 rounded border border-gray-700 text-gray-400 font-mono">
+                                    <button onclick="handleCopy()" class="text-xs px-3 py-1.5 bg-gray-800 hover:bg-gray-700 rounded border border-gray-700 text-gray-400 font-mono">
                                         📋 복사
                                     </button>
-                                    <button class="text-xs px-3 py-1.5 bg-gray-800 hover:bg-gray-700 rounded border border-gray-700 text-gray-400 font-mono">
+                                    <button onclick="handleBookmark()" class="text-xs px-3 py-1.5 bg-gray-800 hover:bg-gray-700 rounded border border-gray-700 text-gray-400 font-mono">
                                         🔖 북마크
                                     </button>
-                                    <button class="text-xs px-3 py-1.5 bg-gray-800 hover:bg-gray-700 rounded border border-gray-700 text-gray-400 font-mono">
+                                    <button onclick="handleFeedback('helpful')" class="text-xs px-3 py-1.5 bg-gray-800 hover:bg-gray-700 rounded border border-gray-700 text-gray-400 font-mono">
                                         👍 도움됨
                                     </button>
-                                    <button class="text-xs px-3 py-1.5 bg-gray-800 hover:bg-gray-700 rounded border border-gray-700 text-gray-400 font-mono">
+                                    <button onclick="handleFeedback('improve')" class="text-xs px-3 py-1.5 bg-gray-800 hover:bg-gray-700 rounded border border-gray-700 text-gray-400 font-mono">
                                         👎 개선필요
                                     </button>
-                                    <button class="text-xs px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 rounded text-white font-mono">
+                                    <button onclick="connectAgent()" class="text-xs px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 rounded text-white font-mono">
                                         📞 상담원 연결
                                     </button>
                                 </div>
@@ -495,11 +495,13 @@
                 <div class="input-area rounded-lg p-4">
                     <div class="flex items-start space-x-3">
                         <textarea
+                            id="chatInput"
                             placeholder="메시지를 입력하세요... (/help 명령어 안내)"
                             rows="3"
                             class="flex-1 bg-transparent text-gray-300 placeholder-gray-600 resize-none focus:outline-none text-sm leading-relaxed"
+                            onkeydown="if(event.ctrlKey && event.key === 'Enter') sendMessage()"
                         ></textarea>
-                        <button class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded font-medium text-sm flex items-center space-x-2">
+                        <button onclick="sendMessage()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded font-medium text-sm flex items-center space-x-2">
                             <span>전송</span>
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
@@ -509,13 +511,13 @@
 
                     <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-800">
                         <div class="flex items-center space-x-2">
-                            <button class="text-gray-500 hover:text-emerald-400 text-xs font-mono">
+                            <button onclick="handleAttachment()" class="text-gray-500 hover:text-emerald-400 text-xs font-mono">
                                 📎 파일첨부
                             </button>
-                            <button class="text-gray-500 hover:text-emerald-400 text-xs font-mono">
+                            <button onclick="handleSaveDraft()" class="text-gray-500 hover:text-emerald-400 text-xs font-mono">
                                 💾 임시저장
                             </button>
-                            <button class="text-gray-500 hover:text-emerald-400 text-xs font-mono">
+                            <button onclick="handleTemplate()" class="text-gray-500 hover:text-emerald-400 text-xs font-mono">
                                 📝 템플릿
                             </button>
                         </div>
@@ -709,6 +711,171 @@
         </aside>
 
     </div>
+
+    <script>
+        let currentChannel = '입주-문의';
+
+        function selectChannel(channelName) {
+            currentChannel = channelName;
+
+            // Update channel highlighting
+            document.querySelectorAll('.channel-item').forEach(item => {
+                if (item.dataset.channel === channelName) {
+                    item.classList.add('bg-gray-800', 'border-l-3', 'border-emerald-500');
+                    item.querySelector('span:nth-child(2)').classList.add('text-emerald-400', 'font-medium');
+                    item.querySelector('.font-mono').classList.remove('text-gray-500');
+                    item.querySelector('.font-mono').classList.add('text-emerald-400');
+                } else {
+                    item.classList.remove('bg-gray-800', 'border-l-3', 'border-emerald-500');
+                    item.querySelector('span:nth-child(2)').classList.remove('text-emerald-400', 'font-medium');
+                    item.querySelector('.font-mono').classList.add('text-gray-500');
+                    item.querySelector('.font-mono').classList.remove('text-emerald-400');
+                }
+            });
+
+            // Update header
+            document.querySelector('header h2').innerHTML = `
+                <span class="text-emerald-400 font-mono mr-2">#</span>
+                ${channelName}
+            `;
+        }
+
+        function addUserMessage(text) {
+            const messagesDiv = document.querySelector('.overflow-y-auto.scrollbar-thin.px-6.py-6');
+            const userMsg = document.createElement('div');
+            userMsg.className = 'flex justify-end';
+            userMsg.innerHTML = `
+                <div class="max-w-2xl">
+                    <div class="flex items-start space-x-3">
+                        <div class="flex-1">
+                            <div class="flex items-center justify-end space-x-2 mb-2">
+                                <span class="text-xs text-gray-500 font-mono">${new Date().toLocaleTimeString()}</span>
+                                <span class="text-sm font-medium text-white">You</span>
+                            </div>
+                            <div class="bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-lg p-4 border border-emerald-500">
+                                <p class="text-white">${text}</p>
+                            </div>
+                        </div>
+                        <div class="w-10 h-10 rounded bg-gradient-to-br from-emerald-500 to-sky-500 flex items-center justify-center text-white font-bold flex-shrink-0">
+                            U
+                        </div>
+                    </div>
+                </div>
+            `;
+            messagesDiv.appendChild(userMsg);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function addBotMessage(text) {
+            const messagesDiv = document.querySelector('.overflow-y-auto.scrollbar-thin.px-6.py-6');
+            const botMsg = document.createElement('div');
+            botMsg.className = 'flex justify-start';
+            botMsg.innerHTML = `
+                <div class="max-w-4xl w-full">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-10 h-10 rounded bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center flex-shrink-0 border border-emerald-500">
+                            <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <span class="text-sm font-medium text-emerald-400 font-mono">AI Assistant</span>
+                                <span class="badge bg-sky-500/20 text-sky-400 border border-sky-500/30">RAG-ENABLED</span>
+                                <span class="text-xs text-gray-500 font-mono">${new Date().toLocaleTimeString()}</span>
+                            </div>
+                            <div class="message-bubble rounded-lg p-6">
+                                <p class="text-gray-300 leading-relaxed">${text}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            messagesDiv.appendChild(botMsg);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const messagesDiv = document.querySelector('.overflow-y-auto.scrollbar-thin.px-6.py-6');
+            const typing = document.createElement('div');
+            typing.id = 'typingIndicator';
+            typing.className = 'flex justify-start';
+            typing.innerHTML = `
+                <div class="max-w-4xl w-full">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-10 h-10 rounded bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center flex-shrink-0 border border-emerald-500">
+                            <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <div class="message-bubble rounded-lg p-4">
+                                <p class="text-gray-500 text-sm">답변 작성 중...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            messagesDiv.appendChild(typing);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const typing = document.getElementById('typingIndicator');
+            if (typing) typing.remove();
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+
+            if (message) {
+                addUserMessage(message);
+                input.value = '';
+
+                showTypingIndicator();
+                setTimeout(() => {
+                    removeTypingIndicator();
+                    addBotMessage(`[${currentChannel}] 채널에 대한 문의를 처리하였습니다. "${message}"에 대한 상세 답변을 제공해드립니다. 추가 문의사항이 있으시면 언제든지 말씀해주세요.`);
+                }, 1500);
+            }
+        }
+
+        function handleCopy() {
+            alert('메시지가 클립보드에 복사되었습니다.');
+        }
+
+        function handleBookmark() {
+            alert('북마크에 추가되었습니다.');
+        }
+
+        function handleFeedback(type) {
+            if (type === 'helpful') {
+                alert('피드백 감사합니다! 도움이 되셨다니 기쁩니다.');
+            } else {
+                alert('피드백 감사합니다. 답변 개선에 반영하겠습니다.');
+            }
+        }
+
+        function connectAgent() {
+            alert('상담원 연결을 요청하였습니다. 잠시만 기다려주세요.');
+        }
+
+        function handleAttachment() {
+            alert('파일 첨부 기능은 준비 중입니다.');
+        }
+
+        function handleSaveDraft() {
+            const input = document.getElementById('chatInput');
+            if (input.value.trim()) {
+                alert('메시지가 임시저장되었습니다.');
+            }
+        }
+
+        function handleTemplate() {
+            alert('템플릿 선택 기능은 준비 중입니다.');
+        }
+    </script>
 
 </body>
 </html>

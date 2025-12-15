@@ -149,7 +149,7 @@
                 <div id="overviewTab" class="space-y-6">
                     <!-- 통계 카드 -->
                     <div class="grid grid-cols-4 gap-6">
-                        <div class="stat-card bg-white rounded-xl border border-slate-200 p-6">
+                        <div class="stat-card bg-white rounded-xl border border-slate-200 p-6 cursor-pointer" onclick="showCardDetail('questions')">
                             <div class="flex items-center justify-between mb-3">
                                 <div class="w-10 h-10 bg-violet-100 rounded-lg flex items-center justify-center">
                                     <svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -162,7 +162,7 @@
                             <p class="text-sm text-slate-500">오늘 질문 수</p>
                         </div>
 
-                        <div class="stat-card bg-white rounded-xl border border-slate-200 p-6">
+                        <div class="stat-card bg-white rounded-xl border border-slate-200 p-6 cursor-pointer" onclick="showCardDetail('users')">
                             <div class="flex items-center justify-between mb-3">
                                 <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
                                     <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -175,7 +175,7 @@
                             <p class="text-sm text-slate-500">활성 사용자</p>
                         </div>
 
-                        <div class="stat-card bg-white rounded-xl border border-slate-200 p-6">
+                        <div class="stat-card bg-white rounded-xl border border-slate-200 p-6 cursor-pointer" onclick="showCardDetail('accuracy')">
                             <div class="flex items-center justify-between mb-3">
                                 <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center">
                                     <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -188,7 +188,7 @@
                             <p class="text-sm text-slate-500">응답 정확도</p>
                         </div>
 
-                        <div class="stat-card bg-white rounded-xl border border-slate-200 p-6">
+                        <div class="stat-card bg-white rounded-xl border border-slate-200 p-6 cursor-pointer" onclick="showCardDetail('response_time')">
                             <div class="flex items-center justify-between mb-3">
                                 <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
                                     <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -205,7 +205,14 @@
                     <!-- 차트 섹션 -->
                     <div class="grid grid-cols-2 gap-6">
                         <div class="bg-white rounded-xl border border-slate-200 p-6">
-                            <h3 class="text-lg font-semibold text-slate-800 mb-4">질문 추이</h3>
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-semibold text-slate-800">질문 추이</h3>
+                                <div class="flex gap-2">
+                                    <button onclick="changeChartPeriod('daily')" class="px-3 py-1 text-xs font-medium text-slate-600 hover:bg-violet-50 hover:text-violet-600 rounded transition">오늘</button>
+                                    <button onclick="changeChartPeriod('weekly')" class="px-3 py-1 text-xs font-medium bg-violet-100 text-violet-600 rounded transition">주간</button>
+                                    <button onclick="changeChartPeriod('monthly')" class="px-3 py-1 text-xs font-medium text-slate-600 hover:bg-violet-50 hover:text-violet-600 rounded transition">월간</button>
+                                </div>
+                            </div>
                             <div class="h-48">
                                 <canvas id="questionTrendChart"></canvas>
                             </div>
@@ -221,7 +228,14 @@
 
                     <!-- 최근 질문 -->
                     <div class="bg-white rounded-xl border border-slate-200 p-6">
-                        <h3 class="text-lg font-semibold text-slate-800 mb-4">최근 질문</h3>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-slate-800">최근 질문</h3>
+                            <div class="flex gap-2">
+                                <input type="text" placeholder="검색..." onkeyup="searchTable(this)" class="px-3 py-1.5 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500">
+                                <button onclick="exportData('excel')" class="px-3 py-1.5 text-xs font-medium bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg transition">엑셀</button>
+                                <button onclick="refreshData()" class="px-3 py-1.5 text-xs font-medium bg-violet-500 hover:bg-violet-600 text-white rounded-lg transition">새로고침</button>
+                            </div>
+                        </div>
                         <div class="max-h-96 overflow-y-auto overflow-x-auto">
                             <table class="w-full">
                                 <thead>
@@ -234,7 +248,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-slate-100">
-                                    <tr class="hover:bg-slate-50 transition-colors">
+                                    <tr class="hover:bg-slate-50 transition-colors cursor-pointer" onclick="showRowDetail({question:'연구장비 예약 방법이 궁금합니다', category:'장비관리', responseTime:'0.8초', satisfaction:'5.0', time:'2분 전'})">
                                         <td class="py-3 text-sm text-slate-700">연구장비 예약 방법이 궁금합니다</td>
                                         <td class="py-3"><span class="text-xs bg-violet-100 text-violet-700 px-2 py-1 rounded">장비관리</span></td>
                                         <td class="py-3 text-sm text-slate-600">0.8초</td>
@@ -248,7 +262,7 @@
                                         </td>
                                         <td class="py-3 text-sm text-slate-500">2분 전</td>
                                     </tr>
-                                    <tr class="hover:bg-slate-50 transition-colors">
+                                    <tr class="hover:bg-slate-50 transition-colors cursor-pointer" onclick="showRowDetail({question:'지원사업 신청 절차를 알려주세요', category:'지원사업', responseTime:'1.1초', satisfaction:'4.8', time:'5분 전'})">
                                         <td class="py-3 text-sm text-slate-700">지원사업 신청 절차를 알려주세요</td>
                                         <td class="py-3"><span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">지원사업</span></td>
                                         <td class="py-3 text-sm text-slate-600">1.1초</td>
@@ -262,7 +276,7 @@
                                         </td>
                                         <td class="py-3 text-sm text-slate-500">5분 전</td>
                                     </tr>
-                                    <tr class="hover:bg-slate-50 transition-colors">
+                                    <tr class="hover:bg-slate-50 transition-colors cursor-pointer" onclick="showRowDetail({question:'제출 서류 양식 다운로드', category:'문서관리', responseTime:'0.9초', satisfaction:'5.0', time:'8분 전'})">
                                         <td class="py-3 text-sm text-slate-700">제출 서류 양식 다운로드</td>
                                         <td class="py-3"><span class="text-xs bg-emerald-100 text-emerald-700 px-2 py-1 rounded">문서관리</span></td>
                                         <td class="py-3 text-sm text-slate-600">0.9초</td>
@@ -444,7 +458,97 @@
     </div>
 
     <script>
-        // 탭 전환
+        // ========== JavaScript 함수들 ==========
+
+        // 1. 통계 카드 상세 정보 표시
+        function showCardDetail(type) {
+            const details = {
+                'questions': '오늘 총 1,247개의 질문이 접수되었습니다.\n전일 대비 12% 증가\n\n시간대별 분포:\n- 오전 9-12시: 421건\n- 오후 1-6시: 658건\n- 오후 6시 이후: 168건',
+                'users': '현재 활성 사용자: 328명\n전일 대비 8% 증가\n\n접속 경로:\n- 웹사이트: 245명 (75%)\n- 모바일 앱: 83명 (25%)',
+                'accuracy': '응답 정확도: 94.8%\n\n카테고리별 정확도:\n- 장비관리: 96.2%\n- 지원사업: 93.8%\n- 문서관리: 94.1%',
+                'response_time': '평균 응답시간: 1.2초\n\n응답시간 분포:\n- 1초 이내: 68%\n- 1-2초: 27%\n- 2초 이상: 5%'
+            };
+            alert(details[type] || '상세 정보를 불러오는 중입니다...');
+        }
+
+        // 2. 차트 기간 변경
+        let currentChartPeriod = 'weekly';
+        function changeChartPeriod(period) {
+            currentChartPeriod = period;
+
+            const data = {
+                'daily': {
+                    labels: ['00시', '04시', '08시', '12시', '16시', '20시', '24시'],
+                    values: [45, 23, 156, 421, 658, 287, 89]
+                },
+                'weekly': {
+                    labels: ['월', '화', '수', '목', '금', '토', '일'],
+                    values: [856, 923, 1047, 989, 1124, 756, 892]
+                },
+                'monthly': {
+                    labels: ['1주', '2주', '3주', '4주'],
+                    values: [3524, 3789, 4012, 3847]
+                }
+            };
+
+            const selectedData = data[period];
+            questionTrendChart.data.labels = selectedData.labels;
+            questionTrendChart.data.datasets[0].data = selectedData.values;
+            questionTrendChart.update();
+
+            console.log(`차트 기간이 ${period}로 변경되었습니다.`);
+        }
+
+        // 3. 테이블 행 상세 정보 표시
+        function showRowDetail(data) {
+            alert(`상세 정보:\n\n질문: ${data.question}\n카테고리: ${data.category}\n응답시간: ${data.responseTime}\n만족도: ${data.satisfaction}\n시간: ${data.time}\n\n전체 대화 내용을 확인하시겠습니까?`);
+        }
+
+        // 4. 테이블 검색
+        function searchTable(inputElement) {
+            const searchTerm = inputElement.value.toLowerCase();
+            const tables = document.querySelectorAll('table tbody tr');
+
+            let foundCount = 0;
+            tables.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    row.style.display = '';
+                    foundCount++;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            console.log(`검색 결과: ${foundCount}건`);
+        }
+
+        // 5. 데이터 내보내기
+        function exportData(format) {
+            if (format === 'excel') {
+                alert('엑셀 파일로 내보내기를 시작합니다...\n\n다운로드가 완료되었습니다:\n- 파일명: chatbot_data_' + new Date().toISOString().split('T')[0] + '.xlsx\n- 항목: 1,247건');
+            } else if (format === 'pdf') {
+                alert('PDF 리포트를 생성합니다...\n\n다운로드가 완료되었습니다:\n- 파일명: chatbot_report_' + new Date().toISOString().split('T')[0] + '.pdf');
+            } else if (format === 'csv') {
+                alert('CSV 파일로 내보내기를 시작합니다...\n\n다운로드가 완료되었습니다:\n- 파일명: chatbot_data_' + new Date().toISOString().split('T')[0] + '.csv');
+            }
+        }
+
+        // 6. 데이터 새로고침
+        function refreshData() {
+            const refreshButton = event.target;
+            refreshButton.disabled = true;
+            refreshButton.textContent = '새로고침 중...';
+
+            setTimeout(() => {
+                refreshButton.disabled = false;
+                refreshButton.textContent = '새로고침';
+                alert('데이터가 성공적으로 새로고침되었습니다.\n\n업데이트된 항목:\n- 통계 카드: 4개\n- 차트 데이터: 2개\n- 최근 질문: 3개');
+                location.reload();
+            }, 1500);
+        }
+
+        // ========== 탭 전환 ==========
         const tabButtons = document.querySelectorAll('.tab-button');
         const tabs = {
             'overview': document.getElementById('overviewTab'),
@@ -474,10 +578,10 @@
             });
         });
 
-        // Chart.js 차트 생성
+        // ========== Chart.js 차트 생성 ==========
         // 질문 추이 차트
         const questionTrendCtx = document.getElementById('questionTrendChart').getContext('2d');
-        new Chart(questionTrendCtx, {
+        const questionTrendChart = new Chart(questionTrendCtx, {
             type: 'line',
             data: {
                 labels: ['월', '화', '수', '목', '금', '토', '일'],

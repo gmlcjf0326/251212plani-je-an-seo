@@ -110,7 +110,7 @@
             <main class="flex-1 overflow-y-auto p-8">
                 <!-- Stats Cards -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 cursor-pointer hover:shadow-lg transition-shadow" onclick="showCardDetail('total_chats')">
                         <div class="flex items-center justify-between mb-4">
                             <div class="w-12 h-12 bg-teal/10 rounded-xl flex items-center justify-center">
                                 <svg class="w-6 h-6 text-teal" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
@@ -120,7 +120,7 @@
                         <p class="text-3xl font-bold text-slate">2,847</p>
                         <p class="text-slate-light text-sm mt-1">총 대화 수</p>
                     </div>
-                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 cursor-pointer hover:shadow-lg transition-shadow" onclick="showCardDetail('active_users')">
                         <div class="flex items-center justify-between mb-4">
                             <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
                                 <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
@@ -130,7 +130,7 @@
                         <p class="text-3xl font-bold text-slate">156</p>
                         <p class="text-slate-light text-sm mt-1">활성 사용자</p>
                     </div>
-                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 cursor-pointer hover:shadow-lg transition-shadow" onclick="showCardDetail('accuracy')">
                         <div class="flex items-center justify-between mb-4">
                             <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
                                 <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
@@ -140,7 +140,7 @@
                         <p class="text-3xl font-bold text-slate">96.8%</p>
                         <p class="text-slate-light text-sm mt-1">응답 정확도</p>
                     </div>
-                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 cursor-pointer hover:shadow-lg transition-shadow" onclick="showCardDetail('response_time')">
                         <div class="flex items-center justify-between mb-4">
                             <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
                                 <svg class="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
@@ -158,8 +158,9 @@
                         <div class="flex items-center justify-between mb-6">
                             <h3 class="font-bold text-slate">대화 추이</h3>
                             <div class="flex items-center space-x-2">
-                                <button class="px-3 py-1 text-sm text-teal bg-teal/10 rounded-lg">주간</button>
-                                <button class="px-3 py-1 text-sm text-slate-light hover:bg-gray-50 rounded-lg">월간</button>
+                                <button onclick="changeChartPeriod('today')" class="px-3 py-1 text-sm text-slate-light hover:bg-teal/10 hover:text-teal rounded-lg transition-colors">오늘</button>
+                                <button onclick="changeChartPeriod('week')" class="px-3 py-1 text-sm text-teal bg-teal/10 rounded-lg">주간</button>
+                                <button onclick="changeChartPeriod('month')" class="px-3 py-1 text-sm text-slate-light hover:bg-teal/10 hover:text-teal rounded-lg transition-colors">월간</button>
                             </div>
                         </div>
                         <div class="h-64">
@@ -178,10 +179,16 @@
                 <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                     <div class="flex items-center justify-between mb-6">
                         <h3 class="font-bold text-slate">최근 대화</h3>
-                        <button class="text-teal text-sm hover:underline">전체 보기</button>
+                        <div class="flex items-center space-x-2">
+                            <input type="text" id="searchInput" placeholder="검색..." class="px-3 py-1 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal/50">
+                            <button onclick="searchTable()" class="px-4 py-1 bg-teal text-white rounded-lg text-sm hover:bg-teal-dark transition-colors">검색</button>
+                            <button onclick="refreshData()" class="p-1 text-gray-500 hover:text-teal transition-colors" title="새로고침">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                            </button>
+                        </div>
                     </div>
-                    <div class="space-y-4">
-                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+                    <div class="space-y-4" id="conversationTable">
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl cursor-pointer hover:shadow-md transition-shadow" onclick="showRowDetail(1)">
                             <div class="flex items-center space-x-4">
                                 <div class="w-10 h-10 bg-teal rounded-full flex items-center justify-center">
                                     <span class="text-white text-sm font-medium">김</span>
@@ -196,7 +203,7 @@
                                 <p class="text-xs text-slate-light mt-1">3분 전</p>
                             </div>
                         </div>
-                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl cursor-pointer hover:shadow-md transition-shadow" onclick="showRowDetail(2)">
                             <div class="flex items-center space-x-4">
                                 <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
                                     <span class="text-white text-sm font-medium">이</span>
@@ -211,7 +218,7 @@
                                 <p class="text-xs text-slate-light mt-1">8분 전</p>
                             </div>
                         </div>
-                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl cursor-pointer hover:shadow-md transition-shadow" onclick="showRowDetail(3)">
                             <div class="flex items-center space-x-4">
                                 <div class="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center">
                                     <span class="text-white text-sm font-medium">박</span>
@@ -233,9 +240,12 @@
     </div>
 
     <script>
+        // Chart instance
+        let trendChartInstance;
+
         // Trend Chart
         const trendCtx = document.getElementById('trendChart').getContext('2d');
-        new Chart(trendCtx, {
+        trendChartInstance = new Chart(trendCtx, {
             type: 'line',
             data: {
                 labels: ['월', '화', '수', '목', '금', '토', '일'],
@@ -279,6 +289,125 @@
                 cutout: '65%'
             }
         });
+
+        // JavaScript Functions
+        function showCardDetail(type) {
+            const details = {
+                'total_chats': {
+                    title: '총 대화 수',
+                    content: '총 2,847건의 대화가 진행되었습니다.\n전주 대비 15% 증가\n\n주요 시간대:\n- 오전 (09-12시): 892건\n- 오후 (12-18시): 1,245건\n- 저녁 (18-21시): 710건'
+                },
+                'active_users': {
+                    title: '활성 사용자',
+                    content: '현재 156명의 사용자가 접속 중입니다.\n\n플랫폼별 분포:\n- 웹: 94명\n- 모바일: 62명'
+                },
+                'accuracy': {
+                    title: '응답 정확도',
+                    content: '현재 응답 정확도: 96.8%\n전월 대비 3.2% 향상\n\n카테고리별 정확도:\n- 입주문의: 98.2%\n- 시설예약: 96.5%\n- 지원사업: 95.8%'
+                },
+                'response_time': {
+                    title: '평균 응답시간',
+                    content: '현재 평균 응답시간: 0.8초\n전월 대비 0.4초 단축\n\n응답시간 분포:\n- 0.5초 이하: 82%\n- 0.5-1.5초: 15%\n- 1.5초 이상: 3%'
+                }
+            };
+
+            const detail = details[type];
+            alert(detail.title + '\n\n' + detail.content);
+        }
+
+        function changeChartPeriod(period) {
+            const periods = {
+                'today': {
+                    labels: ['00시', '03시', '06시', '09시', '12시', '15시', '18시', '21시'],
+                    data: [35, 18, 52, 142, 198, 165, 128, 74]
+                },
+                'week': {
+                    labels: ['월', '화', '수', '목', '금', '토', '일'],
+                    data: [320, 450, 380, 520, 480, 280, 190]
+                },
+                'month': {
+                    labels: ['1주', '2주', '3주', '4주'],
+                    data: [1450, 1620, 1580, 1690]
+                }
+            };
+
+            const selected = periods[period];
+            trendChartInstance.data.labels = selected.labels;
+            trendChartInstance.data.datasets[0].data = selected.data;
+            trendChartInstance.update();
+
+            // Update button styles
+            document.querySelectorAll('.flex.items-center.space-x-2 button').forEach(btn => {
+                if (btn.textContent.includes('검색') || btn.title === '새로고침') return;
+                btn.className = 'px-3 py-1 text-sm text-slate-light hover:bg-teal/10 hover:text-teal rounded-lg transition-colors';
+            });
+            event.target.className = 'px-3 py-1 text-sm text-teal bg-teal/10 rounded-lg';
+
+            alert((period === 'today' ? '오늘' : period === 'week' ? '주간' : '월간') + ' 데이터로 변경되었습니다.');
+        }
+
+        function showRowDetail(id) {
+            const details = {
+                1: {
+                    user: '김연구원',
+                    question: '연구장비 예약 문의',
+                    answer: 'NMR 장비는 온라인 예약 시스템을 통해 예약하실 수 있습니다. 사용 가능 시간은 평일 09:00-18:00입니다.',
+                    time: '3분 전',
+                    category: '시설예약'
+                },
+                2: {
+                    user: '이기업인',
+                    question: '입주기업 신청 절차',
+                    answer: '입주 신청은 온라인으로 진행되며, 서류 심사 후 면접을 거쳐 최종 선정됩니다. 상담원이 곧 연결됩니다.',
+                    time: '8분 전',
+                    category: '입주문의'
+                },
+                3: {
+                    user: '박연구자',
+                    question: '지원사업 일정 안내',
+                    answer: '2024년 R&D 지원사업 신청은 3월 1일부터 3월 31일까지입니다. 자세한 사항은 공고문을 참고해주세요.',
+                    time: '15분 전',
+                    category: '지원사업'
+                }
+            };
+
+            const detail = details[id];
+            alert('대화 상세 정보\n\n' +
+                  '사용자: ' + detail.user + '\n' +
+                  '질문: ' + detail.question + '\n' +
+                  '답변: ' + detail.answer + '\n' +
+                  '카테고리: ' + detail.category + '\n' +
+                  '시간: ' + detail.time);
+        }
+
+        function searchTable() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const container = document.getElementById('conversationTable');
+            const items = container.getElementsByTagName('div');
+
+            let found = 0;
+            for (let i = 0; i < items.length; i++) {
+                const item = items[i];
+                if (item.className.includes('flex items-center justify-between')) {
+                    const text = item.textContent.toLowerCase();
+                    if (text.includes(input) || input === '') {
+                        item.style.display = '';
+                        found++;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                }
+            }
+
+            if (input) {
+                alert(found + '건의 검색 결과를 찾았습니다.');
+            }
+        }
+
+        function refreshData() {
+            alert('데이터를 새로고침합니다.\n최신 정보로 업데이트됩니다.');
+            location.reload();
+        }
     </script>
 </body>
 </html>

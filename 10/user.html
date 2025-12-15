@@ -140,19 +140,19 @@
                     </div>
                     <div class="p-3">
                         <div class="space-y-1">
-                            <button class="w-full text-left px-4 py-3 text-sm bg-blue-50 border border-blue-200 text-blue-900 font-medium rounded">
+                            <button onclick="handleServiceClick('연구개발 지원')" class="w-full text-left px-4 py-3 text-sm bg-blue-50 border border-blue-200 text-blue-900 font-medium rounded">
                                 [1] 연구개발 지원
                             </button>
-                            <button class="w-full text-left px-4 py-3 text-sm hover:bg-gray-50 text-gray-700 rounded">
+                            <button onclick="handleServiceClick('임상시험 안내')" class="w-full text-left px-4 py-3 text-sm hover:bg-gray-50 text-gray-700 rounded">
                                 [2] 임상시험 안내
                             </button>
-                            <button class="w-full text-left px-4 py-3 text-sm hover:bg-gray-50 text-gray-700 rounded">
+                            <button onclick="handleServiceClick('시설·장비')" class="w-full text-left px-4 py-3 text-sm hover:bg-gray-50 text-gray-700 rounded">
                                 [3] 시설·장비
                             </button>
-                            <button class="w-full text-left px-4 py-3 text-sm hover:bg-gray-50 text-gray-700 rounded">
+                            <button onclick="handleServiceClick('입주기업 지원')" class="w-full text-left px-4 py-3 text-sm hover:bg-gray-50 text-gray-700 rounded">
                                 [4] 입주기업 지원
                             </button>
-                            <button class="w-full text-left px-4 py-3 text-sm hover:bg-gray-50 text-gray-700 rounded">
+                            <button onclick="handleServiceClick('데이터 분석')" class="w-full text-left px-4 py-3 text-sm hover:bg-gray-50 text-gray-700 rounded">
                                 [5] 데이터 분석
                             </button>
                         </div>
@@ -218,13 +218,13 @@
                                         </div>
                                     </div>
                                     <div class="mt-3 flex flex-wrap gap-2">
-                                        <button class="px-3 py-2 bg-white border border-gray-300 text-gray-700 text-sm rounded hover:border-blue-500">
+                                        <button onclick="askQuickQuestion('연구개발 지원 신청')" class="px-3 py-2 bg-white border border-gray-300 text-gray-700 text-sm rounded hover:border-blue-500">
                                             연구개발 지원 신청
                                         </button>
-                                        <button class="px-3 py-2 bg-white border border-gray-300 text-gray-700 text-sm rounded hover:border-blue-500">
+                                        <button onclick="askQuickQuestion('시설 이용 절차')" class="px-3 py-2 bg-white border border-gray-300 text-gray-700 text-sm rounded hover:border-blue-500">
                                             시설 이용 절차
                                         </button>
-                                        <button class="px-3 py-2 bg-white border border-gray-300 text-gray-700 text-sm rounded hover:border-blue-500">
+                                        <button onclick="askQuickQuestion('입주기업 혜택')" class="px-3 py-2 bg-white border border-gray-300 text-gray-700 text-sm rounded hover:border-blue-500">
                                             입주기업 혜택
                                         </button>
                                     </div>
@@ -341,16 +341,17 @@
                         <!-- 입력 영역 -->
                         <div class="border-t-2 border-gray-200 bg-white p-4">
                             <div class="flex items-end gap-3">
-                                <button class="w-10 h-10 bg-gray-100 border border-gray-300 rounded flex items-center justify-center hover:bg-gray-200">
+                                <button onclick="handleAttachment()" class="w-10 h-10 bg-gray-100 border border-gray-300 rounded flex items-center justify-center hover:bg-gray-200">
                                     <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/>
                                     </svg>
                                 </button>
                                 <div class="flex-1">
-                                    <input type="text" placeholder="질문을 입력하세요"
-                                        class="w-full px-4 py-3 border-2 border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    <input type="text" id="chatInput" placeholder="질문을 입력하세요"
+                                        class="w-full px-4 py-3 border-2 border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                        onkeypress="if(event.key === 'Enter') sendMessage()">
                                 </div>
-                                <button class="px-6 py-3 bg-blue-900 text-white rounded font-bold hover:bg-blue-800 transition-all">
+                                <button onclick="sendMessage()" class="px-6 py-3 bg-blue-900 text-white rounded font-bold hover:bg-blue-800 transition-all">
                                     전송
                                 </button>
                             </div>
@@ -398,5 +399,138 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        function handleServiceClick(service) {
+            const questions = {
+                '연구개발 지원': '연구개발 지원사업의 종류와 신청 절차를 상세히 알려주세요.',
+                '임상시험 안내': '임상시험 지원 프로그램과 진행 절차를 안내해주세요.',
+                '시설·장비': '연구시설 및 장비 이용 방법과 비용을 알려주세요.',
+                '입주기업 지원': '입주기업을 위한 지원 프로그램과 혜택을 설명해주세요.',
+                '데이터 분석': '데이터 분석 서비스와 활용 방법을 안내해주세요.'
+            };
+
+            if (questions[service]) {
+                document.getElementById('chatInput').value = questions[service];
+                sendMessage();
+            }
+        }
+
+        function askQuickQuestion(topic) {
+            const questions = {
+                '연구개발 지원 신청': '연구개발 지원사업 신청 방법을 알려주세요.',
+                '시설 이용 절차': '연구시설 이용 절차를 단계별로 안내해주세요.',
+                '입주기업 혜택': '입주기업이 받을 수 있는 혜택은 무엇인가요?'
+            };
+
+            if (questions[topic]) {
+                document.getElementById('chatInput').value = questions[topic];
+                sendMessage();
+            }
+        }
+
+        function addUserMessage(text) {
+            const messagesDiv = document.querySelector('.flex-1.overflow-y-auto.p-6.space-y-5');
+            const userMsg = document.createElement('div');
+            userMsg.className = 'flex items-start gap-3 justify-end';
+            userMsg.innerHTML = `
+                <div class="flex-1 max-w-2xl">
+                    <div class="bg-blue-900 text-white rounded p-4">
+                        <p class="text-sm">${text}</p>
+                    </div>
+                </div>
+                <div class="w-11 h-11 bg-gray-300 rounded flex items-center justify-center flex-shrink-0">
+                    <svg class="w-6 h-6 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                    </svg>
+                </div>
+            `;
+            messagesDiv.appendChild(userMsg);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function addBotMessage(text) {
+            const messagesDiv = document.querySelector('.flex-1.overflow-y-auto.p-6.space-y-5');
+            const botMsg = document.createElement('div');
+            botMsg.className = 'flex items-start gap-3';
+            botMsg.innerHTML = `
+                <div class="w-11 h-11 bg-blue-900 rounded flex items-center justify-center flex-shrink-0">
+                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                </div>
+                <div class="flex-1">
+                    <div class="bg-gray-50 border border-gray-200 rounded p-4">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="font-bold text-gray-800">검색 결과</span>
+                            <span class="status-badge status-online">정확도 98.7%</span>
+                        </div>
+                        <p class="text-gray-800 text-sm leading-relaxed">${text}</p>
+                    </div>
+                    <div class="mt-2 flex items-center gap-3 text-xs text-gray-500">
+                        <span class="flex items-center gap-1">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                            정확도 98.7%
+                        </span>
+                        <span>|</span>
+                        <span>출처: RFP SFR-001, SFR-003</span>
+                        <span>|</span>
+                        <span>응답시간: 1.8초</span>
+                    </div>
+                </div>
+            `;
+            messagesDiv.appendChild(botMsg);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const messagesDiv = document.querySelector('.flex-1.overflow-y-auto.p-6.space-y-5');
+            const typing = document.createElement('div');
+            typing.id = 'typingIndicator';
+            typing.className = 'flex items-start gap-3';
+            typing.innerHTML = `
+                <div class="w-11 h-11 bg-blue-900 rounded flex items-center justify-center flex-shrink-0">
+                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                </div>
+                <div class="flex-1">
+                    <div class="bg-gray-100 border border-gray-200 rounded p-4">
+                        <p class="text-gray-600 text-sm">AI가 데이터를 분석하고 있습니다...</p>
+                    </div>
+                </div>
+            `;
+            messagesDiv.appendChild(typing);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const typing = document.getElementById('typingIndicator');
+            if (typing) typing.remove();
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+
+            if (message) {
+                addUserMessage(message);
+                input.value = '';
+
+                showTypingIndicator();
+                setTimeout(() => {
+                    removeTypingIndicator();
+                    addBotMessage(`${message}에 대한 답변입니다. 오송첨단의료산업진흥재단은 첨단 AI 기술을 활용하여 의료산업 발전을 위한 다양한 연구개발 및 지원 프로그램을 운영하고 있습니다. 추가 문의사항이 있으시면 담당 부서로 연락 주시기 바랍니다.`);
+                }, 1500);
+            }
+        }
+
+        function handleAttachment() {
+            alert('파일 첨부 기능은 준비 중입니다.');
+        }
+    </script>
+
 </body>
 </html>

@@ -80,7 +80,7 @@
     <div class="max-w-7xl mx-auto px-6 py-8 overflow-y-auto" style="max-height: calc(100vh - 160px);">
         <!-- 주요 지표 -->
         <div class="grid grid-cols-4 gap-6 mb-8">
-            <div class="stat-card p-6 rounded-lg">
+            <div onclick="showCardDetail('today')" class="stat-card p-6 rounded-lg cursor-pointer">
                 <div class="flex items-center justify-between mb-3">
                     <div class="w-12 h-12 bg-blue-100 rounded flex items-center justify-center">
                         <svg class="w-7 h-7 text-blue-900" fill="currentColor" viewBox="0 0 24 24">
@@ -94,7 +94,7 @@
                 <div class="text-xs text-gray-500 mt-1">이번 달</div>
             </div>
 
-            <div class="stat-card p-6 rounded-lg">
+            <div onclick="showCardDetail('total')" class="stat-card p-6 rounded-lg cursor-pointer">
                 <div class="flex items-center justify-between mb-3">
                     <div class="w-12 h-12 bg-blue-100 rounded flex items-center justify-center">
                         <svg class="w-7 h-7 text-blue-900" fill="currentColor" viewBox="0 0 24 24">
@@ -108,7 +108,7 @@
                 <div class="text-xs text-gray-500 mt-1">150k+ 목표 달성</div>
             </div>
 
-            <div class="stat-card p-6 rounded-lg">
+            <div onclick="showCardDetail('response')" class="stat-card p-6 rounded-lg cursor-pointer">
                 <div class="flex items-center justify-between mb-3">
                     <div class="w-12 h-12 bg-green-100 rounded flex items-center justify-center">
                         <svg class="w-7 h-7 text-green-700" fill="currentColor" viewBox="0 0 24 24">
@@ -122,7 +122,7 @@
                 <div class="text-xs text-gray-500 mt-1">RAG 기반</div>
             </div>
 
-            <div class="stat-card p-6 rounded-lg">
+            <div onclick="showCardDetail('satisfaction')" class="stat-card p-6 rounded-lg cursor-pointer">
                 <div class="flex items-center justify-between mb-3">
                     <div class="w-12 h-12 bg-blue-100 rounded flex items-center justify-center">
                         <svg class="w-7 h-7 text-blue-900" fill="currentColor" viewBox="0 0 24 24">
@@ -143,9 +143,9 @@
                 <div class="flex items-center justify-between mb-6">
                     <h3 class="text-lg font-bold text-gray-800">질의 응답 추이</h3>
                     <div class="flex gap-2">
-                        <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded text-sm font-medium hover:bg-gray-200">일간</button>
-                        <button class="px-4 py-2 bg-blue-900 text-white rounded text-sm font-medium">주간</button>
-                        <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded text-sm font-medium hover:bg-gray-200">월간</button>
+                        <button onclick="changeChartPeriod('today')" class="px-4 py-2 bg-gray-100 text-gray-700 rounded text-sm font-medium hover:bg-gray-200">일간</button>
+                        <button onclick="changeChartPeriod('week')" class="px-4 py-2 bg-blue-900 text-white rounded text-sm font-medium">주간</button>
+                        <button onclick="changeChartPeriod('month')" class="px-4 py-2 bg-gray-100 text-gray-700 rounded text-sm font-medium hover:bg-gray-200">월간</button>
                     </div>
                 </div>
                 <div class="h-64">
@@ -359,6 +359,47 @@
 
         function showTab(tab) {
             alert('탭 전환: ' + tab);
+        }
+
+        // Interactive Functions
+        function showCardDetail(type) {
+            const details = {
+                'today': '총 질의 수: 152,847건\n이번 달 누적 데이터',
+                'total': '학습 데이터셋: 158,392개\n150k+ 목표 달성',
+                'response': '응답 정확도: 98.3%\nRAG 기반 시스템',
+                'satisfaction': '활성 사용자: 3,247명\n오늘 접속 사용자'
+            };
+            alert(details[type] || '상세 정보');
+        }
+
+        function changeChartPeriod(period) {
+            document.querySelectorAll('[onclick^="changeChartPeriod"]').forEach(btn => {
+                btn.classList.remove('bg-blue-900', 'text-white');
+                btn.classList.add('bg-gray-100', 'text-gray-700');
+            });
+            event.target.classList.add('bg-blue-900', 'text-white');
+            event.target.classList.remove('bg-gray-100', 'text-gray-700');
+            alert(period + ' 데이터로 변경됨');
+        }
+
+        function showRowDetail(data) {
+            alert('상담 상세\n\n' + JSON.stringify(data, null, 2));
+        }
+
+        function searchTable() {
+            const filter = document.getElementById('searchInput')?.value.toUpperCase() || '';
+            document.querySelectorAll('tbody tr').forEach(row => {
+                row.style.display = row.textContent.toUpperCase().includes(filter) ? '' : 'none';
+            });
+        }
+
+        function exportData(format) {
+            alert(format + ' 형식으로 데이터를 내보냅니다. (시뮬레이션)');
+        }
+
+        function refreshData() {
+            alert('데이터를 새로고침합니다.');
+            location.reload();
         }
     </script>
 </body>

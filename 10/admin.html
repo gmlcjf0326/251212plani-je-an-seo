@@ -82,7 +82,7 @@
     <div class="max-w-7xl mx-auto px-6 py-8 overflow-y-auto" style="max-height: calc(100vh - 180px);">
         <!-- 주요 지표 -->
         <div class="grid grid-cols-4 gap-6 mb-8">
-            <div class="card metric-card p-6">
+            <div onclick="showCardDetail('today')" class="card metric-card p-6 cursor-pointer">
                 <div class="flex items-center justify-between mb-4">
                     <div class="w-12 h-12 bg-blue-100 rounded flex items-center justify-center">
                         <svg class="w-7 h-7 text-blue-900" fill="currentColor" viewBox="0 0 24 24">
@@ -96,7 +96,7 @@
                 <div class="text-xs text-gray-500">이번 달 누적</div>
             </div>
 
-            <div class="card metric-card p-6">
+            <div onclick="showCardDetail('total')" class="card metric-card p-6 cursor-pointer">
                 <div class="flex items-center justify-between mb-4">
                     <div class="w-12 h-12 bg-blue-100 rounded flex items-center justify-center">
                         <svg class="w-7 h-7 text-blue-900" fill="currentColor" viewBox="0 0 24 24">
@@ -110,7 +110,7 @@
                 <div class="text-xs text-gray-500">RAG 벡터 데이터</div>
             </div>
 
-            <div class="card metric-card p-6">
+            <div onclick="showCardDetail('response')" class="card metric-card p-6 cursor-pointer">
                 <div class="flex items-center justify-between mb-4">
                     <div class="w-12 h-12 bg-green-100 rounded flex items-center justify-center">
                         <svg class="w-7 h-7 text-green-700" fill="currentColor" viewBox="0 0 24 24">
@@ -124,7 +124,7 @@
                 <div class="text-xs text-gray-500">RAG + LLM 기반</div>
             </div>
 
-            <div class="card metric-card p-6">
+            <div onclick="showCardDetail('satisfaction')" class="card metric-card p-6 cursor-pointer">
                 <div class="flex items-center justify-between mb-4">
                     <div class="w-12 h-12 bg-blue-100 rounded flex items-center justify-center">
                         <svg class="w-7 h-7 text-blue-900" fill="currentColor" viewBox="0 0 24 24">
@@ -145,9 +145,9 @@
                 <div class="flex items-center justify-between mb-6">
                     <h3 class="text-lg font-bold text-gray-800">일별 질의 응답 추이</h3>
                     <div class="flex gap-2">
-                        <button class="px-3 py-2 text-xs bg-gray-100 text-gray-700 rounded hover:bg-gray-200">주간</button>
-                        <button class="px-3 py-2 text-xs bg-blue-900 text-white rounded">월간</button>
-                        <button class="px-3 py-2 text-xs bg-gray-100 text-gray-700 rounded hover:bg-gray-200">연간</button>
+                        <button onclick="changeChartPeriod('week')" class="px-3 py-2 text-xs bg-gray-100 text-gray-700 rounded hover:bg-gray-200">주간</button>
+                        <button onclick="changeChartPeriod('month')" class="px-3 py-2 text-xs bg-blue-900 text-white rounded">월간</button>
+                        <button onclick="changeChartPeriod('year')" class="px-3 py-2 text-xs bg-gray-100 text-gray-700 rounded hover:bg-gray-200">연간</button>
                     </div>
                 </div>
                 <div class="h-64">
@@ -366,6 +366,47 @@
                 }
             }
         });
+
+        // Interactive Functions
+        function showCardDetail(type) {
+            const details = {
+                'today': '총 질의 처리: 152,847건\n이번 달 누적',
+                'total': '학습 데이터: 158,392개\nRAG 벡터 데이터',
+                'response': '응답 정확도: 98.7%\nRAG + LLM 기반',
+                'satisfaction': '평균 응답시간: 1.8초\n목표: 2초 이내'
+            };
+            alert(details[type] || '상세 정보');
+        }
+
+        function changeChartPeriod(period) {
+            document.querySelectorAll('[onclick^="changeChartPeriod"]').forEach(btn => {
+                btn.classList.remove('bg-blue-900', 'text-white');
+                btn.classList.add('bg-gray-100', 'text-gray-700');
+            });
+            event.target.classList.add('bg-blue-900', 'text-white');
+            event.target.classList.remove('bg-gray-100', 'text-gray-700');
+            alert(period + ' 데이터로 변경됨');
+        }
+
+        function showRowDetail(data) {
+            alert('상담 상세\n\n' + JSON.stringify(data, null, 2));
+        }
+
+        function searchTable() {
+            const filter = document.getElementById('searchInput')?.value.toUpperCase() || '';
+            document.querySelectorAll('tbody tr').forEach(row => {
+                row.style.display = row.textContent.toUpperCase().includes(filter) ? '' : 'none';
+            });
+        }
+
+        function exportData(format) {
+            alert(format + ' 형식으로 데이터를 내보냅니다. (시뮬레이션)');
+        }
+
+        function refreshData() {
+            alert('데이터를 새로고침합니다.');
+            location.reload();
+        }
     </script>
 </body>
 </html>

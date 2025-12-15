@@ -114,22 +114,22 @@
 
                     <!-- Stats Cards -->
                     <div class="grid grid-cols-2 gap-3 mb-6">
-                        <div class="stat-card rounded-2xl p-4 text-white">
+                        <div onclick="showCardDetail('today')" class="stat-card rounded-2xl p-4 text-white cursor-pointer">
                             <div class="text-2xl mb-1">💬</div>
                             <p class="text-2xl font-bold">1,247</p>
                             <p class="text-xs text-white/80 mt-1">오늘 대화 수</p>
                         </div>
-                        <div class="stat-card-2 rounded-2xl p-4 text-white">
+                        <div onclick="showCardDetail('total')" class="stat-card-2 rounded-2xl p-4 text-white cursor-pointer">
                             <div class="text-2xl mb-1">👥</div>
                             <p class="text-2xl font-bold">834</p>
                             <p class="text-xs text-white/80 mt-1">활성 사용자</p>
                         </div>
-                        <div class="stat-card-3 rounded-2xl p-4 text-white">
+                        <div onclick="showCardDetail('response')" class="stat-card-3 rounded-2xl p-4 text-white cursor-pointer">
                             <div class="text-2xl mb-1">⚡</div>
                             <p class="text-2xl font-bold">96%</p>
                             <p class="text-xs text-white/80 mt-1">응답 정확도</p>
                         </div>
-                        <div class="stat-card-4 rounded-2xl p-4 text-white">
+                        <div onclick="showCardDetail('satisfaction')" class="stat-card-4 rounded-2xl p-4 text-white cursor-pointer">
                             <div class="text-2xl mb-1">⏱️</div>
                             <p class="text-2xl font-bold">1.3초</p>
                             <p class="text-xs text-white/80 mt-1">평균 응답시간</p>
@@ -220,7 +220,7 @@
                     <!-- Search Bar -->
                     <div class="mb-4">
                         <div class="relative">
-                            <input type="text" placeholder="대화 검색..." class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 pl-10 text-sm outline-none focus:ring-2 focus:ring-rose-500">
+                            <input id="searchInput" onkeyup="searchTable()" type="text" placeholder="대화 검색..." class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 pl-10 text-sm outline-none focus:ring-2 focus:ring-rose-500">
                             <svg class="w-5 h-5 text-gray-400 absolute left-3 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
@@ -237,7 +237,7 @@
 
                     <!-- Conversation List -->
                     <div class="space-y-3">
-                        <div class="bg-white rounded-2xl p-4 border border-gray-200 swipe-card touch-effect">
+                        <div onclick="showRowDetail({user: '김바이오', id: 'USER1834', status: '진행중', message: 'R&D 지원 프로그램 신청 절차에 대해 문의드립니다...'})" class="bg-white rounded-2xl p-4 border border-gray-200 swipe-card touch-effect cursor-pointer hover:bg-gray-50">
                             <div class="flex items-start justify-between mb-2">
                                 <div class="flex items-center gap-2">
                                     <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
@@ -327,9 +327,9 @@
 
                     <!-- Period Selector -->
                     <div class="flex gap-2 mb-4">
-                        <button class="px-4 py-2 bg-rose-500 text-white rounded-xl text-sm font-semibold touch-effect">일간</button>
-                        <button class="px-4 py-2 bg-white text-slate-700 border border-gray-200 rounded-xl text-sm font-semibold touch-effect">주간</button>
-                        <button class="px-4 py-2 bg-white text-slate-700 border border-gray-200 rounded-xl text-sm font-semibold touch-effect">월간</button>
+                        <button onclick="changeChartPeriod('today')" class="px-4 py-2 bg-rose-500 text-white rounded-xl text-sm font-semibold touch-effect">일간</button>
+                        <button onclick="changeChartPeriod('week')" class="px-4 py-2 bg-white text-slate-700 border border-gray-200 rounded-xl text-sm font-semibold touch-effect">주간</button>
+                        <button onclick="changeChartPeriod('month')" class="px-4 py-2 bg-white text-slate-700 border border-gray-200 rounded-xl text-sm font-semibold touch-effect">월간</button>
                     </div>
 
                     <!-- Chart Card -->
@@ -627,6 +627,47 @@
                 this.style.opacity = '1';
             });
         });
+
+        // Interactive Functions
+        function showCardDetail(type) {
+            const details = {
+                'today': '오늘 상담: 1,247건\n시간대별: 오전 520건, 오후 727건',
+                'total': '활성 사용자: 834명\n오늘 신규: 47명',
+                'response': '응답 정확도: 96%\n지난주 대비: +2.3%',
+                'satisfaction': '평균 응답시간: 1.3초\n목표: 2초 이내'
+            };
+            alert(details[type] || '상세 정보');
+        }
+
+        function changeChartPeriod(period) {
+            document.querySelectorAll('[onclick^="changeChartPeriod"]').forEach(btn => {
+                btn.classList.remove('bg-rose-500', 'text-white');
+                btn.classList.add('bg-white', 'text-slate-700', 'border', 'border-gray-200');
+            });
+            event.target.classList.add('bg-rose-500', 'text-white');
+            event.target.classList.remove('bg-white', 'text-slate-700', 'border', 'border-gray-200');
+            alert(period + ' 데이터로 변경됨');
+        }
+
+        function showRowDetail(data) {
+            alert('상담 상세\n\n' + JSON.stringify(data, null, 2));
+        }
+
+        function searchTable() {
+            const filter = document.getElementById('searchInput')?.value.toUpperCase() || '';
+            document.querySelectorAll('.space-y-3 > div').forEach(row => {
+                row.style.display = row.textContent.toUpperCase().includes(filter) ? '' : 'none';
+            });
+        }
+
+        function exportData(format) {
+            alert(format + ' 형식으로 데이터를 내보냅니다. (시뮬레이션)');
+        }
+
+        function refreshData() {
+            alert('데이터를 새로고침합니다.');
+            location.reload();
+        }
     </script>
 
 </body>
