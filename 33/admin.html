@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>통계 분석 대시보드 - 오송첨단의료산업진흥재단</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css" rel="stylesheet">
+    <style>
+        * { font-family: 'Nanum Gothic', 'NanumSquareRound', sans-serif; }
+        body { background: #f8fafc; }
+        .analytics-header { background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%); color: white; border-radius: 16px; padding: 28px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(15,118,110,0.3); }
+        .stat-widget { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border-top: 4px solid; }
+        .chart-card { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+        .metric-box-analytics { text-align: center; background: linear-gradient(135deg, #f0fdfa, #ccfbf1); border-radius: 12px; padding: 20px; border: 2px solid #99f6e4; }
+        .metric-label-analytics { font-size: 0.9rem; color: #0f766e; font-weight: 700; margin-bottom: 8px; }
+        .metric-value-analytics { font-size: 2.2rem; font-weight: 800; color: #0f766e; }
+        .section-header { font-size: 1.2rem; font-weight: 800; color: #1e293b; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 3px solid #14b8a6; display: flex; align-items: center; gap: 10px; }
+        .trend-indicator { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; }
+        .trend-up { background: #dcfce7; color: #166534; }
+        .trend-down { background: #fee2e2; color: #991b1b; }
+        .trend-stable { background: #e0f2fe; color: #075985; }
+        .period-selector { background: white; border: 2px solid #14b8a6; color: #0f766e; padding: 8px 18px; border-radius: 8px; font-weight: 700; cursor: pointer; transition: all 0.3s; }
+        .period-selector:hover { background: #14b8a6; color: white; }
+        .period-selector.active { background: #0f766e; color: white; border-color: #0f766e; }
+        .data-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        .data-table th { background: #f1f5f9; padding: 12px; text-align: left; font-weight: 800; color: #334155; border-bottom: 2px solid #cbd5e1; }
+        .data-table td { padding: 12px; border-bottom: 1px solid #e2e8f0; color: #475569; font-weight: 600; }
+        .progress-container { background: #e2e8f0; border-radius: 8px; height: 12px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; border-radius: 8px; transition: width 0.5s; }
+    </style>
+</head>
+<body class="p-6">
+    <div class="analytics-header">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div style="width: 60px; height: 60px; background: rgba(255,255,255,0.2); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 2rem; backdrop-filter: blur(10px);">📊</div>
+                <div>
+                    <h1 class="text-2xl font-bold">통계 분석 대시보드</h1>
+                    <p class="text-sm opacity-90">오송첨단의료산업진흥재단 AI 챗봇 성과 분석</p>
+                </div>
+            </div>
+            <div class="flex gap-2">
+                <button class="period-selector active">오늘</button>
+                <button class="period-selector">주간</button>
+                <button class="period-selector">월간</button>
+                <button class="period-selector">연간</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 핵심 KPI -->
+    <div class="grid grid-cols-5 gap-5 mb-6">
+        <div class="stat-widget" style="border-top-color: #0ea5e9;">
+            <div class="metric-label-analytics">일일 상담 건수</div>
+            <div class="metric-value-analytics" style="color: #0284c7;">1,847</div>
+            <div class="trend-indicator trend-up mt-2">▲ 12.3% 증가</div>
+        </div>
+        <div class="stat-widget" style="border-top-color: #10b981;">
+            <div class="metric-label-analytics">평균 만족도</div>
+            <div class="metric-value-analytics" style="color: #059669;">4.8/5.0</div>
+            <div class="trend-indicator trend-up mt-2">▲ 0.3p 상승</div>
+        </div>
+        <div class="stat-widget" style="border-top-color: #8b5cf6;">
+            <div class="metric-label-analytics">응답 정확도</div>
+            <div class="metric-value-analytics" style="color: #7c3aed;">98.7%</div>
+            <div class="trend-indicator trend-up mt-2">▲ 1.2% 향상</div>
+        </div>
+        <div class="stat-widget" style="border-top-color: #f59e0b;">
+            <div class="metric-label-analytics">평균 응답시간</div>
+            <div class="metric-value-analytics" style="color: #d97706;">0.87s</div>
+            <div class="trend-indicator trend-stable mt-2">→ 안정</div>
+        </div>
+        <div class="stat-widget" style="border-top-color: #ec4899;">
+            <div class="metric-label-analytics">누적 사용자</div>
+            <div class="metric-value-analytics" style="color: #db2777;">28,549</div>
+            <div class="trend-indicator trend-up mt-2">▲ 8.7% 증가</div>
+        </div>
+    </div>
+
+    <!-- 상담 추이 분석 -->
+    <div class="grid grid-cols-3 gap-6 mb-6">
+        <div class="chart-card col-span-2">
+            <div class="section-header">
+                <span>📈</span>
+                <span>월별 상담 추이 분석</span>
+            </div>
+            <canvas id="monthlyTrendChart" style="height: 300px;"></canvas>
+            <div class="grid grid-cols-4 gap-3 mt-5">
+                <div class="metric-box-analytics">
+                    <div class="text-xs text-teal-700 font-bold mb-1">월 평균</div>
+                    <div class="text-xl font-bold text-teal-700">47,284건</div>
+                </div>
+                <div class="metric-box-analytics">
+                    <div class="text-xs text-teal-700 font-bold mb-1">최대</div>
+                    <div class="text-xl font-bold text-teal-700">58,392건</div>
+                </div>
+                <div class="metric-box-analytics">
+                    <div class="text-xs text-teal-700 font-bold mb-1">최소</div>
+                    <div class="text-xl font-bold text-teal-700">34,128건</div>
+                </div>
+                <div class="metric-box-analytics">
+                    <div class="text-xs text-teal-700 font-bold mb-1">증가율</div>
+                    <div class="text-xl font-bold text-teal-700">+23.4%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <div class="section-header">
+                <span>🥧</span>
+                <span>분야별 상담 비율</span>
+            </div>
+            <canvas id="categoryDistChart" style="height: 250px;"></canvas>
+            <div class="mt-4 space-y-2">
+                <div class="flex justify-between items-center text-sm">
+                    <span class="font-bold text-gray-700">1위 입주문의</span>
+                    <span class="font-bold text-blue-600">45.9%</span>
+                </div>
+                <div class="flex justify-between items-center text-sm">
+                    <span class="font-bold text-gray-700">2위 지원사업</span>
+                    <span class="font-bold text-green-600">33.7%</span>
+                </div>
+                <div class="flex justify-between items-center text-sm">
+                    <span class="font-bold text-gray-700">3위 시설이용</span>
+                    <span class="font-bold text-purple-600">13.8%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 상세 통계 테이블 -->
+    <div class="grid grid-cols-2 gap-6 mb-6">
+        <div class="chart-card">
+            <div class="section-header">
+                <span>📋</span>
+                <span>의도별 상담 통계</span>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>의도 분류</th>
+                        <th>상담 건수</th>
+                        <th>비율</th>
+                        <th>평균 시간</th>
+                        <th>만족도</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="font-bold">입주 문의</td>
+                        <td>847건</td>
+                        <td><span class="trend-indicator trend-up">45.9%</span></td>
+                        <td>1.2분</td>
+                        <td class="text-green-600 font-bold">4.9</td>
+                    </tr>
+                    <tr>
+                        <td class="font-bold">지원사업</td>
+                        <td>623건</td>
+                        <td><span class="trend-indicator trend-stable">33.7%</span></td>
+                        <td>1.5분</td>
+                        <td class="text-green-600 font-bold">4.8</td>
+                    </tr>
+                    <tr>
+                        <td class="font-bold">시설 이용</td>
+                        <td>254건</td>
+                        <td><span class="trend-indicator trend-up">13.8%</span></td>
+                        <td>0.9분</td>
+                        <td class="text-blue-600 font-bold">4.7</td>
+                    </tr>
+                    <tr>
+                        <td class="font-bold">임상시험</td>
+                        <td>89건</td>
+                        <td><span class="trend-indicator trend-stable">4.8%</span></td>
+                        <td>2.1분</td>
+                        <td class="text-blue-600 font-bold">4.6</td>
+                    </tr>
+                    <tr>
+                        <td class="font-bold">기타</td>
+                        <td>34건</td>
+                        <td><span class="trend-indicator trend-down">1.8%</span></td>
+                        <td>0.7분</td>
+                        <td class="text-yellow-600 font-bold">4.3</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="chart-card">
+            <div class="section-header">
+                <span>⏰</span>
+                <span>시간대별 상담 분포</span>
+            </div>
+            <canvas id="hourlyDistChart" style="height: 280px;"></canvas>
+        </div>
+    </div>
+
+    <!-- 성과 지표 -->
+    <div class="grid grid-cols-3 gap-6 mb-6">
+        <div class="chart-card">
+            <div class="section-header">
+                <span>🎯</span>
+                <span>LLM 성능 지표</span>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="text-sm font-bold text-gray-700">응답 정확도</span>
+                        <span class="text-sm font-bold text-blue-600">98.5%</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar-fill bg-blue-500" style="width: 98.5%;"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="text-sm font-bold text-gray-700">토큰 효율성</span>
+                        <span class="text-sm font-bold text-green-600">92.3%</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar-fill bg-green-500" style="width: 92.3%;"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="text-sm font-bold text-gray-700">응답 속도</span>
+                        <span class="text-sm font-bold text-purple-600">96.8%</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar-fill bg-purple-500" style="width: 96.8%;"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="text-sm font-bold text-gray-700">컨텍스트 이해</span>
+                        <span class="text-sm font-bold text-cyan-600">94.7%</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar-fill bg-cyan-500" style="width: 94.7%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <div class="section-header">
+                <span>📚</span>
+                <span>RAG 검색 성과</span>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="text-sm font-bold text-gray-700">검색 정확도</span>
+                        <span class="text-sm font-bold text-teal-600">99.2%</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar-fill bg-teal-500" style="width: 99.2%;"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="text-sm font-bold text-gray-700">문서 매칭률</span>
+                        <span class="text-sm font-bold text-blue-600">97.8%</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar-fill bg-blue-500" style="width: 97.8%;"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="text-sm font-bold text-gray-700">응답 관련성</span>
+                        <span class="text-sm font-bold text-green-600">96.4%</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar-fill bg-green-500" style="width: 96.4%;"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="text-sm font-bold text-gray-700">검색 속도</span>
+                        <span class="text-sm font-bold text-purple-600">98.9%</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar-fill bg-purple-500" style="width: 98.9%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <div class="section-header">
+                <span>⭐</span>
+                <span>사용자 만족도</span>
+            </div>
+            <canvas id="satisfactionChart" style="height: 200px;"></canvas>
+            <div class="mt-4 bg-teal-50 border-l-4 border-teal-600 p-4 rounded">
+                <div class="text-sm font-bold text-gray-700 mb-1">종합 평가</div>
+                <div class="text-2xl font-bold text-teal-700 mb-2">4.8 / 5.0</div>
+                <div class="text-xs text-gray-600">전월 대비 0.3점 상승 (우수)</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 성장 지표 -->
+    <div class="chart-card">
+        <div class="section-header">
+            <span>📊</span>
+            <span>주요 성장 지표 (최근 6개월)</span>
+        </div>
+        <div class="grid grid-cols-4 gap-5">
+            <div>
+                <canvas id="growthChart1" style="height: 150px;"></canvas>
+                <div class="text-center mt-3">
+                    <div class="text-sm text-gray-600 font-bold">사용자 증가율</div>
+                    <div class="text-2xl font-bold text-blue-600">+47.3%</div>
+                </div>
+            </div>
+            <div>
+                <canvas id="growthChart2" style="height: 150px;"></canvas>
+                <div class="text-center mt-3">
+                    <div class="text-sm text-gray-600 font-bold">상담 건수</div>
+                    <div class="text-2xl font-bold text-green-600">+63.8%</div>
+                </div>
+            </div>
+            <div>
+                <canvas id="growthChart3" style="height: 150px;"></canvas>
+                <div class="text-center mt-3">
+                    <div class="text-sm text-gray-600 font-bold">만족도</div>
+                    <div class="text-2xl font-bold text-purple-600">+12.5%</div>
+                </div>
+            </div>
+            <div>
+                <canvas id="growthChart4" style="height: 150px;"></canvas>
+                <div class="text-center mt-3">
+                    <div class="text-sm text-gray-600 font-bold">응답 정확도</div>
+                    <div class="text-2xl font-bold text-teal-600">+8.9%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const chartDefaults = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { labels: { font: { weight: 'bold' } } } }
+        };
+
+        new Chart(document.getElementById('monthlyTrendChart'), {
+            type: 'line',
+            data: {
+                labels: ['7월', '8월', '9월', '10월', '11월', '12월'],
+                datasets: [{
+                    label: '상담 건수',
+                    data: [34128, 38247, 42389, 47284, 52847, 58392],
+                    borderColor: '#14b8a6',
+                    backgroundColor: 'rgba(20,184,166,0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    borderWidth: 3
+                }]
+            },
+            options: { ...chartDefaults, scales: { y: { beginAtZero: true } } }
+        });
+
+        new Chart(document.getElementById('categoryDistChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['입주문의', '지원사업', '시설이용', '임상시험', '기타'],
+                datasets: [{
+                    data: [45.9, 33.7, 13.8, 4.8, 1.8],
+                    backgroundColor: ['#0284c7', '#059669', '#7c3aed', '#ec4899', '#64748b']
+                }]
+            },
+            options: { ...chartDefaults, plugins: { legend: { position: 'bottom' } } }
+        });
+
+        new Chart(document.getElementById('hourlyDistChart'), {
+            type: 'bar',
+            data: {
+                labels: ['09시', '10시', '11시', '12시', '13시', '14시', '15시', '16시', '17시', '18시'],
+                datasets: [{
+                    label: '상담 건수',
+                    data: [127, 234, 289, 189, 156, 267, 312, 278, 189, 98],
+                    backgroundColor: '#14b8a6'
+                }]
+            },
+            options: { ...chartDefaults, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+        });
+
+        new Chart(document.getElementById('satisfactionChart'), {
+            type: 'bar',
+            data: {
+                labels: ['매우만족', '만족', '보통', '불만', '매우불만'],
+                datasets: [{
+                    label: '응답 수',
+                    data: [1247, 423, 134, 32, 11],
+                    backgroundColor: ['#059669', '#0284c7', '#64748b', '#f59e0b', '#dc2626']
+                }]
+            },
+            options: { ...chartDefaults, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+        });
+
+        // 성장 차트들
+        [1, 2, 3, 4].forEach(i => {
+            new Chart(document.getElementById(`growthChart${i}`), {
+                type: 'line',
+                data: {
+                    labels: ['7월', '8월', '9월', '10월', '11월', '12월'],
+                    datasets: [{
+                        data: i === 1 ? [100, 112, 125, 131, 139, 147] :
+                              i === 2 ? [100, 118, 132, 145, 154, 164] :
+                              i === 3 ? [100, 103, 106, 108, 110, 113] :
+                              [100, 102, 104, 106, 108, 109],
+                        borderColor: i === 1 ? '#0284c7' : i === 2 ? '#059669' : i === 3 ? '#7c3aed' : '#14b8a6',
+                        tension: 0.4,
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { display: false }, x: { display: false } }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

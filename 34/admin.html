@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>업무관리 대시보드 - 오송첨단의료산업진흥재단</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Barun+Gothic:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Nanum Barun Gothic', sans-serif; }
+        body { background: #fafafa; }
+        .work-header { background: #ffffff; border-bottom: 3px solid #2563eb; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .task-panel { background: white; border-radius: 10px; padding: 22px; box-shadow: 0 1px 6px rgba(0,0,0,0.08); border-left: 5px solid; }
+        .work-metric { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); text-align: center; border-bottom: 4px solid; }
+        .metric-num { font-size: 2.4rem; font-weight: 700; }
+        .task-item { background: #f8f9fa; border-left: 4px solid; padding: 14px; margin-bottom: 10px; border-radius: 6px; }
+        .status-icon { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; }
+        .priority-high { border-left-color: #dc2626; }
+        .priority-medium { border-left-color: #f59e0b; }
+        .priority-low { border-left-color: #0891b2; }
+        .btn-work { background: #2563eb; color: white; padding: 10px 20px; border-radius: 6px; font-weight: 700; border: none; cursor: pointer; }
+        .btn-work:hover { background: #1e40af; }
+        .section-heading { font-size: 1.15rem; font-weight: 700; color: #1e293b; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #cbd5e1; }
+    </style>
+</head>
+<body>
+    <div class="work-header mb-5">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div style="width: 50px; height: 50px; background: #2563eb; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white;">📋</div>
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900">업무관리 대시보드</h1>
+                    <p class="text-sm text-gray-600">오송첨단의료산업진흥재단 AI 챗봇 운영 관리</p>
+                </div>
+            </div>
+            <div class="text-right text-sm text-gray-600">
+                <div class="font-bold text-gray-900">관리자 | 김철수</div>
+                <div>2025-12-14 15:23</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="px-6 pb-6">
+        <div class="grid grid-cols-5 gap-4 mb-6">
+            <div class="work-metric" style="border-bottom-color: #2563eb;">
+                <div class="text-sm text-gray-600 font-bold mb-2">금일 처리</div>
+                <div class="metric-num text-blue-600">147</div>
+                <div class="text-xs text-gray-500 mt-1">건</div>
+            </div>
+            <div class="work-metric" style="border-bottom-color: #dc2626;">
+                <div class="text-sm text-gray-600 font-bold mb-2">긴급 대기</div>
+                <div class="metric-num text-red-600">8</div>
+                <div class="text-xs text-gray-500 mt-1">건</div>
+            </div>
+            <div class="work-metric" style="border-bottom-color: #f59e0b;">
+                <div class="text-sm text-gray-600 font-bold mb-2">진행 중</div>
+                <div class="metric-num text-orange-600">24</div>
+                <div class="text-xs text-gray-500 mt-1">건</div>
+            </div>
+            <div class="work-metric" style="border-bottom-color: #059669;">
+                <div class="text-sm text-gray-600 font-bold mb-2">완료율</div>
+                <div class="metric-num text-green-600">94%</div>
+                <div class="text-xs text-gray-500 mt-1">목표 90%</div>
+            </div>
+            <div class="work-metric" style="border-bottom-color: #7c3aed;">
+                <div class="text-sm text-gray-600 font-bold mb-2">평균 처리</div>
+                <div class="metric-num text-purple-600">2.3</div>
+                <div class="text-xs text-gray-500 mt-1">분</div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-5 mb-5">
+            <div class="task-panel" style="border-left-color: #dc2626;">
+                <div class="section-heading text-red-700">🚨 긴급 처리 대기 (8건)</div>
+                <div class="task-item priority-high">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="font-bold text-gray-900">시스템 응답 오류 수정</div>
+                        <span class="text-xs bg-red-100 text-red-700 px-2 py-1 rounded font-bold">긴급</span>
+                    </div>
+                    <div class="text-xs text-gray-600 mb-2">LLM API 타임아웃 에러 발생 중</div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs text-gray-500">담당: 김개발</span>
+                        <span class="text-xs text-red-600 font-bold">15분 전</span>
+                    </div>
+                </div>
+                <div class="task-item priority-high">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="font-bold text-gray-900">RAG 인덱스 재구축</div>
+                        <span class="text-xs bg-red-100 text-red-700 px-2 py-1 rounded font-bold">긴급</span>
+                    </div>
+                    <div class="text-xs text-gray-600 mb-2">검색 정확도 저하 이슈 대응</div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs text-gray-500">담당: 이데이터</span>
+                        <span class="text-xs text-red-600 font-bold">32분 전</span>
+                    </div>
+                </div>
+                <div class="task-item priority-high">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="font-bold text-gray-900">미응답 질의 수동 처리</div>
+                        <span class="text-xs bg-red-100 text-red-700 px-2 py-1 rounded font-bold">긴급</span>
+                    </div>
+                    <div class="text-xs text-gray-600 mb-2">24건의 미응답 질의 분석 필요</div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs text-gray-500">담당: 박분석</span>
+                        <span class="text-xs text-red-600 font-bold">1시간 전</span>
+                    </div>
+                </div>
+                <button class="btn-work w-full mt-3">전체 긴급 업무 보기</button>
+            </div>
+
+            <div class="task-panel" style="border-left-color: #f59e0b;">
+                <div class="section-heading text-orange-700">⏳ 진행 중 업무 (24건)</div>
+                <div class="task-item priority-medium">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="font-bold text-gray-900">학습 데이터 추가 검수</div>
+                        <span class="text-xs bg-orange-100 text-orange-700 px-2 py-1 rounded font-bold">진행중</span>
+                    </div>
+                    <div class="text-xs text-gray-600 mb-2">의료기기 관련 QA 847건 검수</div>
+                    <div class="flex justify-between items-center">
+                        <div class="w-full bg-gray-200 rounded-full h-2 mr-3">
+                            <div class="bg-orange-500 h-2 rounded-full" style="width: 67%;"></div>
+                        </div>
+                        <span class="text-xs font-bold text-orange-600">67%</span>
+                    </div>
+                </div>
+                <div class="task-item priority-medium">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="font-bold text-gray-900">의도 분석 모델 재학습</div>
+                        <span class="text-xs bg-orange-100 text-orange-700 px-2 py-1 rounded font-bold">진행중</span>
+                    </div>
+                    <div class="text-xs text-gray-600 mb-2">신규 의도 5개 추가 학습</div>
+                    <div class="flex justify-between items-center">
+                        <div class="w-full bg-gray-200 rounded-full h-2 mr-3">
+                            <div class="bg-orange-500 h-2 rounded-full" style="width: 43%;"></div>
+                        </div>
+                        <span class="text-xs font-bold text-orange-600">43%</span>
+                    </div>
+                </div>
+                <div class="task-item priority-medium">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="font-bold text-gray-900">FAQ 업데이트 배포</div>
+                        <span class="text-xs bg-orange-100 text-orange-700 px-2 py-1 rounded font-bold">진행중</span>
+                    </div>
+                    <div class="text-xs text-gray-600 mb-2">12월 신규 사업 공고 반영</div>
+                    <div class="flex justify-between items-center">
+                        <div class="w-full bg-gray-200 rounded-full h-2 mr-3">
+                            <div class="bg-orange-500 h-2 rounded-full" style="width: 85%;"></div>
+                        </div>
+                        <span class="text-xs font-bold text-orange-600">85%</span>
+                    </div>
+                </div>
+                <button class="btn-work w-full mt-3" style="background: #f59e0b;">전체 진행 업무 보기</button>
+            </div>
+
+            <div class="task-panel" style="border-left-color: #0891b2;">
+                <div class="section-heading text-cyan-700">📝 대기 업무 (15건)</div>
+                <div class="task-item priority-low">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="font-bold text-gray-900">월간 리포트 작성</div>
+                        <span class="text-xs bg-cyan-100 text-cyan-700 px-2 py-1 rounded font-bold">대기</span>
+                    </div>
+                    <div class="text-xs text-gray-600 mb-2">12월 운영 성과 보고서</div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs text-gray-500">기한: 12/15</span>
+                        <span class="text-xs text-cyan-600 font-bold">2일 남음</span>
+                    </div>
+                </div>
+                <div class="task-item priority-low">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="font-bold text-gray-900">사용자 피드백 분석</div>
+                        <span class="text-xs bg-cyan-100 text-cyan-700 px-2 py-1 rounded font-bold">대기</span>
+                    </div>
+                    <div class="text-xs text-gray-600 mb-2">불만족 응답 247건 분석</div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs text-gray-500">기한: 12/16</span>
+                        <span class="text-xs text-cyan-600 font-bold">3일 남음</span>
+                    </div>
+                </div>
+                <div class="task-item priority-low">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="font-bold text-gray-900">시스템 백업 점검</div>
+                        <span class="text-xs bg-cyan-100 text-cyan-700 px-2 py-1 rounded font-bold">대기</span>
+                    </div>
+                    <div class="text-xs text-gray-600 mb-2">주간 정기 백업 확인</div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs text-gray-500">기한: 12/17</span>
+                        <span class="text-xs text-cyan-600 font-bold">4일 남음</span>
+                    </div>
+                </div>
+                <button class="btn-work w-full mt-3" style="background: #0891b2;">전체 대기 업무 보기</button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-5 mb-5">
+            <div class="task-panel" style="border-left-color: #2563eb;">
+                <div class="section-heading">📊 금주 업무 통계</div>
+                <canvas id="weeklyChart" style="height: 250px;"></canvas>
+            </div>
+            <div class="task-panel" style="border-left-color: #059669;">
+                <div class="section-heading">✅ 완료 업무 목록 (최근 10건)</div>
+                <div class="space-y-2">
+                    <div class="flex items-center justify-between p-3 bg-green-50 rounded">
+                        <div>
+                            <div class="font-bold text-gray-900 text-sm">QA 데이터 정제 작업</div>
+                            <div class="text-xs text-gray-600">담당: 이데이터 | 847건 처리</div>
+                        </div>
+                        <div class="text-xs text-green-600 font-bold">완료</div>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-green-50 rounded">
+                        <div>
+                            <div class="font-bold text-gray-900 text-sm">임상시험 FAQ 업데이트</div>
+                            <div class="text-xs text-gray-600">담당: 박컨텐츠 | 24건 추가</div>
+                        </div>
+                        <div class="text-xs text-green-600 font-bold">완료</div>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-green-50 rounded">
+                        <div>
+                            <div class="font-bold text-gray-900 text-sm">서버 보안 패치 적용</div>
+                            <div class="text-xs text-gray-600">담당: 김인프라 | 3대 서버</div>
+                        </div>
+                        <div class="text-xs text-green-600 font-bold">완료</div>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-green-50 rounded">
+                        <div>
+                            <div class="font-bold text-gray-900 text-sm">성능 최적화 작업</div>
+                            <div class="text-xs text-gray-600">담당: 최개발 | 응답속도 15% 개선</div>
+                        </div>
+                        <div class="text-xs text-green-600 font-bold">완료</div>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-green-50 rounded">
+                        <div>
+                            <div class="font-bold text-gray-900 text-sm">사용자 매뉴얼 개정</div>
+                            <div class="text-xs text-gray-600">담당: 정문서 | v2.3 배포</div>
+                        </div>
+                        <div class="text-xs text-green-600 font-bold">완료</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-4 gap-5">
+            <div class="task-panel" style="border-left-color: #7c3aed;">
+                <div class="section-heading text-purple-700">👥 담당자별 현황</div>
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-bold">김개발</span>
+                        <span class="text-sm text-purple-600 font-bold">12건</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-bold">이데이터</span>
+                        <span class="text-sm text-purple-600 font-bold">8건</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-bold">박분석</span>
+                        <span class="text-sm text-purple-600 font-bold">7건</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-bold">최개발</span>
+                        <span class="text-sm text-purple-600 font-bold">6건</span>
+                    </div>
+                </div>
+            </div>
+            <div class="task-panel" style="border-left-color: #ec4899;">
+                <div class="section-heading text-pink-700">🔔 알림 사항</div>
+                <div class="space-y-2 text-xs">
+                    <div class="p-2 bg-pink-50 rounded">
+                        <div class="font-bold text-gray-900">서버 정기 점검</div>
+                        <div class="text-gray-600">12/15 02:00-04:00</div>
+                    </div>
+                    <div class="p-2 bg-pink-50 rounded">
+                        <div class="font-bold text-gray-900">신규 직원 교육</div>
+                        <div class="text-gray-600">12/18 14:00</div>
+                    </div>
+                    <div class="p-2 bg-pink-50 rounded">
+                        <div class="font-bold text-gray-900">월간 회의</div>
+                        <div class="text-gray-600">12/20 10:00</div>
+                    </div>
+                </div>
+            </div>
+            <div class="task-panel" style="border-left-color: #f59e0b;">
+                <div class="section-heading text-orange-700">📅 이번 주 일정</div>
+                <div class="space-y-2 text-xs">
+                    <div class="p-2 bg-orange-50 rounded">
+                        <div class="font-bold text-gray-900">월: 데이터 검수</div>
+                    </div>
+                    <div class="p-2 bg-orange-50 rounded">
+                        <div class="font-bold text-gray-900">화: 모델 재학습</div>
+                    </div>
+                    <div class="p-2 bg-orange-50 rounded">
+                        <div class="font-bold text-gray-900">수: FAQ 업데이트</div>
+                    </div>
+                    <div class="p-2 bg-orange-50 rounded">
+                        <div class="font-bold text-gray-900">목: 성과 리포트</div>
+                    </div>
+                </div>
+            </div>
+            <div class="task-panel" style="border-left-color: #0891b2;">
+                <div class="section-heading text-cyan-700">⚡ 빠른 작업</div>
+                <div class="space-y-2">
+                    <button class="btn-work w-full text-sm">미응답 처리</button>
+                    <button class="btn-work w-full text-sm" style="background: #059669;">QA 추가</button>
+                    <button class="btn-work w-full text-sm" style="background: #7c3aed;">통계 보기</button>
+                    <button class="btn-work w-full text-sm" style="background: #f59e0b;">리포트 생성</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        new Chart(document.getElementById('weeklyChart'), {
+            type: 'bar',
+            data: {
+                labels: ['월', '화', '수', '목', '금'],
+                datasets: [{
+                    label: '완료',
+                    data: [28, 34, 29, 31, 25],
+                    backgroundColor: '#059669'
+                }, {
+                    label: '진행중',
+                    data: [5, 4, 6, 5, 4],
+                    backgroundColor: '#f59e0b'
+                }, {
+                    label: '긴급',
+                    data: [2, 1, 3, 1, 1],
+                    backgroundColor: '#dc2626'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: { y: { beginAtZero: true, stacked: true }, x: { stacked: true } }
+            }
+        });
+    </script>
+</body>
+</html>
